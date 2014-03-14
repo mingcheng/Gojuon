@@ -78,6 +78,9 @@ public class CharactersAdapter extends BaseAdapter {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.item_character, null);
+//            TextView hiragana = (TextView) view.findViewById(R.id.hiragana);
+//            Typeface face = Typeface.createFromAsset(mContext.getAssets(), "epgyosho.ttf");
+//            hiragana.setTypeface(face);
         }
 
         Holder h = Holder.get(view);

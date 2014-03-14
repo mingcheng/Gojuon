@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item-->
+    <!--android:id="@+id/action_refresh"-->
+    <!--android:icon="@drawable/ic_action_refresh"-->
+    <!--android:showAsAction="always"/>-->
+
+    <item
+    android:id="@+id/action_prefs"
+    android:title="@string/setting"
+    android:showAsAction="never"/>
+
+    <item
+    android:id="@+id/action_feedback"
+    android:title="@string/feedback"
+    android:showAsAction="never"/>
+
+    <item
+    android:id="@+id/action_donate"
+    android:title="@string/donate"
+    android:showAsAction="never"/>
+
+    <item
+    android:id="@+id/action_about"
+    android:title="@string/about"
+    android:showAsAction="never"/>
+
+</menu>

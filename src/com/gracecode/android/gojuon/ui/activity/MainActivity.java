@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.widget.GridView;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
@@ -47,5 +48,11 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopService(mServiceIntent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

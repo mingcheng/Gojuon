@@ -24,7 +24,7 @@ public class PronounceService extends Service {
             String roumaji = intent.getStringExtra(EXTRA_ROUMAJI);
             if (roumaji != null && roumaji.length() > 0) {
                 try {
-                    AssetFileDescriptor pronounceFile = getAssets().openFd("pronounce/" + roumaji + ".ogg");
+                    AssetFileDescriptor pronounceFile = getPronounceAssetFile(roumaji);
                     if (pronounceFile.getLength() > 0) {
                         final int playId = mSoundPool.load(pronounceFile, 1);
                         mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -42,8 +42,16 @@ public class PronounceService extends Service {
                     e.printStackTrace();
                 }
             }
+        }
 
-
+        private AssetFileDescriptor getPronounceAssetFile(String roumaji) throws IOException {
+            roumaji = roumaji.replaceAll("(\\*+)$", "") ;
+            switch (roumaji) {
+                case "o/wo":
+                    roumaji = "wo";
+                    break;
+            }
+            return getAssets().openFd("pronounce/" + roumaji + ".ogg");
         }
     };
     private SoundPool mSoundPool;

@@ -14,8 +14,8 @@ import java.util.HashMap;
 public class CharactersFragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
     protected static final int[] TITLES = new int[]{
             R.string.monographs,
-            R.string.digraphs,
             R.string.monographs_with_diacritics,
+            R.string.digraphs,
             R.string.digraphs_with_diacritics
     };
     protected static final HashMap<Integer, Fragment> mFragments = new HashMap<Integer, Fragment>();
