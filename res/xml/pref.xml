@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+    <!--<PreferenceCategory android:title="@string/random_page">-->
+
+        <!--&lt;!&ndash;<CheckBoxPreference&ndash;&gt;-->
+        <!--&lt;!&ndash;android:key="key_sample"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:title="title"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:defaultValue="false"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:summary="summary"&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<ListPreference&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/random_page_size"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:summary="@string/random_page_size_summary"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:key="RandomPageSizePref"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:defaultValue="50"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:entries="@array/random_page_size"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:entryValues="@array/random_page_size"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<ListPreference&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/random_page_columns"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:summary="@string/random_page_columns_summary"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:key="RandomPageColumnsPref"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:defaultValue="5"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:entries="@array/random_page_columns"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:entryValues="@array/random_page_columns"/>&ndash;&gt;-->
+
+    <!--</PreferenceCategory>-->
+
+</PreferenceScreen>

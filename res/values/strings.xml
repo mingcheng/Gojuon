@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">五十音図</string>
+    <string name="monographs">せいおん</string>
+    <string name="digraphs">清ようおん</string>
+    <string name="monographs_with_diacritics">だくおん</string>
+    <string name="digraphs_with_diacritics">濁ようおん</string>
+</resources>
