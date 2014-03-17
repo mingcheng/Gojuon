@@ -6,6 +6,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.GridView;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
@@ -54,5 +55,21 @@ public class MainActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_prefs:
+                startActivity(new Intent(this, PrefActivity.class));
+                break;
+            case R.id.action_about:
+                break;
+            case R.id.action_donate:
+                break;
+            case R.id.action_feedback:
+                break;
+        }
+        return super.onMenuItemSelected(featureId, item);
     }
 }
