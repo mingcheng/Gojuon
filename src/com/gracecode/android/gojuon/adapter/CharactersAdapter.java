@@ -1,6 +1,7 @@
 package com.gracecode.android.gojuon.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +18,28 @@ public class CharactersAdapter extends BaseAdapter {
         private final TextView mRoumaji;
         private final TextView mHiragana;
         private final TextView mKatakana;
+        private static Typeface mHannariFace;
 
-        private Holder(View v) {
-            mRoumaji = (TextView) v.findViewById(R.id.roumaji);
-            mHiragana = (TextView) v.findViewById(R.id.hiragana);
-            mKatakana = (TextView) v.findViewById(R.id.katakana);
-            v.setTag(this);
+        private Holder(View view) {
+            mRoumaji = (TextView) view.findViewById(R.id.roumaji);
+            mHiragana = (TextView) view.findViewById(R.id.hiragana);
+            mKatakana = (TextView) view.findViewById(R.id.katakana);
+
+//            mHannariFace = Typeface.createFromAsset(context.getAssets(), "hannari.otf");
+//
+//            mRoumaji.setTypeface(mHannariFace);
+//            mHiragana.setTypeface(mHannariFace);
+//            mKatakana.setTypeface(mHannariFace);
+
+            view.setTag(this);
         }
 
-        public static Holder get(View v) {
-            if (v.getTag() instanceof Holder) {
-                return (Holder) v.getTag();
+        public static Holder get(View view) {
+            if (view.getTag() instanceof Holder) {
+                return (Holder) view.getTag();
             }
 
-            return new Holder(v);
+            return new Holder(view);
         }
 
         public void setHiragana(String hiragana) {
@@ -76,11 +85,10 @@ public class CharactersAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater)
+                    mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
             view = inflater.inflate(R.layout.item_character, null);
-//            TextView hiragana = (TextView) view.findViewById(R.id.hiragana);
-//            Typeface face = Typeface.createFromAsset(mContext.getAssets(), "epgyosho.ttf");
-//            hiragana.setTypeface(face);
         }
 
         Holder h = Holder.get(view);

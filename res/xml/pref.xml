@@ -3,31 +3,26 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
         >
-    <PreferenceCategory android:title="@string/app_name">
 
-        <!--&lt;!&ndash;<CheckBoxPreference&ndash;&gt;-->
-        <!--&lt;!&ndash;android:key="key_sample"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:title="title"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:defaultValue="false"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:summary="summary"&ndash;&gt;-->
-        <!--&lt;!&ndash;/>&ndash;&gt;-->
+    <CheckBoxPreference
+            android:key="key_screen_on"
+            android:title="Keep Screen On"
+            android:summary="Always key screen on while app is opened."
+            android:defaultValue="true"
+            />
 
-        <!--&lt;!&ndash;<ListPreference&ndash;&gt;-->
-        <!--&lt;!&ndash;android:title="@string/random_page_size"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:summary="@string/random_page_size_summary"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:key="RandomPageSizePref"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:defaultValue="50"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:entries="@array/random_page_size"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:entryValues="@array/random_page_size"/>&ndash;&gt;-->
+    <PreferenceCategory android:title="Other">
+        <Preference
+                android:title="Feedback"
+                android:summary="@string/feedback"/>
 
-        <!--&lt;!&ndash;<ListPreference&ndash;&gt;-->
-        <!--&lt;!&ndash;android:title="@string/random_page_columns"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:summary="@string/random_page_columns_summary"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:key="RandomPageColumnsPref"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:defaultValue="5"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:entries="@array/random_page_columns"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:entryValues="@array/random_page_columns"/>&ndash;&gt;-->
+        <Preference
+                android:title="Donate"
+                android:summary="thanks"/>
+
+        <Preference
+                android:title="About"
+                android:summary="@string/app_name"/>
 
     </PreferenceCategory>
-
 </PreferenceScreen>

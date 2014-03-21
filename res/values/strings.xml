@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gojūon</string>
+    <string name="email">lucky@gracecode.com</string>
 
     <string name="monographs">Monographs</string>
     <string name="digraphs">Digraphs</string>
     <string name="monographs_with_diacritics">Monographs With Diacritics</string>
     <string name="digraphs_with_diacritics">Digraphs With Diacritics</string>
+
     <string name="feedback">Feedback</string>
     <string name="donate">Donate</string>
     <string name="about">About</string>

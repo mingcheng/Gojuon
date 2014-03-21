@@ -2,23 +2,20 @@ package com.gracecode.android.gojuon.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
+import com.gracecode.android.common.helper.IntentHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
 import com.gracecode.android.gojuon.service.PronounceService;
 import com.viewpagerindicator.TitlePageIndicator;
 
-public class MainActivity extends FragmentActivity {
-    private TextToSpeech mTextToSpeech;
-    private GridView mGridView;
+public class MainActivity extends BaseActivity {
     private Intent mServiceIntent;
     private ViewPager mPager;
     private TitlePageIndicator mIndicator;
+    private CharactersFragmentAdapter mCharactersFragmentAdapter;
 
     /**
      * Called when the activity is first created.
@@ -31,18 +28,24 @@ public class MainActivity extends FragmentActivity {
         mServiceIntent = new Intent(this, PronounceService.class);
 
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new CharactersFragmentAdapter(this, getSupportFragmentManager()));
+
+        mCharactersFragmentAdapter = new CharactersFragmentAdapter(this, getSupportFragmentManager());
+        mPager.setAdapter(mCharactersFragmentAdapter);
 
         mIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
-
-        getActionBar().setIcon(android.R.color.transparent);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         startService(mServiceIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mIndicator.setCurrentItem(1);
     }
 
     @Override
@@ -68,8 +71,12 @@ public class MainActivity extends FragmentActivity {
             case R.id.action_donate:
                 break;
             case R.id.action_feedback:
+                IntentHelper.sendMail(this,
+                        new String[]{getString(R.string.email)},
+                        "Feedback for Gojuon 1.0", "");
                 break;
         }
+
         return super.onMenuItemSelected(featureId, item);
     }
 }

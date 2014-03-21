@@ -5,4 +5,9 @@
     <string name="digraphs">清拗音</string>
     <string name="monographs_with_diacritics">濁音</string>
     <string name="digraphs_with_diacritics">濁拗音</string>
+
+    <string name="feedback">反馈</string>
+    <string name="donate">捐助</string>
+    <string name="about">关于</string>
+    <string name="setting">设置</string>
 </resources>

@@ -1,10 +1,9 @@
 package com.gracecode.android.gojuon.ui.activity;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import com.gracecode.android.gojuon.ui.fragment.PrefFragment;
 
-public class PrefActivity extends PreferenceActivity {
+public class PrefActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
