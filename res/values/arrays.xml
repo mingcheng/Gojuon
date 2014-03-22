@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="resume_list">
+        <item>@string/last_use_page</item>
+        <item>@string/monographs</item>
+        <item>@string/monographs_with_diacritics</item>
+        <item>@string/digraphs</item>
+        <item>@string/digraphs_with_diacritics</item>
+    </string-array>
+
+    <string-array name="resume_list_value">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>

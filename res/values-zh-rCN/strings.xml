@@ -10,4 +10,14 @@
     <string name="donate">捐助</string>
     <string name="about">关于</string>
     <string name="setting">设置</string>
+    <string name="other">其他</string>
+    <string name="auto_resume">自动恢复</string>
+    <string name="last_use_page">上次打开</string>
+    <string name="keep_screen_on">屏幕常亮</string>
+    <string name="keep_screen_on_summary">当应用打开时自动保持屏幕常亮</string>
+    <string name="auto_resume_summray">应用重新打开后恢复到指定的页</string>
+    <string name="using_tts">使用 TTS 引擎</string>
+    <string name="using_tts_summary">使用系统的 TTS 引擎发音</string>
+    <string name="feedback_summary">如果您有任何的意见和建议，请发我邮件</string>
+    <string name="donate_summary">感谢您捐助我一杯咖啡</string>
 </resources>
