@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
@@ -52,12 +53,18 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mIndicator.setCurrentItem(getSavedResumePage());
+
+        if (mSharedPreferences.getBoolean(Gojuon.KEY_KEEP_SCREEN, true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         setResumePage();
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     private int getSavedResumePage() {
