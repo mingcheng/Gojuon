@@ -74,9 +74,7 @@ public class MainActivity extends BaseActivity {
         String savedIndex = mSharedPreferences.getString(Gojuon.KEY_AUTO_RESUME, Gojuon.DEFAULT_RESUME_INDEX);
         int index = Integer.parseInt(savedIndex);
         if (index == Integer.parseInt(Gojuon.DEFAULT_RESUME_INDEX)) {
-            SharedPreferences.Editor editor = mSharedPreferences.edit();
-            editor.putInt(KEY_AUTO_RESUME_SAVED, mViewPager.getCurrentItem());
-            editor.commit();
+            mGojunon.putSharedPreferencesInt(KEY_AUTO_RESUME_SAVED, mViewPager.getCurrentItem());
         }
     }
 

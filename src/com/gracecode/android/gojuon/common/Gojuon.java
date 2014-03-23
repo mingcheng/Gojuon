@@ -1,17 +1,13 @@
 package com.gracecode.android.gojuon.common;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
+import com.gracecode.android.common.CustemApplication;
 import com.gracecode.android.common.Logger;
 import com.gracecode.android.common.helper.IntentHelper;
 import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 
-public class Gojuon extends Application {
+public class Gojuon extends CustemApplication {
     public static final String KEY_ABOUT = "key_about";
     public static final String KEY_FEEDBACK = "key_feedback";
     public static final String KEY_DONATE = "key_donate";
@@ -28,21 +24,6 @@ public class Gojuon extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = Gojuon.this;
-    }
-
-    public SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(Gojuon.this);
-    }
-
-
-    public PackageInfo getPackageInfo() {
-        try {
-            return getPackageManager().getPackageInfo(getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     public void sendFeedbackEmail(Context context) {
