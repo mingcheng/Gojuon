@@ -35,7 +35,7 @@ public class Gojuon extends CustemApplication {
 
     public void sendFeedbackEmail(Context context) {
         String subject = String.format(
-                getString(R.string.feedback),
+                getString(R.string.feedback_subject),
                 getString(R.string.app_name), getPackageInfo().versionName);
 
         try {
