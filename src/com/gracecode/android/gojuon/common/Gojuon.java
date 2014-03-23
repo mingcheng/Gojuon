@@ -14,6 +14,7 @@ public class Gojuon extends CustemApplication {
     public static final String KEY_DONATE = "key_donate";
     public static final String KEY_AUTO_RESUME = "key_auto_resume";
     public static final String KEY_KEEP_SCREEN = "key_screen_on";
+    public static final String KEY_KATAKANA_FIRST = "key_katakana_first";
 
     public static final String DEFAULT_RESUME_INDEX = "-1";
     private static Gojuon mInstance;

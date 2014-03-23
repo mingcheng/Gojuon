@@ -1,6 +1,7 @@
 package com.gracecode.android.gojuon.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
+import com.gracecode.android.gojuon.common.Gojuon;
 
 public class CharactersAdapter extends BaseAdapter {
     private final String[][] mCharacters;
     private final Context mContext;
+    private final Gojuon mGojuonApp;
+    private final SharedPreferences mSharedPreferences;
 
     private static final class Holder {
         private final TextView mRoumaji;
@@ -24,7 +28,6 @@ public class CharactersAdapter extends BaseAdapter {
             mRoumaji = (TextView) view.findViewById(R.id.roumaji);
             mHiragana = (TextView) view.findViewById(R.id.hiragana);
             mKatakana = (TextView) view.findViewById(R.id.katakana);
-
 //            mHannariFace = Typeface.createFromAsset(context.getAssets(), "hannari.otf");
 //
 //            mRoumaji.setTypeface(mHannariFace);
@@ -59,6 +62,8 @@ public class CharactersAdapter extends BaseAdapter {
     public CharactersAdapter(Context context, String[][] characters) {
         this.mCharacters = characters;
         this.mContext = context;
+        this.mGojuonApp = Gojuon.getInstance();
+        this.mSharedPreferences = mGojuonApp.getSharedPreferences();
     }
 
     @Override
@@ -95,9 +100,15 @@ public class CharactersAdapter extends BaseAdapter {
 
         // Each array element (representing sound) consists of 3 subelements
         // roumaji record, and hiragana and katakana symbols.
+        if (mSharedPreferences.getBoolean(Gojuon.KEY_KATAKANA_FIRST, false)) {
+            h.setHiragana(mCharacters[i][Characters.INDEX_KATAKANA]);
+            h.setKatakana(mCharacters[i][Characters.INDEX_HIRAGANA]);
+        } else {
+            h.setHiragana(mCharacters[i][Characters.INDEX_HIRAGANA]);
+            h.setKatakana(mCharacters[i][Characters.INDEX_KATAKANA]);
+        }
+
         h.setRoumaji(mCharacters[i][Characters.INDEX_ROUMAJI]);
-        h.setHiragana(mCharacters[i][Characters.INDEX_HIRAGANA]);
-        h.setKatakana(mCharacters[i][Characters.INDEX_KATAKANA]);
 
         return view;
     }

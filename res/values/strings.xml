@@ -25,4 +25,6 @@
     <string name="about_summary" formatted="false">Current version %s(%s).</string>
     <string name="send_email_faild">Send email failed. may be email client not installed?</string>
     <string name="feedback_subject" formatted="false">Feedback for %s %s</string>
+    <string name="katakana_first">Katakana First</string>
+    <string name="katakana_first_summary">Set katakana as main title for every grid item.</string>
 </resources>

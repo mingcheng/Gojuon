@@ -44,6 +44,18 @@ public class MainActivity extends BaseActivity {
         mSharedPreferences = mGojunon.getSharedPreferences();
 
         mGojunon.checkUpdate();
+//
+//        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.resume_list, android.R.layout.simple_dropdown_item_1line);
+//        getActionBar().setListNavigationCallbacks(mSpinnerAdapter, new ActionBar.OnNavigationListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(int position, long id) {
+//                return false;
+//            }
+//        });
+//
+//        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+//        getActionBar().setSelectedNavigationItem(3);
+//        getActionBar().setTitle("");
     }
 
     @Override

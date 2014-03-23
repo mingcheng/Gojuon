@@ -23,4 +23,6 @@
     <string name="send_email_faild">发送邮件失败，您安装了邮件客户端了吗？</string>
     <string name="about_summary" formatted="false">当前版本：%s(%s)</string>
     <string name="feedback_subject" formatted="false">针对「%s %s」的反馈</string>
+    <string name="katakana_first">片假名优先</string>
+    <string name="katakana_first_summary">在每个单元格优先显示片假名</string>
 </resources>
