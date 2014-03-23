@@ -42,6 +42,8 @@ public class MainActivity extends BaseActivity {
         mIndicator.setViewPager(mViewPager);
 
         mSharedPreferences = mGojunon.getSharedPreferences();
+
+        mGojunon.checkUpdate();
     }
 
     @Override
@@ -109,8 +111,8 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.action_about:
                 break;
-            case R.id.action_donate:
-                break;
+//            case R.id.action_donate:
+//                break;
             case R.id.action_feedback:
                 mGojunon.sendFeedbackEmail(MainActivity.this);
                 break;
