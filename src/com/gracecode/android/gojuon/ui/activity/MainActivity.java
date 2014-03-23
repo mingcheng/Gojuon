@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
@@ -57,6 +58,9 @@ public class MainActivity extends BaseActivity {
         if (mSharedPreferences.getBoolean(Gojuon.KEY_KEEP_SCREEN, true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+
+        getWindow().getDecorView()
+                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
     }
 
     @Override
