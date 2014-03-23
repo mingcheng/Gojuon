@@ -22,5 +22,6 @@
     <string name="using_tts_summary">Pronounce syllable though system\'s TTS engine.</string>
     <string name="feedback_summary">If you have any idea or problem, pls email me.</string>
     <string name="donate_summary">Thanks for giving me a cup of coffee.</string>
-    <string name="about_summary" formatted="false">%s(%s)</string>
+    <string name="about_summary" formatted="false">Current version %s(%s).</string>
+    <string name="send_email_faild">Send email failed. may be email client not installed?</string>
 </resources>

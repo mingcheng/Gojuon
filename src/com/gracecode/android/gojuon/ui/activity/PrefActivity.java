@@ -10,7 +10,7 @@ public class PrefActivity extends BaseActivity {
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(android.R.id.content, new PrefFragment())
+                .replace(android.R.id.content, new PrefFragment(PrefActivity.this))
                 .commit();
     }
 }

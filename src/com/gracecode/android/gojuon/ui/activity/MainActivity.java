@@ -1,21 +1,25 @@
 package com.gracecode.android.gojuon.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.gracecode.android.common.helper.IntentHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
+import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.service.PronounceService;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends BaseActivity {
     private Intent mServiceIntent;
-    private ViewPager mPager;
+    private ViewPager mViewPager;
     private TitlePageIndicator mIndicator;
     private CharactersFragmentAdapter mCharactersFragmentAdapter;
+    private SharedPreferences mSharedPreferences;
+
+    private static String KEY_AUTO_RESUME_SAVED = "key_auto_resume_saved";
 
     /**
      * Called when the activity is first created.
@@ -27,13 +31,15 @@ public class MainActivity extends BaseActivity {
 
         mServiceIntent = new Intent(this, PronounceService.class);
 
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
 
         mCharactersFragmentAdapter = new CharactersFragmentAdapter(this, getSupportFragmentManager());
-        mPager.setAdapter(mCharactersFragmentAdapter);
+        mViewPager.setAdapter(mCharactersFragmentAdapter);
 
         mIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager);
+        mIndicator.setViewPager(mViewPager);
+
+        mSharedPreferences = mGojunon.getSharedPreferences();
     }
 
     @Override
@@ -45,7 +51,33 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mIndicator.setCurrentItem(1);
+        mIndicator.setCurrentItem(getSavedResumePage());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setResumePage();
+    }
+
+    private int getSavedResumePage() {
+        String savedIndex = mSharedPreferences.getString(Gojuon.KEY_AUTO_RESUME, Gojuon.DEFAULT_RESUME_INDEX);
+        int index = Integer.parseInt(savedIndex);
+        if (index == Integer.parseInt(Gojuon.DEFAULT_RESUME_INDEX)) {
+            return mSharedPreferences.getInt(KEY_AUTO_RESUME_SAVED, 0);
+        }
+
+        return index;
+    }
+
+    private void setResumePage() {
+        String savedIndex = mSharedPreferences.getString(Gojuon.KEY_AUTO_RESUME, Gojuon.DEFAULT_RESUME_INDEX);
+        int index = Integer.parseInt(savedIndex);
+        if (index == Integer.parseInt(Gojuon.DEFAULT_RESUME_INDEX)) {
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putInt(KEY_AUTO_RESUME_SAVED, mViewPager.getCurrentItem());
+            editor.commit();
+        }
     }
 
     @Override
@@ -71,9 +103,7 @@ public class MainActivity extends BaseActivity {
             case R.id.action_donate:
                 break;
             case R.id.action_feedback:
-                IntentHelper.sendMail(this,
-                        new String[]{getString(R.string.email)},
-                        "Feedback for Gojuon 1.0", "");
+                mGojunon.sendFeedbackEmail(MainActivity.this);
                 break;
         }
 

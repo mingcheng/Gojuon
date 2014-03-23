@@ -20,4 +20,7 @@
     <string name="using_tts_summary">使用系统的 TTS 引擎发音</string>
     <string name="feedback_summary">如果您有任何的意见和建议，请发我邮件</string>
     <string name="donate_summary">感谢您捐助我一杯咖啡</string>
+    <string name="send_email_faild">发送邮件失败，您安装了邮件客户端了吗？</string>
+    <string name="about_summary" formatted="false">当前版本：%s(%s)</string>
+
 </resources>
