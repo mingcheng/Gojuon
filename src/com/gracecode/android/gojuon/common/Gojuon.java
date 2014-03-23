@@ -6,6 +6,7 @@ import com.gracecode.android.common.Logger;
 import com.gracecode.android.common.helper.IntentHelper;
 import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
+import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 public class Gojuon extends CustemApplication {
     public static final String KEY_ABOUT = "key_about";
@@ -25,6 +26,11 @@ public class Gojuon extends CustemApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = Gojuon.this;
+    }
+
+    public void checkUpdate() {
+        XiaomiUpdateAgent.setCheckUpdateOnlyWifi(true);
+        XiaomiUpdateAgent.update(this);
     }
 
     public void sendFeedbackEmail(Context context) {

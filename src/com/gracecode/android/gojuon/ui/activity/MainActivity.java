@@ -42,6 +42,8 @@ public class MainActivity extends BaseActivity {
         mIndicator.setViewPager(mViewPager);
 
         mSharedPreferences = mGojunon.getSharedPreferences();
+
+        mGojunon.checkUpdate();
     }
 
     @Override
