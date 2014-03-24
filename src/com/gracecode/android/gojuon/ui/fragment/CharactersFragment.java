@@ -1,6 +1,7 @@
 package com.gracecode.android.gojuon.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,11 +12,14 @@ import android.widget.GridView;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersAdapter;
+import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.service.PronounceService;
 
 public class CharactersFragment extends Fragment {
     private static final int DEFAULT_COLUMN_NUM = 5;
     private final String[][] mCharacters;
+    private Gojuon mGojuonApp;
+    private SharedPreferences mSharedPreferences;
     private final int mColumns;
     private GridView mGridView;
 
@@ -25,9 +29,13 @@ public class CharactersFragment extends Fragment {
             Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
             intent.putExtra(PronounceService.EXTRA_ROUMAJI, mCharacters[i][Characters.INDEX_ROUMAJI]);
             getActivity().sendBroadcast(intent);
+
+            // Mark as selected.
+            if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
+                view.setSelected(true);
+            }
         }
     };
-
 
     public CharactersFragment(String[][] characters) {
         this.mCharacters = characters;
@@ -37,6 +45,14 @@ public class CharactersFragment extends Fragment {
     public CharactersFragment(String[][] characters, int columns) {
         this.mCharacters = characters;
         this.mColumns = columns;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mGojuonApp = Gojuon.getInstance();
+        mSharedPreferences = mGojuonApp.getSharedPreferences();
     }
 
     @Override
@@ -50,6 +66,7 @@ public class CharactersFragment extends Fragment {
         mGridView = (GridView) getView().findViewById(R.id.list);
         mGridView.setNumColumns(mColumns);
         mGridView.setSoundEffectsEnabled(false);
+        mGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
     }
 
     @Override

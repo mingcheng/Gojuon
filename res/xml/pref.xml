@@ -12,13 +12,6 @@
             />
 
     <PreferenceCategory android:title="@string/app_name">
-        <CheckBoxPreference
-                android:key="key_katakana_first"
-                android:title="@string/katakana_first"
-                android:summary="@string/katakana_first_summary"
-                android:defaultValue="false"
-                />
-
         <ListPreference
                 android:key="key_auto_resume"
                 android:title="@string/auto_resume"
@@ -26,6 +19,20 @@
                 android:entryValues="@array/resume_list_value"
                 android:summary="@string/auto_resume_summray"
                 android:defaultValue="-1"
+                />
+
+        <CheckBoxPreference
+                android:key="key_katakana_first"
+                android:title="@string/katakana_first"
+                android:summary="@string/katakana_first_summary"
+                android:defaultValue="false"
+                />
+
+        <CheckBoxPreference
+                android:key="key_highlight_selected"
+                android:title="@string/highlight_selected"
+                android:summary="@string/highlight_selected_summary"
+                android:defaultValue="true"
                 />
 
         <CheckBoxPreference

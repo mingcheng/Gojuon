@@ -25,4 +25,6 @@
     <string name="feedback_subject" formatted="false">针对「%s %s」的反馈</string>
     <string name="katakana_first">片假名优先</string>
     <string name="katakana_first_summary">在每个单元格优先显示片假名</string>
+    <string name="highlight_selected">高亮选中</string>
+    <string name="highlight_selected_summary">高亮选中的音图，方便区分</string>
 </resources>

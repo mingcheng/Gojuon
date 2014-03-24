@@ -27,4 +27,6 @@
     <string name="feedback_subject" formatted="false">Feedback for %s %s</string>
     <string name="katakana_first">Katakana First</string>
     <string name="katakana_first_summary">Set katakana as main title for every grid item.</string>
+    <string name="highlight_selected">Highlight Selected</string>
+    <string name="highlight_selected_summary">Highlight selected item when pressed on it.</string>
 </resources>
