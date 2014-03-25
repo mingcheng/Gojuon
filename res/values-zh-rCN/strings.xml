@@ -27,4 +27,5 @@
     <string name="katakana_first_summary">在每个单元格优先显示片假名</string>
     <string name="highlight_selected">高亮选中</string>
     <string name="highlight_selected_summary">高亮选中的音图，方便区分</string>
+    <string name="version">版本</string>
 </resources>
