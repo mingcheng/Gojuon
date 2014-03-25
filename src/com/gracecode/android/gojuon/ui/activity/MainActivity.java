@@ -121,8 +121,8 @@ public class MainActivity extends BaseActivity {
             case R.id.action_prefs:
                 startActivity(new Intent(this, PrefActivity.class));
                 break;
-            case R.id.action_about:
-                break;
+//            case R.id.action_about:
+//                break;
 //            case R.id.action_donate:
 //                break;
             case R.id.action_feedback:
