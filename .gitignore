@@ -11,6 +11,7 @@
 # generated files
 /bin/
 /gen/
+/proguard_logs/
 /ant.properties
 /build.xml
 /project.properties
@@ -30,4 +31,3 @@ proguard/
 *.ipr
 *.iws
 .idea/
-
