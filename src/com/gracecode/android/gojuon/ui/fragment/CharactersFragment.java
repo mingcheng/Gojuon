@@ -17,29 +17,39 @@ import com.gracecode.android.gojuon.service.PronounceService;
 
 public class CharactersFragment extends Fragment {
     private static final int DEFAULT_COLUMN_NUM = 5;
-    private final String[][] mCharacters;
+    private static final String STAT_COLUMNS = "stat_colums";
+    private static final String STAT_CHARACTERS = "stat_characters";
+
+    private String[][] mCharacters;
     private Gojuon mGojuonApp;
     private SharedPreferences mSharedPreferences;
-    private final int mColumns;
+    private int mColumns = DEFAULT_COLUMN_NUM;
     private GridView mGridView;
 
     AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
-            intent.putExtra(PronounceService.EXTRA_ROUMAJI, mCharacters[i][Characters.INDEX_ROUMAJI]);
-            getActivity().sendBroadcast(intent);
+            try {
+                intent.putExtra(PronounceService.EXTRA_ROUMAJI, mCharacters[i][Characters.INDEX_ROUMAJI]);
+                getActivity().sendBroadcast(intent);
 
-            // Mark as selected.
-            if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
-                view.setSelected(true);
+                // Mark as selected.
+                if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
+                    view.setSelected(true);
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
             }
         }
     };
 
+    public CharactersFragment() {
+
+    }
+
     public CharactersFragment(String[][] characters) {
         this.mCharacters = characters;
-        this.mColumns = DEFAULT_COLUMN_NUM;
     }
 
     public CharactersFragment(String[][] characters, int columns) {
@@ -50,6 +60,11 @@ public class CharactersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            mColumns = savedInstanceState.getInt(STAT_COLUMNS, DEFAULT_COLUMN_NUM);
+            mCharacters = (String[][]) savedInstanceState.getSerializable(STAT_CHARACTERS);
+        }
 
         mGojuonApp = Gojuon.getInstance();
         mSharedPreferences = mGojuonApp.getSharedPreferences();
@@ -70,14 +85,18 @@ public class CharactersFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mGridView.setAdapter(new CharactersAdapter(getActivity(), mCharacters));
-        mGridView.setOnItemClickListener(mOnItemClickListener);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(STAT_COLUMNS, mColumns);
+        outState.putSerializable(STAT_CHARACTERS, mCharacters);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onResume() {
+        super.onResume();
+        if (mCharacters != null && mCharacters.length > 0) {
+            mGridView.setAdapter(new CharactersAdapter(getActivity(), mCharacters));
+            mGridView.setOnItemClickListener(mOnItemClickListener);
+        }
     }
 }

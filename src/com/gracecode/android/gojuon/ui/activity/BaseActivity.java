@@ -12,7 +12,6 @@ class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         mGojunon = Gojuon.getInstance();
-
         try {
             getActionBar().setIcon(android.R.color.transparent);
         } catch (NullPointerException e) {
