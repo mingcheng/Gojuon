@@ -96,20 +96,25 @@ public class CharactersAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.item_character, null);
         }
 
-        Holder h = Holder.get(view);
+        fillCharacters(Holder.get(view), i);
+        return view;
+    }
 
+    public void fillCharacters(Holder holder, int i) {
         // Each array element (representing sound) consists of 3 subelements
         // roumaji record, and hiragana and katakana symbols.
         if (mSharedPreferences.getBoolean(Gojuon.KEY_KATAKANA_FIRST, false)) {
-            h.setHiragana(mCharacters[i][Characters.INDEX_KATAKANA]);
-            h.setKatakana(mCharacters[i][Characters.INDEX_HIRAGANA]);
+            holder.setHiragana(mCharacters[i][Characters.INDEX_KATAKANA]);
+            holder.setKatakana(mCharacters[i][Characters.INDEX_HIRAGANA]);
         } else {
-            h.setHiragana(mCharacters[i][Characters.INDEX_HIRAGANA]);
-            h.setKatakana(mCharacters[i][Characters.INDEX_KATAKANA]);
+            holder.setHiragana(mCharacters[i][Characters.INDEX_HIRAGANA]);
+            holder.setKatakana(mCharacters[i][Characters.INDEX_KATAKANA]);
         }
 
-        h.setRoumaji(mCharacters[i][Characters.INDEX_ROUMAJI]);
+        holder.setRoumaji(mCharacters[i][Characters.INDEX_ROUMAJI]);
+    }
 
-        return view;
+    public void fillCharacters(View view, int i) {
+        fillCharacters(Holder.get(view), i);
     }
 }

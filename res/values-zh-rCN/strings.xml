@@ -28,4 +28,6 @@
     <string name="highlight_selected">高亮选中</string>
     <string name="highlight_selected_summary">高亮选中的音图，方便区分</string>
     <string name="version">版本</string>
+    <string name="auto_rotate">自动旋转</string>
+    <string name="auto_rotate_summary">当设备方向改变时，自动旋转屏幕</string>
 </resources>

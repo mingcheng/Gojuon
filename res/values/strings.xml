@@ -30,4 +30,6 @@
     <string name="highlight_selected">Highlight Selected</string>
     <string name="highlight_selected_summary">Highlight selected item when pressed on it.</string>
     <string name="version">Versioin</string>
+    <string name="auto_rotate">Auto Rotate</string>
+    <string name="auto_rotate_summary">Auto rotate when the device\'s direction is changed.</string>
 </resources>

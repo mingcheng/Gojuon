@@ -11,6 +11,13 @@
             android:defaultValue="true"
             />
 
+    <CheckBoxPreference
+            android:key="key_auto_rotate"
+            android:title="@string/auto_rotate"
+            android:summary="@string/auto_rotate_summary"
+            android:defaultValue="false"
+            />
+
     <PreferenceCategory android:title="@string/app_name">
         <ListPreference
                 android:key="key_auto_resume"

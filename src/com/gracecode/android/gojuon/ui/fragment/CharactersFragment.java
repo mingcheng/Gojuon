@@ -25,6 +25,7 @@ public class CharactersFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     private int mColumns = DEFAULT_COLUMN_NUM;
     private GridView mGridView;
+    private CharactersAdapter mCharactersAdapter;
 
     AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -34,11 +35,18 @@ public class CharactersFragment extends Fragment {
                 intent.putExtra(PronounceService.EXTRA_ROUMAJI, mCharacters[i][Characters.INDEX_ROUMAJI]);
                 getActivity().sendBroadcast(intent);
 
+
+                if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false)) {
+                    View layout = getActivity().findViewById(R.id.layout_item_character);
+                    mCharactersAdapter.fillCharacters(layout, i);
+                }
+
                 // Mark as selected.
                 if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
                     view.setSelected(true);
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+
+            } catch (RuntimeException e) {
                 e.printStackTrace();
             }
         }
@@ -95,7 +103,8 @@ public class CharactersFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (mCharacters != null && mCharacters.length > 0) {
-            mGridView.setAdapter(new CharactersAdapter(getActivity(), mCharacters));
+            mCharactersAdapter = new CharactersAdapter(getActivity(), mCharacters);
+            mGridView.setAdapter(mCharactersAdapter);
             mGridView.setOnItemClickListener(mOnItemClickListener);
         }
     }
