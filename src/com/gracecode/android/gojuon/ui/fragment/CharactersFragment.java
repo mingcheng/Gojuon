@@ -3,6 +3,8 @@ package com.gracecode.android.gojuon.ui.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,6 +108,46 @@ public class CharactersFragment extends Fragment {
             mCharactersAdapter = new CharactersAdapter(getActivity(), mCharacters);
             mGridView.setAdapter(mCharactersAdapter);
             mGridView.setOnItemClickListener(mOnItemClickListener);
+
         }
+    }
+
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case 0:
+                    mGridView.requestFocusFromTouch();
+
+
+                    break;
+            }
+        }
+    };
+
+    public void startSlide() {
+
+
+//        Timer timer = new Timer();
+//
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                try {
+//                    mHandler.sendEmptyMessage(0);
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, 500, mCharacters.length);
+
+//        timer.cancel();
+    }
+
+    public void stopSlide() {
+
+
     }
 }

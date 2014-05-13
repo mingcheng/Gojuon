@@ -1,14 +1,9 @@
 package com.gracecode.android.gojuon.common;
 
-import android.content.Context;
-import com.gracecode.android.common.CustemApplication;
-import com.gracecode.android.common.Logger;
-import com.gracecode.android.common.helper.IntentHelper;
-import com.gracecode.android.common.helper.UIHelper;
-import com.gracecode.android.gojuon.R;
+import com.gracecode.android.common.CustomApplication;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
-public class Gojuon extends CustemApplication {
+public class Gojuon extends CustomApplication {
     public static final String KEY_ABOUT = "key_about";
     public static final String KEY_FEEDBACK = "key_feedback";
     public static final String KEY_DONATE = "key_donate";
@@ -36,18 +31,5 @@ public class Gojuon extends CustemApplication {
         XiaomiUpdateAgent.update(this);
     }
 
-    public void sendFeedbackEmail(Context context) {
-        String subject = String.format(
-                getString(R.string.feedback_subject),
-                getString(R.string.app_name), getPackageInfo().versionName);
 
-        try {
-            IntentHelper.sendMail(context, new String[]{
-                    getString(R.string.email)
-            }, subject, "");
-        } catch (RuntimeException e) {
-            Logger.e(e.getMessage());
-            UIHelper.showShortToast(Gojuon.this, getString(R.string.send_email_faild));
-        }
-    }
 }

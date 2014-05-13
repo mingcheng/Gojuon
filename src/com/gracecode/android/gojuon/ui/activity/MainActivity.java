@@ -44,6 +44,10 @@ public class MainActivity extends BaseActivity {
 
         mSharedPreferences = mGojunon.getSharedPreferences();
         mGojunon.checkUpdate();
+
+        if (mGojunon.isMeizuDevice()) {
+            getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
+        }
     }
 
     @Override
@@ -121,6 +125,12 @@ public class MainActivity extends BaseActivity {
             case R.id.action_feedback:
                 mGojunon.sendFeedbackEmail(MainActivity.this);
                 break;
+
+//            case R.id.action_slideshow:
+//                item.setEnabled(false);
+//                item.getIcon().setAlpha(100);
+//                mCharactersFragmentAdapter.startSlide(mViewPager.getCurrentItem());
+//                break;
         }
 
         return super.onMenuItemSelected(featureId, item);

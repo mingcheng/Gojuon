@@ -30,4 +30,5 @@
     <string name="version">版本</string>
     <string name="auto_rotate">自动旋转</string>
     <string name="auto_rotate_summary">当设备方向改变时，自动旋转屏幕</string>
+    <string name="slideshow">Slide Show</string>
 </resources>

@@ -2,15 +2,28 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--<item-->
+    <!--android:id="@+id/action_slideshow"-->
+    <!--android:title="@string/slideshow"-->
+    <!--android:showAsAction="ifRoom"-->
+    <!--android:icon="@android:drawable/ic_menu_slideshow"-->
+    <!--/>-->
+
     <item
             android:id="@+id/action_prefs"
             android:title="@string/setting"
-            android:showAsAction="never"/>
+            android:showAsAction="ifRoom"
+            android:icon="@android:drawable/ic_menu_preferences"/>
+
 
     <item
             android:id="@+id/action_feedback"
             android:title="@string/feedback"
-            android:showAsAction="never"/>
+            android:showAsAction="withText"
+            android:icon="@android:drawable/ic_menu_send"
+            />
+
+
     <!--
     <item
             android:id="@+id/action_donate"

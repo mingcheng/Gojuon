@@ -4,7 +4,7 @@
                 android:layout_height="fill_parent"
                 android:padding="5sp"
                 android:background="@drawable/item_background"
-                android:minHeight="70dp"
+                android:minHeight="72dp"
         >
 
     <TextView
