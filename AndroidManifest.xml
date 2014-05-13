@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.android.gojuon"
-          android:versionCode="20140410"
+          android:versionCode="20140520"
           android:versionName="1.1.2">
 
     <uses-sdk
@@ -21,6 +21,7 @@
             android:icon="@drawable/ic_launcher"
             android:name=".common.Gojuon"
             android:theme="@android:style/Theme.Holo"
+            android:configChanges="locale"
             >
         <activity
                 android:screenOrientation="portrait"

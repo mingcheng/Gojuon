@@ -45,9 +45,10 @@ public class MainActivity extends BaseActivity {
         mSharedPreferences = mGojunon.getSharedPreferences();
         mGojunon.checkUpdate();
 
-        if (mGojunon.isMeizuDevice()) {
-            getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
-        }
+//
+//        Configuration configuration = getResources().getConfiguration();
+//        configuration.locale = Locale.ENGLISH;
+//        getBaseContext().getResources().updateConfiguration(configuration, null);
     }
 
     @Override
