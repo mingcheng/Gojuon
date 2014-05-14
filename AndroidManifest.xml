@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.android.gojuon"
           android:versionCode="20140520"
-          android:versionName="1.1.2">
+          android:versionName="1.1.3">
 
     <uses-sdk
             android:minSdkVersion="16"

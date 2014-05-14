@@ -40,6 +40,7 @@ public class Gojuon extends CustomApplication {
         Configuration configuration = getResources().getConfiguration();
         switch (language) {
             case LANGUAGE_AUTO:
+                configuration.locale = Locale.getDefault();
                 break;
 
             case LANGUAGE_ENGLISH:
