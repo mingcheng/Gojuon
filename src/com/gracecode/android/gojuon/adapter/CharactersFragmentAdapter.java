@@ -18,7 +18,8 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
             R.string.digraphs,
             R.string.digraphs_with_diacritics
     };
-    protected static final HashMap<Integer, Fragment> mFragments = new HashMap<Integer, Fragment>();
+    protected static final HashMap<Integer, CharactersFragment> mFragments =
+            new HashMap<Integer, CharactersFragment>();
 
     private final Context mContext;
 
@@ -33,7 +34,7 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
             return mFragments.get(position);
         }
 
-        Fragment fragment;
+        CharactersFragment fragment;
         switch (TITLES[position]) {
             case R.string.digraphs:
                 fragment = new CharactersFragment(Characters.DIGRAPHS, 3);
@@ -68,5 +69,11 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
     @Override
     public int getIconResId(int index) {
         return android.R.color.transparent;
+    }
+
+    public void startSlide(int item) {
+
+        CharactersFragment fragment = mFragments.get(item);
+        fragment.startSlide();
     }
 }

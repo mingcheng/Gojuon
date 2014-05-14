@@ -8,11 +8,23 @@
         <item>@string/digraphs_with_diacritics</item>
     </string-array>
 
+    <string-array name="language_list">
+        <item>@string/language_auto</item>
+        <item>@string/language_english</item>
+        <item>@string/language_chinese</item>
+    </string-array>
+
     <string-array name="resume_list_value">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
+    </string-array>
+
+    <string-array name="language_list_value">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
 </resources>

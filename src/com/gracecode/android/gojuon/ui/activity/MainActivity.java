@@ -2,6 +2,7 @@ package com.gracecode.android.gojuon.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -42,20 +43,7 @@ public class MainActivity extends BaseActivity {
         mIndicator.setViewPager(mViewPager);
 
         mSharedPreferences = mGojunon.getSharedPreferences();
-
         mGojunon.checkUpdate();
-//
-//        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.resume_list, android.R.layout.simple_dropdown_item_1line);
-//        getActionBar().setListNavigationCallbacks(mSpinnerAdapter, new ActionBar.OnNavigationListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(int position, long id) {
-//                return false;
-//            }
-//        });
-//
-//        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-//        getActionBar().setSelectedNavigationItem(3);
-//        getActionBar().setTitle("");
     }
 
     @Override
@@ -73,6 +61,10 @@ public class MainActivity extends BaseActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
+        setRequestedOrientation(mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false) ?
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR :
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         getWindow().getDecorView()
                 .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
     }
@@ -81,7 +73,6 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         setResumePage();
-
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
@@ -106,7 +97,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(mServiceIntent);
+        if (mServiceIntent != null) {
+            stopService(mServiceIntent);
+        }
     }
 
     @Override
@@ -128,6 +121,12 @@ public class MainActivity extends BaseActivity {
             case R.id.action_feedback:
                 mGojunon.sendFeedbackEmail(MainActivity.this);
                 break;
+
+//            case R.id.action_slideshow:
+//                item.setEnabled(false);
+//                item.getIcon().setAlpha(100);
+//                mCharactersFragmentAdapter.startSlide(mViewPager.getCurrentItem());
+//                break;
         }
 
         return super.onMenuItemSelected(featureId, item);

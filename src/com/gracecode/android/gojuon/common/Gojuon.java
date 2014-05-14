@@ -1,14 +1,12 @@
 package com.gracecode.android.gojuon.common;
 
-import android.content.Context;
-import com.gracecode.android.common.CustemApplication;
-import com.gracecode.android.common.Logger;
-import com.gracecode.android.common.helper.IntentHelper;
-import com.gracecode.android.common.helper.UIHelper;
-import com.gracecode.android.gojuon.R;
+import android.content.res.Configuration;
+import com.gracecode.android.common.CustomApplication;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
-public class Gojuon extends CustemApplication {
+import java.util.Locale;
+
+public class Gojuon extends CustomApplication {
     public static final String KEY_ABOUT = "key_about";
     public static final String KEY_FEEDBACK = "key_feedback";
     public static final String KEY_DONATE = "key_donate";
@@ -16,6 +14,12 @@ public class Gojuon extends CustemApplication {
     public static final String KEY_KEEP_SCREEN = "key_screen_on";
     public static final String KEY_KATAKANA_FIRST = "key_katakana_first";
     public static final String KEY_HIGHLIGHT_SELECTED = "key_highlight_selected";
+    public static final String KEY_AUTO_ROTATE = "key_auto_rotate";
+    public static final String KEY_LANGUAGE = "key_language";
+
+    public static final String LANGUAGE_AUTO = "-1";
+    public static final String LANGUAGE_CHINESE = "1";
+    public static final String LANGUAGE_ENGLISH = "0";
 
     public static final String DEFAULT_RESUME_INDEX = "-1";
     private static Gojuon mInstance;
@@ -30,23 +34,31 @@ public class Gojuon extends CustemApplication {
         mInstance = Gojuon.this;
     }
 
+    public void setLanguage() {
+        String language = getSharedPreferences().getString(KEY_LANGUAGE, LANGUAGE_AUTO);
+
+        Configuration configuration = getResources().getConfiguration();
+        switch (language) {
+            case LANGUAGE_AUTO:
+                configuration.locale = Locale.getDefault();
+                break;
+
+            case LANGUAGE_ENGLISH:
+                configuration.locale = Locale.ENGLISH;
+                break;
+
+            case LANGUAGE_CHINESE:
+                configuration.locale = Locale.CHINA;
+                break;
+        }
+
+        getBaseContext().getResources().updateConfiguration(configuration, null);
+    }
+
     public void checkUpdate() {
         XiaomiUpdateAgent.setCheckUpdateOnlyWifi(true);
         XiaomiUpdateAgent.update(this);
     }
 
-    public void sendFeedbackEmail(Context context) {
-        String subject = String.format(
-                getString(R.string.feedback_subject),
-                getString(R.string.app_name), getPackageInfo().versionName);
 
-        try {
-            IntentHelper.sendMail(context, new String[]{
-                    getString(R.string.email)
-            }, subject, "");
-        } catch (RuntimeException e) {
-            Logger.e(e.getMessage());
-            UIHelper.showShortToast(Gojuon.this, getString(R.string.send_email_faild));
-        }
-    }
 }

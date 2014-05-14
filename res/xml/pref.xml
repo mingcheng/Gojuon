@@ -4,11 +4,27 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         >
 
+    <ListPreference
+            android:key="key_language"
+            android:title="@string/language"
+            android:entries="@array/language_list"
+            android:entryValues="@array/language_list_value"
+            android:summary="@string/language_summray"
+            android:defaultValue="-1"
+            />
+
     <CheckBoxPreference
             android:key="key_screen_on"
             android:title="@string/keep_screen_on"
             android:summary="@string/keep_screen_on_summary"
             android:defaultValue="true"
+            />
+
+    <CheckBoxPreference
+            android:key="key_auto_rotate"
+            android:title="@string/auto_rotate"
+            android:summary="@string/auto_rotate_summary"
+            android:defaultValue="false"
             />
 
     <PreferenceCategory android:title="@string/app_name">
