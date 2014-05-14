@@ -44,11 +44,6 @@ public class MainActivity extends BaseActivity {
 
         mSharedPreferences = mGojunon.getSharedPreferences();
         mGojunon.checkUpdate();
-
-//
-//        Configuration configuration = getResources().getConfiguration();
-//        configuration.locale = Locale.ENGLISH;
-//        getBaseContext().getResources().updateConfiguration(configuration, null);
     }
 
     @Override

@@ -33,4 +33,9 @@
     <string name="auto_rotate">Auto Rotate</string>
     <string name="auto_rotate_summary">Auto rotate when the device\'s direction is changed.</string>
     <string name="slideshow">Slide Show</string>
+    <string name="language">Language</string>
+    <string name="language_summray">Select display language</string>
+    <string name="language_auto">System</string>
+    <string name="language_english">English</string>
+    <string name="language_chinese">Chinese</string>
 </resources>

@@ -22,5 +22,7 @@ class BaseActivity extends FragmentActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        mGojunon.setLanguage();
     }
 }
