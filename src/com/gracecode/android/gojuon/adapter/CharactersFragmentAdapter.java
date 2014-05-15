@@ -1,11 +1,13 @@
 package com.gracecode.android.gojuon.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
+import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.ui.fragment.CharactersFragment;
 import com.viewpagerindicator.IconPagerAdapter;
 
@@ -22,39 +24,44 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
             new HashMap<Integer, CharactersFragment>();
 
     private final Context mContext;
+    private final SharedPreferences mSharedPreferences;
 
     public CharactersFragmentAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.mContext = context;
+        this.mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
     }
 
     @Override
     public Fragment getItem(int position) {
+        final CharactersFragment fragment;
+
         if (mFragments.containsKey(position)) {
-            return mFragments.get(position);
+            fragment = mFragments.get(position);
+        } else {
+            switch (TITLES[position]) {
+                case R.string.digraphs:
+                    fragment = new CharactersFragment(Characters.DIGRAPHS, 3);
+                    break;
+
+                case R.string.monographs_with_diacritics:
+                    fragment = new CharactersFragment(Characters.MONOGRAPHS_WITH_DIACRITICS);
+                    break;
+
+                case R.string.digraphs_with_diacritics:
+                    fragment = new CharactersFragment(Characters.DIGRAPHS_WITH_DIACRITICS, 3);
+                    break;
+
+                default:
+                    fragment = new CharactersFragment(Characters.MONOGRAPHS);
+            }
+
+            mFragments.put(position, fragment);
         }
 
-        CharactersFragment fragment;
-        switch (TITLES[position]) {
-            case R.string.digraphs:
-                fragment = new CharactersFragment(Characters.DIGRAPHS, 3);
-                break;
-
-            case R.string.monographs_with_diacritics:
-                fragment = new CharactersFragment(Characters.MONOGRAPHS_WITH_DIACRITICS);
-                break;
-
-            case R.string.digraphs_with_diacritics:
-                fragment = new CharactersFragment(Characters.DIGRAPHS_WITH_DIACRITICS, 3);
-                break;
-
-            default:
-                fragment = new CharactersFragment(Characters.MONOGRAPHS);
-        }
-
-        mFragments.put(position, fragment);
         return fragment;
     }
+
 
     @Override
     public int getCount() {
@@ -71,9 +78,27 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
         return android.R.color.transparent;
     }
 
-    public void startSlide(int item) {
+    public CharactersFragment getFragmentByTitle(int monographs) {
+        int position = getTitlePosition(monographs);
+        if (position != -1) {
+            return (CharactersFragment) getItem(position);
+        }
 
-        CharactersFragment fragment = mFragments.get(item);
-        fragment.startSlide();
+        return null;
     }
+
+    private int getTitlePosition(int monographs) {
+        for (int i = 0; i < TITLES.length; i++) {
+            if (monographs == TITLES[i]) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+//    public void startSlide(int item) {
+//        CharactersFragment fragment = mFragments.get(item);
+//        fragment.startSlide();
+//    }
 }
