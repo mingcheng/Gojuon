@@ -1,6 +1,7 @@
 package com.gracecode.android.gojuon.ui.fragment;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,7 +42,11 @@ public class CharactersFragment extends Fragment {
                 // Pronounce the character
                 Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
 
-                if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false)) {
+                // Detect current screen orientation.
+                // @see https://stackoverflow.com/questions/3663665/how-can-i-get-the-current-screen-orientation
+                int orientation = getActivity().getResources().getConfiguration().orientation;
+                if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false)
+                        && orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     Fragment fragment = new Fragment();
                     View layout = getActivity().findViewById(R.id.layout_item_character);
 
