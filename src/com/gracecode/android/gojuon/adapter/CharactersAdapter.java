@@ -28,12 +28,6 @@ public class CharactersAdapter extends BaseAdapter {
             mRoumaji = (TextView) view.findViewById(R.id.roumaji);
             mHiragana = (TextView) view.findViewById(R.id.hiragana);
             mKatakana = (TextView) view.findViewById(R.id.katakana);
-//            mHannariFace = Typeface.createFromAsset(context.getAssets(), "hannari.otf");
-//
-//            mRoumaji.setTypeface(mHannariFace);
-//            mHiragana.setTypeface(mHannariFace);
-//            mKatakana.setTypeface(mHannariFace);
-
             view.setTag(this);
         }
 

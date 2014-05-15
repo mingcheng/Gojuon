@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:padding="5sp"
-                android:background="@drawable/item_background"
-                android:minHeight="72dp"
+<com.gracecode.android.gojuon.ui.widget.CharacterLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5sp"
+        android:background="@drawable/item_background"
+        android:minHeight="72dp"
         >
 
     <TextView
@@ -14,10 +15,10 @@
             android:id="@+id/hiragana"
             android:textSize="30sp"
             android:gravity="center"
-            android:paddingBottom="10sp"
             />
 
     <TextView
+            android:layout_below="@id/hiragana"
             android:textColor="@drawable/item_text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +29,7 @@
             />
 
     <TextView
+            android:layout_below="@id/hiragana"
             android:textColor="@drawable/item_text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,4 +38,4 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             />
-</RelativeLayout>
+</com.gracecode.android.gojuon.ui.widget.CharacterLayout>

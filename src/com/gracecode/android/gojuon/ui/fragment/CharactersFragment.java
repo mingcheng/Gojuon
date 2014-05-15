@@ -15,6 +15,7 @@ import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
+import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,11 +38,28 @@ public class CharactersFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             try {
+                // Pronounce the character
                 Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
 
                 if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false)) {
+                    Fragment fragment = new Fragment();
                     View layout = getActivity().findViewById(R.id.layout_item_character);
-                    mCharactersAdapter.fillCharacters(layout, i);
+
+                    if (getCharacters() == Characters.MONOGRAPHS) {
+                        fragment = new StrokeFragment();
+                        setStrokeDialog((StrokeFragment) fragment, i);
+                        layout.setVisibility(View.GONE);
+                    } else {
+                        if (layout instanceof CharacterLayout) {
+                            ((CharacterLayout) layout).autoAdjustTextSize();
+                        }
+                        mCharactersAdapter.fillCharacters(layout, i);
+                        layout.setVisibility(View.VISIBLE);
+                    }
+
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.layout_item_stoke, fragment)
+                            .commit();
                 }
 
                 // Mark as selected.
@@ -56,51 +74,56 @@ public class CharactersFragment extends Fragment {
     };
 
 
+    private String getResourceNameByPosition(int position) {
+        return String.format("%s%d", (position / 5 == 0) ? "" : (position / 5) + "", position % 5);
+    }
+
+    private String getStrokeResourceNameByPosition(int position) {
+        return String.format("stroke/%s%sstroke.png",
+                mGojuonApp.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
+    }
+
+    private String getCharacterResourceNameByPosition(int position) {
+        return String.format("stroke/%s%s.png",
+                mGojuonApp.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
+    }
+
+    private Drawable getDrawableFromAssets(String path) throws IOException {
+        InputStream inputStream = getActivity().getAssets().open(path);
+        return Drawable.createFromStream(inputStream, null);
+    }
+
+
+    private void setStrokeDialog(final StrokeFragment fragment, final int position) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    fragment
+                            .setStrokeDrawable(
+                                    getDrawableFromAssets(getStrokeResourceNameByPosition(position)));
+
+                    fragment
+                            .setCharacterDrawable(
+                                    getDrawableFromAssets(getCharacterResourceNameByPosition(position)));
+
+                } catch (IOException e) {
+                    fragment.dismiss();
+                }
+            }
+        }, 100);
+    }
+
+    private void setStrokeDialog(final int position) {
+        setStrokeDialog(mStrokeDialog, position);
+    }
+
     AdapterView.OnItemLongClickListener mOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
-
-        private String getResourceNameByPosition(int position) {
-            return String.format("%s%d", (position / 5 == 0) ? "" : (position / 5) + "", position % 5);
-        }
-
-        private String getStrokeResourceNameByPosition(int position) {
-            String filename = String.format("stroke/%s%sstroke.png",
-                    mGojuonApp.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
-
-            return filename;
-        }
-
-        private String getCharacterResourceNameByPosition(int position) {
-            return String.format("stroke/%s%s.png",
-                    mGojuonApp.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
-        }
-
-        private Drawable getDrawableFromAssets(String path) throws IOException {
-            InputStream inputStream = getActivity().getAssets().open(path);
-            return Drawable.createFromStream(inputStream, null);
-        }
-
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
             final int position = i;
+            setStrokeDialog(position);
             mStrokeDialog.show(getFragmentManager(), STROKE_DIALOG_TAG);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-
-                        Drawable drawable = getDrawableFromAssets(getStrokeResourceNameByPosition(position));
-                        mStrokeDialog
-                                .setStrokeDrawable(drawable);
-
-                        mStrokeDialog
-                                .setCharacterDrawable(
-                                        getDrawableFromAssets(getCharacterResourceNameByPosition(position)));
-
-                    } catch (IOException e) {
-                        mStrokeDialog.dismiss();
-                    }
-                }
-            }, 100);
             return false;
         }
     };

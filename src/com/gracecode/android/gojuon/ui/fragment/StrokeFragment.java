@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.gracecode.android.gojuon.R;
 
 public class StrokeFragment extends DialogFragment {
-
     private ImageView mImageCharacter;
     private ImageView mImageStroke;
 
@@ -19,16 +18,19 @@ public class StrokeFragment extends DialogFragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // request a window without the title
         // @see https://stackoverflow.com/questions/15277460/how-to-create-a-dialogfragment-without-title
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.fragment_stroke, container);
-
+        View view = inflater.inflate(R.layout.fragment_stroke, null);
         mImageCharacter = (ImageView) view.findViewById(R.id.img_character);
         mImageStroke = (ImageView) view.findViewById(R.id.img_stroke);
+
+        try {
+            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
