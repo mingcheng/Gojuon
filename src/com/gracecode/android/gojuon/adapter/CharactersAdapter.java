@@ -15,7 +15,7 @@ import com.gracecode.android.gojuon.common.Gojuon;
 public class CharactersAdapter extends BaseAdapter {
     private final String[][] mCharacters;
     private final Context mContext;
-    private final Gojuon mGojuonApp;
+    private final Gojuon mGojuon;
     private final SharedPreferences mSharedPreferences;
 
     private static final class Holder {
@@ -62,8 +62,8 @@ public class CharactersAdapter extends BaseAdapter {
     public CharactersAdapter(Context context, String[][] characters) {
         this.mCharacters = characters;
         this.mContext = context;
-        this.mGojuonApp = Gojuon.getInstance();
-        this.mSharedPreferences = mGojuonApp.getSharedPreferences();
+        this.mGojuon = Gojuon.getInstance();
+        this.mSharedPreferences = mGojuon.getSharedPreferences();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class CharactersAdapter extends BaseAdapter {
     public void fillCharacters(Holder holder, int i) {
         // Each array element (representing sound) consists of 3 subelements
         // roumaji record, and hiragana and katakana symbols.
-        if (mSharedPreferences.getBoolean(Gojuon.KEY_KATAKANA_FIRST, false)) {
+        if (mGojuon.isShowKatakana()) {
             holder.setHiragana(mCharacters[i][Characters.INDEX_KATAKANA]);
             holder.setKatakana(mCharacters[i][Characters.INDEX_HIRAGANA]);
         } else {

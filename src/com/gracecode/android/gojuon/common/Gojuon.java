@@ -1,7 +1,10 @@
 package com.gracecode.android.gojuon.common;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import com.gracecode.android.common.CustomApplication;
+import com.gracecode.android.gojuon.service.PronounceService;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 import java.util.Locale;
@@ -55,10 +58,18 @@ public class Gojuon extends CustomApplication {
         getBaseContext().getResources().updateConfiguration(configuration, null);
     }
 
+    public boolean isShowKatakana() {
+        return getSharedPreferences().getBoolean(Gojuon.KEY_KATAKANA_FIRST, false);
+    }
+
     public void checkUpdate() {
         XiaomiUpdateAgent.setCheckUpdateOnlyWifi(true);
         XiaomiUpdateAgent.update(this);
     }
 
-
+    public static void pronounce(Context context, String roumaji) {
+        Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
+        intent.putExtra(PronounceService.EXTRA_ROUMAJI, roumaji);
+        context.sendBroadcast(intent);
+    }
 }
