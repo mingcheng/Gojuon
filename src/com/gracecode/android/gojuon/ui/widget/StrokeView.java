@@ -10,14 +10,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.Timer;
-
 public class StrokeView extends View {
+    private static final long CLEAN_DELAY = 1000;
     private final Runnable mClearPathRunnable;
     private final Handler mHandler;
     private Paint mPaint = new Paint();
     private Path mPath = new Path();
-    private Timer mTimer;
 
     public StrokeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,7 +59,7 @@ public class StrokeView extends View {
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                mHandler.postDelayed(mClearPathRunnable, 1000);
+                mHandler.postDelayed(mClearPathRunnable, CLEAN_DELAY);
                 break;
             default:
                 return false;
