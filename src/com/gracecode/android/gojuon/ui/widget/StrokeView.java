@@ -25,7 +25,7 @@ public class StrokeView extends View {
         mPaint.setAlpha((int) (255 * .5));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
-
+        mPaint.setStyle(Paint.Style.STROKE);
 
         mClearPathRunnable = new Runnable() {
             @Override
