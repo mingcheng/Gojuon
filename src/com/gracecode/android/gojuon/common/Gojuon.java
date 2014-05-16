@@ -28,6 +28,7 @@ public class Gojuon extends CustomApplication {
     public static final String DEFAULT_RESUME_INDEX = "-1";
 
     private static Gojuon mInstance;
+    private Intent mServiceIntent;
 
     public static Gojuon getInstance() {
         return mInstance;
@@ -37,6 +38,16 @@ public class Gojuon extends CustomApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = Gojuon.this;
+        mServiceIntent = new Intent(this, PronounceService.class);
+        startService(mServiceIntent);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        if (mServiceIntent != null) {
+            stopService(mServiceIntent);
+        }
     }
 
     public void setLanguage() {
