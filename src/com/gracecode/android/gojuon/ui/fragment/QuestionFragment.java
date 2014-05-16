@@ -52,9 +52,18 @@ public class QuestionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_question, null);
         if (view != null) {
             mGridView = (GridView) view.findViewById(R.id.answer_list);
+            mGridView.setEnabled(false);
+
             mAnswerTimeRemain = view.findViewById(R.id.answer_time_remain);
             mAnswerTimeRemain.setAlpha(255 / 5);
+
             mButtonPlay = view.findViewById(R.id.answer_play);
+            mButtonPlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pronounce();
+                }
+            });
         }
         return view;
     }
@@ -67,12 +76,6 @@ public class QuestionFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        mButtonPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pronounce();
-            }
-        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -87,6 +90,7 @@ public class QuestionFragment extends Fragment {
                     }
                 }
 
+                mGridView.setEnabled(true);
                 mGridView.setVisibility(View.VISIBLE);
 
                 mCountdownAnimation = ValueAnimator.ofInt(0, mGridView.getWidth());
@@ -134,7 +138,7 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (mCountdownAnimation.isRunning()) {
+        if (mCountdownAnimation != null && mCountdownAnimation.isRunning()) {
             mCountdownAnimation.cancel();
         }
     }
@@ -152,8 +156,9 @@ public class QuestionFragment extends Fragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mStopedByUser = true;
+                mGridView.setEnabled(false);
                 markAnswer(mQuestion.getQuestion().get(i));
+                mStopedByUser = true;
             }
         });
     }
@@ -189,7 +194,6 @@ public class QuestionFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mGridView.setEnabled(false);
                 mExamActivity.addAnsweredQuestion(mQuestion);
                 mExamActivity.setNextQuestion();
             }
