@@ -35,6 +35,7 @@ public class QuestionFragment extends Fragment {
     private View mAnswerTimeRemain;
     private ValueAnimator mCountdownAnimation;
     private boolean mStopedByUser = false;
+    private View mButtonPlay;
 
     public QuestionFragment() {
 
@@ -53,14 +54,25 @@ public class QuestionFragment extends Fragment {
             mGridView = (GridView) view.findViewById(R.id.answer_list);
             mAnswerTimeRemain = view.findViewById(R.id.answer_time_remain);
             mAnswerTimeRemain.setAlpha(255 / 5);
+            mButtonPlay = view.findViewById(R.id.answer_play);
         }
         return view;
+    }
+
+    private void pronounce() {
+        Gojuon.pronounce(mExamActivity, mQuestion.getAnswer()[Characters.INDEX_ROUMAJI]);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Gojuon.pronounce(mExamActivity, mQuestion.getAnswer()[Characters.INDEX_ROUMAJI]);
+
+        mButtonPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pronounce();
+            }
+        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -113,6 +125,7 @@ public class QuestionFragment extends Fragment {
                 });
 
                 mCountdownAnimation.start();
+                pronounce();
             }
         }, 100);
 

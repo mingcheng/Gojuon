@@ -28,11 +28,12 @@
             />
 
     <ImageButton
+            android:id="@+id/answer_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_play"
             android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
+            android:background="@android:color/holo_red_light"
             android:padding="15dip"
             android:alpha="100"
             android:contentDescription="@string/play"/>
