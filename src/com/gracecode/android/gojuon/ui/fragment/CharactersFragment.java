@@ -20,6 +20,7 @@ import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 public class CharactersFragment extends Fragment {
     private static final int DEFAULT_COLUMN_NUM = 5;
@@ -28,7 +29,7 @@ public class CharactersFragment extends Fragment {
     private static final String STROKE_DIALOG_TAG = "stroke_dialog_tag";
 
     private String[][] mCharacters;
-    private Gojuon mGojuonApp;
+    private Gojuon mGojuon;
     private SharedPreferences mSharedPreferences;
     private int mColumns = DEFAULT_COLUMN_NUM;
     private GridView mGridView;
@@ -44,7 +45,7 @@ public class CharactersFragment extends Fragment {
 
                 // Detect current screen orientation.
                 // @see https://stackoverflow.com/questions/3663665/how-can-i-get-the-current-screen-orientation
-                int orientation = getActivity().getResources().getConfiguration().orientation;
+                int orientation = mGojuon.getScreenOrientation();
                 if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false)
                         && orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     Fragment fragment = new Fragment();
@@ -85,12 +86,12 @@ public class CharactersFragment extends Fragment {
 
     private String getStrokeResourceNameByPosition(int position) {
         return String.format("stroke/%s%sstroke.png",
-                mGojuonApp.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
+                mGojuon.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
     }
 
     private String getCharacterResourceNameByPosition(int position) {
         return String.format("stroke/%s%s.png",
-                mGojuonApp.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
+                mGojuon.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
     }
 
     private Drawable getDrawableFromAssets(String path) throws IOException {
@@ -155,8 +156,8 @@ public class CharactersFragment extends Fragment {
             mCharacters = (String[][]) savedInstanceState.getSerializable(STAT_CHARACTERS);
         }
 
-        mGojuonApp = Gojuon.getInstance();
-        mSharedPreferences = mGojuonApp.getSharedPreferences();
+        mGojuon = Gojuon.getInstance();
+        mSharedPreferences = mGojuon.getSharedPreferences();
         mStrokeDialog = new StrokeFragment();
     }
 
@@ -193,7 +194,7 @@ public class CharactersFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (mCharacters != null && mCharacters.length > 0) {
-            mCharactersAdapter = new CharactersAdapter(getActivity(), mCharacters);
+            mCharactersAdapter = new CharactersAdapter(getActivity(), Arrays.asList(mCharacters));
             mGridView.setAdapter(mCharactersAdapter);
             setOnItemClickListener(mOnItemClickListener);
 

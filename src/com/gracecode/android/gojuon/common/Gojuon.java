@@ -19,12 +19,14 @@ public class Gojuon extends CustomApplication {
     public static final String KEY_HIGHLIGHT_SELECTED = "key_highlight_selected";
     public static final String KEY_AUTO_ROTATE = "key_auto_rotate";
     public static final String KEY_LANGUAGE = "key_language";
+    public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";
 
     public static final String LANGUAGE_AUTO = "-1";
     public static final String LANGUAGE_CHINESE = "1";
     public static final String LANGUAGE_ENGLISH = "0";
 
     public static final String DEFAULT_RESUME_INDEX = "-1";
+
     private static Gojuon mInstance;
 
     public static Gojuon getInstance() {

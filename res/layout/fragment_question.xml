@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@android:color/holo_blue_bright"
+        >
+
+    <GridView
+            android:visibility="invisible"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:numColumns="2"
+            android:id="@+id/answer_list"
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="1dp"
+            android:scrollbars="none"
+            android:background="@android:color/black"
+            />
+
+    <View
+            android:id="@+id/answer_time_remain"
+            android:layout_alignParentBottom="true"
+            android:layout_width="0dip"
+            android:layout_height="5dip"
+            android:background="@android:color/holo_red_dark"
+            />
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_play"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:padding="15dip"
+            android:alpha="100"
+            android:contentDescription="@string/play"/>
+</RelativeLayout>
+
+

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.gracecode.android.gojuon.R;
@@ -18,9 +19,14 @@ public class CharacterLayout extends RelativeLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void autoAdjustTextSize() {
-        for (int i = 0, count = getChildCount(); i < count; i++) {
-            View view = getChildAt(i);
+    private void autoAdjustTextSize(ViewGroup rootView) {
+        for (int i = 0, count = rootView.getChildCount(); i < count; i++) {
+            View view = rootView.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                autoAdjustTextSize((ViewGroup) view);
+                continue;
+            }
+
             if (view instanceof TextView) {
                 switch (view.getId()) {
                     case R.id.hiragana:
@@ -32,6 +38,20 @@ public class CharacterLayout extends RelativeLayout {
                 }
             }
         }
+
+        invalidate();
+    }
+
+    public void autoAdjustTextSize() {
+        autoAdjustTextSize(this);
+    }
+
+    public void hideOther() {
+        View view = findViewById(R.id.character_other);
+        if (view != null) {
+            view.setVisibility(View.GONE);
+        }
+        invalidate();
     }
 
     @Override
