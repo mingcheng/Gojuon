@@ -1,4 +1,4 @@
-package com.gracecode.android.gojuon.ui.fragment;
+package com.gracecode.android.gojuon.ui.dialog;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,11 +10,11 @@ import android.view.Window;
 import android.widget.ImageView;
 import com.gracecode.android.gojuon.R;
 
-public class StrokeFragment extends DialogFragment {
+public class StrokeDialog extends DialogFragment {
     private ImageView mImageCharacter;
     private ImageView mImageStroke;
 
-    public StrokeFragment() {
+    public StrokeDialog() {
 
     }
 

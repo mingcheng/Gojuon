@@ -16,6 +16,7 @@ import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
+import com.gracecode.android.gojuon.ui.dialog.StrokeDialog;
 import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class CharactersFragment extends Fragment {
     private int mColumns = DEFAULT_COLUMN_NUM;
     private GridView mGridView;
     private CharactersAdapter mCharactersAdapter;
-    private StrokeFragment mStrokeDialog;
+    private StrokeDialog mStrokeDialog;
 
     AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -52,8 +53,8 @@ public class CharactersFragment extends Fragment {
                     View layout = getActivity().findViewById(R.id.layout_item_character);
 
                     if (getCharacters() == Characters.MONOGRAPHS) {
-                        fragment = new StrokeFragment();
-                        setStrokeDialog((StrokeFragment) fragment, i);
+                        fragment = new StrokeDialog();
+                        setStrokeDialog((StrokeDialog) fragment, i);
                         layout.setVisibility(View.GONE);
                     } else {
                         if (layout instanceof CharacterLayout) {
@@ -100,7 +101,7 @@ public class CharactersFragment extends Fragment {
     }
 
 
-    private void setStrokeDialog(final StrokeFragment fragment, final int position) {
+    private void setStrokeDialog(final StrokeDialog fragment, final int position) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -158,7 +159,7 @@ public class CharactersFragment extends Fragment {
 
         mGojuon = Gojuon.getInstance();
         mSharedPreferences = mGojuon.getSharedPreferences();
-        mStrokeDialog = new StrokeFragment();
+        mStrokeDialog = new StrokeDialog();
     }
 
     public CharactersAdapter getAdapter() {
