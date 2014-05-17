@@ -127,7 +127,6 @@ public class QuestionFragment extends Fragment {
 
                     }
                 });
-
                 mCountdownAnimation.start();
                 pronounce();
             }
@@ -159,6 +158,7 @@ public class QuestionFragment extends Fragment {
                 mGridView.setEnabled(false);
                 markAnswer(mQuestion.getQuestion().get(i));
                 mStopedByUser = true;
+                mCountdownAnimation.cancel();
             }
         });
     }
