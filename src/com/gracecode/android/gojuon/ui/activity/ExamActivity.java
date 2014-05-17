@@ -1,10 +1,10 @@
 package com.gracecode.android.gojuon.ui.activity;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.widget.TextView;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ExamActivity extends BaseActivity {
     private static final String TAG_RESULT_DIALOG = "tag_result_dialog";
+    private static final String TAG_FRAGMENT_QUESTION = "tag_question_fragment";
 
     private Typeface mCustomTypeface;
     private TextView mAnswersProgress;
@@ -94,12 +95,7 @@ public class ExamActivity extends BaseActivity {
     }
 
     private void markAnswerFinished() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_RESULT_DIALOG);
-        if (fragment != null && fragment instanceof ExamResultDialog) {
-            ((ExamResultDialog) fragment).show(getSupportFragmentManager().beginTransaction(), TAG_RESULT_DIALOG);
-        } else {
-            mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
-        }
+        mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
     }
 
     public ExamHelper getExamHelper() {
@@ -119,10 +115,17 @@ public class ExamActivity extends BaseActivity {
         try {
             updateProgress();
             Question question = mExamHelper.getNextQuestion();
-            if (question != null)
+            if (question != null) {
+                Fragment fragment = getFragmentManager().findFragmentByTag(TAG_FRAGMENT_QUESTION);
+                if (fragment != null) {
+                    getFragmentManager().beginTransaction()
+                            .remove(fragment).commit();
+                }
+
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_question, new QuestionFragment(this, question))
+                        .replace(R.id.fragment_question, new QuestionFragment(this, question), TAG_FRAGMENT_QUESTION)
                         .commit();
+            }
         } catch (RuntimeException e) {
             markAnswerFinished();
         }

@@ -1,7 +1,6 @@
 package com.gracecode.android.gojuon.ui.fragment;
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -21,12 +19,7 @@ import com.gracecode.android.gojuon.dao.Question;
 import com.gracecode.android.gojuon.ui.activity.ExamActivity;
 import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
-/**
- * Created with IntelliJ IDEA.
- * <p/>
- * User: mingcheng
- * Date: 14-5-16
- */
+
 public class QuestionFragment extends Fragment {
     private Question mQuestion;
     private ExamActivity mExamActivity;
@@ -34,7 +27,7 @@ public class QuestionFragment extends Fragment {
     private CharactersAdapter mCharactersAdapter;
     private View mAnswerTimeRemain;
     private ValueAnimator mCountdownAnimation;
-    private boolean mStopedByUser = false;
+    private boolean mStoppedByUser = false;
     private View mButtonPlay;
 
     public QuestionFragment() {
@@ -55,7 +48,6 @@ public class QuestionFragment extends Fragment {
             mGridView.setEnabled(false);
 
             mAnswerTimeRemain = view.findViewById(R.id.answer_time_remain);
-            mAnswerTimeRemain.setAlpha(255 / 5);
 
             mButtonPlay = view.findViewById(R.id.answer_play);
             mButtonPlay.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +68,6 @@ public class QuestionFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -90,56 +81,70 @@ public class QuestionFragment extends Fragment {
                     }
                 }
 
-                mGridView.setEnabled(true);
                 mGridView.setVisibility(View.VISIBLE);
-
-                mCountdownAnimation = ValueAnimator.ofInt(0, mGridView.getWidth());
-                mCountdownAnimation.setDuration(3000);
-                mCountdownAnimation.setInterpolator(new AccelerateInterpolator());
-                mCountdownAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        ViewGroup.LayoutParams params = mAnswerTimeRemain.getLayoutParams();
-                        params.width = (int) animation.getAnimatedValue();
-                        mAnswerTimeRemain.setLayoutParams(params);
-                    }
-                });
-
-                mCountdownAnimation.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        if (!mStopedByUser)
-                            markAnswer(null);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-
-                    }
-                });
-                mCountdownAnimation.start();
                 pronounce();
+                startCountdownAnimation();
             }
         }, 100);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mGridView.setEnabled(true);
+            }
+        }, 300);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
+    private void startCountdownAnimation() {
+        mCountdownAnimation = ValueAnimator.ofInt(0, mGridView.getWidth());
+        mCountdownAnimation.setDuration(3000);
+        mCountdownAnimation.setInterpolator(new AccelerateInterpolator());
+        mCountdownAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ViewGroup.LayoutParams params = mAnswerTimeRemain.getLayoutParams();
+                params.width = (int) animation.getAnimatedValue();
+                mAnswerTimeRemain.setLayoutParams(params);
+            }
+        });
+
+        mCountdownAnimation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!mStoppedByUser) {
+                    markAnswer(null);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+        mCountdownAnimation.start();
+    }
+
+    private void stopCountdownAnimation() {
         if (mCountdownAnimation != null && mCountdownAnimation.isRunning()) {
             mCountdownAnimation.cancel();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopCountdownAnimation();
     }
 
     @Override
@@ -157,29 +162,17 @@ public class QuestionFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mGridView.setEnabled(false);
                 markAnswer(mQuestion.getQuestion().get(i));
-                mStopedByUser = true;
-                mCountdownAnimation.cancel();
+                mStoppedByUser = true;
+                stopCountdownAnimation();
             }
         });
     }
 
     public void highlightAnswer() {
-        String[] userAnswered = mQuestion.getLastUserAnswered();
-        int position = mQuestion.getQuestion().indexOf(userAnswered);
-        if (!mQuestion.isCorrect()) {
-            View view = mGridView.getChildAt(position);
-            if (view != null)
-                view.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
-        }
-
-        position = mQuestion.getQuestion().indexOf(mQuestion.getAnswer());
+        int position = mQuestion.getQuestion().indexOf(mQuestion.getAnswer());
         View view = mGridView.getChildAt(position);
-
         if (view != null) {
-            ObjectAnimator animation = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f);
-            animation.setDuration(500);
-            animation.setInterpolator(new AccelerateDecelerateInterpolator());
-            animation.start();
+            view.setSelected(true);
         }
     }
 
@@ -197,6 +190,6 @@ public class QuestionFragment extends Fragment {
                 mExamActivity.addAnsweredQuestion(mQuestion);
                 mExamActivity.setNextQuestion();
             }
-        }, !isCorrect && showAnswer ? 1500 : 200);
+        }, !isCorrect && showAnswer ? 500 : 200);
     }
 }
