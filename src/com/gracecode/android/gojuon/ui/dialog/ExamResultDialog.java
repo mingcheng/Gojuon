@@ -78,8 +78,8 @@ public class ExamResultDialog extends BaseDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mExamPercent.setText(String.format("%d%%",
-                (1 - mExamHelper.getWrongCount() / mExamHelper.getTotalCount()) * 100));
+        mExamPercent.setText(String.format("%.0f%%",
+                (1 - (mExamHelper.getWrongCount() * 1f / mExamHelper.getTotalCount())) * 100));
 
         mExamButtonRedoWrong.setEnabled((mExamHelper.getWrongCount() > 0));
     }
