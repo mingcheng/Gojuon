@@ -121,6 +121,7 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onAnimationEnd(Animator animator) {
                 if (!mStoppedByUser) {
+                    mGridView.setEnabled(false);
                     markAnswer(null);
                 }
             }
@@ -137,14 +138,13 @@ public class QuestionFragment extends Fragment {
         });
 
         mCountdownAnimation.start();
+        mFired = false;
     }
 
     private void stopCountdownAnimation() {
         if (mCountdownAnimation != null && mCountdownAnimation.isRunning()) {
             mCountdownAnimation.cancel();
         }
-
-        new Handler().removeCallbacks(ReportAnswerRunnable);
     }
 
     public String getShowType() {
@@ -155,6 +155,7 @@ public class QuestionFragment extends Fragment {
     public void onPause() {
         super.onPause();
         stopCountdownAnimation();
+        mHandler.removeCallbacks(mReportAnswerRunnable);
     }
 
     @Override
@@ -187,7 +188,10 @@ public class QuestionFragment extends Fragment {
         }
     }
 
-    private Runnable ReportAnswerRunnable = new Runnable() {
+    private static boolean mFired = false;
+
+    private Handler mHandler = new Handler();
+    private Runnable mReportAnswerRunnable = new Runnable() {
         @Override
         public void run() {
             mExamActivity.addAnsweredQuestion(mQuestion);
@@ -203,6 +207,6 @@ public class QuestionFragment extends Fragment {
             highlightAnswer();
         }
 
-        new Handler().postDelayed(ReportAnswerRunnable, !isCorrect && showAnswer ? 500 : 200);
+        mHandler.postDelayed(mReportAnswerRunnable, !isCorrect && showAnswer ? 500 : 200);
     }
 }

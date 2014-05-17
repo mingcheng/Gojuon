@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/exam_percent"
             android:layout_marginBottom="10dp"
-            android:text="100%"
             />
 
     <Button
@@ -35,4 +34,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/exam_configure"
             android:text="@string/configure"/>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exam_exit"
+            android:text="@string/exam_exit"/>
 </LinearLayout>

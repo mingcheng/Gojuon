@@ -22,6 +22,7 @@ public class ExamResultDialog extends BaseDialogFragment {
     private Button mExamButtonTryAgain;
     private Button mExamButtonRedoWrong;
     private Button mExamButtonConfigure;
+    private Button mExamButtonExit;
 
     public ExamResultDialog(ExamActivity activity) {
         mExamActivity = activity;
@@ -39,6 +40,7 @@ public class ExamResultDialog extends BaseDialogFragment {
             mExamButtonTryAgain = (Button) view.findViewById(R.id.exam_try_again);
             mExamButtonRedoWrong = (Button) view.findViewById(R.id.exam_redo_wrong);
             mExamButtonConfigure = (Button) view.findViewById(R.id.exam_configure);
+            mExamButtonExit = (Button) view.findViewById(R.id.exam_exit);
         }
 
         return view;
@@ -60,6 +62,10 @@ public class ExamResultDialog extends BaseDialogFragment {
                     startActivity(new Intent(mExamActivity, PrefActivity.class));
                     mExamActivity.finish();
                     break;
+
+                case R.id.exam_exit:
+                    mExamActivity.finish();
+                    break;
             }
 
             dismiss();
@@ -71,9 +77,9 @@ public class ExamResultDialog extends BaseDialogFragment {
         super.onStart();
         getDialog().setCancelable(false);
 
-        mExamButtonTryAgain.setOnClickListener(mOnClickListener);
-        mExamButtonRedoWrong.setOnClickListener(mOnClickListener);
-        mExamButtonConfigure.setOnClickListener(mOnClickListener);
+        for (View view : new View[]{mExamButtonTryAgain, mExamButtonRedoWrong, mExamButtonConfigure, mExamButtonExit}) {
+            view.setOnClickListener(mOnClickListener);
+        }
     }
 
 

@@ -56,4 +56,6 @@
     <string name="hiragana">Hiragana</string>
     <string name="katagana">Katagana</string>
     <string name="random">Random</string>
+    <string name="exit">Exit</string>
+    <string name="exam_exit">Exit Exam</string>
 </resources>

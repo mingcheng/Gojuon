@@ -40,4 +40,16 @@
     <string name="try_again">重新开始</string>
     <string name="exam_redo_wrong">错题重做</string>
     <string name="configure">配置</string>
+    <string name="exam">Exam</string>
+    <string name="question_num">Question Number</string>
+    <string name="exam_question_num_summary">Numbers of questions in single exam.</string>
+    <string name="exam_scope">Exam Scope</string>
+    <string name="exam_scope_summary">Choose scope of single exam</string>
+    <string name="all">All</string>
+    <string name="exam_summary">Some preference about exam</string>
+    <string name="show_character_type">Show Type</string>
+    <string name="show_character_type_summary">Detect to show Hiragana or Katagana first</string>
+    <string name="random">Random</string>
+    <string name="exit">Exit</string>
+    <string name="exam_exit">退出测试</string>
 </resources>
