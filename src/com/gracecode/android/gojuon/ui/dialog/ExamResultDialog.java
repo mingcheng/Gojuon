@@ -60,7 +60,6 @@ public class ExamResultDialog extends BaseDialogFragment {
 
                 case R.id.exam_configure:
                     startActivity(new Intent(mExamActivity, PrefActivity.class));
-                    mExamActivity.finish();
                     break;
 
                 case R.id.exam_exit:

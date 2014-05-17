@@ -54,17 +54,21 @@ public class PrefFragment extends PreferenceFragment {
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 
-        switch (preference.getKey()) {
-            case Gojuon.KEY_ABOUT:
-                break;
+        try {
+            switch (preference.getKey()) {
+                case Gojuon.KEY_ABOUT:
+                    break;
 
-            case Gojuon.KEY_FEEDBACK:
-                mGojuon.sendFeedbackEmail(mContext);
-                break;
+                case Gojuon.KEY_FEEDBACK:
+                    mGojuon.sendFeedbackEmail(mContext);
+                    break;
 
-            case Gojuon.KEY_DONATE:
+                case Gojuon.KEY_DONATE:
 
-                break;
+                    break;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);

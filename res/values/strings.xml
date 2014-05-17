@@ -58,4 +58,5 @@
     <string name="random">Random</string>
     <string name="exit">Exit</string>
     <string name="exam_exit">Exit Exam</string>
+    <string name="auto_rexam_wrong_topic">Auto Rexam Wrong Topic</string>
 </resources>

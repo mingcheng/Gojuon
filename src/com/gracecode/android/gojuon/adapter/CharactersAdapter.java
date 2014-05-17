@@ -2,7 +2,6 @@ package com.gracecode.android.gojuon.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,6 @@ public class CharactersAdapter extends BaseAdapter {
         private final TextView mRoumaji;
         private final TextView mHiragana;
         private final TextView mKatakana;
-        private static Typeface mHannariFace;
 
         private Holder(View view) {
             mRoumaji = (TextView) view.findViewById(R.id.roumaji);
