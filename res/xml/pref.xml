@@ -43,7 +43,7 @@
                 android:title="@string/show_character_type"
                 android:entries="@array/character_type_list"
                 android:entryValues="@array/character_type_list_value"
-                android:summary="@string/show_character_type_summray"
+                android:summary="@string/show_character_type_summary"
                 android:defaultValue="0"
                 />
 
@@ -80,6 +80,17 @@
                 android:key="key_exam"
                 android:summary="@string/exam_summary"
                 android:title="@string/exam">
+
+
+            <ListPreference
+                    android:key="key_exam_show_character_type"
+                    android:title="@string/show_character_type"
+                    android:entries="@array/exam_character_type_list"
+                    android:entryValues="@array/exam_character_type_list_value"
+                    android:summary="@string/show_character_type_summary"
+                    android:defaultValue="-1"
+                    />
+
 
             <ListPreference
                     android:key="key_question_num"

@@ -16,7 +16,6 @@ public class ExamHelper {
 
     public static final int DEFAULT_QUESTIONS_NUM = 25;
     public static final String KEY_QUESTION_NUM = "key_question_num";
-
     public static final String KEY_EXAM_SCOPE = "key_question_scope";
 
     public static final String EXAM_SCOPE_ALL = "-1";

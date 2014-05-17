@@ -3,6 +3,7 @@ package com.gracecode.android.gojuon.ui.fragment;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
 
 public class QuestionFragment extends Fragment {
+    public static final String KEY_EXAM_TYPE_TYPE = "key_exam_show_character_type";
+
     private Question mQuestion;
     private ExamActivity mExamActivity;
     private GridView mGridView;
@@ -29,6 +32,7 @@ public class QuestionFragment extends Fragment {
     private ValueAnimator mCountdownAnimation;
     private boolean mStoppedByUser = false;
     private View mButtonPlay;
+    private SharedPreferences mSharedPreferences;
 
     public QuestionFragment() {
 
@@ -37,8 +41,8 @@ public class QuestionFragment extends Fragment {
     public QuestionFragment(ExamActivity activity, Question question) {
         this.mExamActivity = activity;
         this.mQuestion = question;
+        mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -139,6 +143,12 @@ public class QuestionFragment extends Fragment {
         if (mCountdownAnimation != null && mCountdownAnimation.isRunning()) {
             mCountdownAnimation.cancel();
         }
+
+        new Handler().removeCallbacks(ReportAnswerRunnable);
+    }
+
+    public String getShowType() {
+        return mSharedPreferences.getString(KEY_EXAM_TYPE_TYPE, CharactersAdapter.TYPE_SHOW_CHARACTER_RANDOM);
     }
 
     @Override
@@ -155,6 +165,7 @@ public class QuestionFragment extends Fragment {
         mGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
 
         mCharactersAdapter = new CharactersAdapter(getActivity(), mQuestion.getQuestion());
+        mCharactersAdapter.setShowType(getShowType());
 
         mGridView.setAdapter(mCharactersAdapter);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -176,6 +187,14 @@ public class QuestionFragment extends Fragment {
         }
     }
 
+    private Runnable ReportAnswerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mExamActivity.addAnsweredQuestion(mQuestion);
+            mExamActivity.setNextQuestion();
+        }
+    };
+
     public void markAnswer(String[] selectedAnswer) {
         boolean isCorrect = mQuestion.isCorrect(selectedAnswer);
         boolean showAnswer = true;
@@ -184,12 +203,6 @@ public class QuestionFragment extends Fragment {
             highlightAnswer();
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mExamActivity.addAnsweredQuestion(mQuestion);
-                mExamActivity.setNextQuestion();
-            }
-        }, !isCorrect && showAnswer ? 500 : 200);
+        new Handler().postDelayed(ReportAnswerRunnable, !isCorrect && showAnswer ? 500 : 200);
     }
 }

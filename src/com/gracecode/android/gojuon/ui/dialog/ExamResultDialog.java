@@ -1,5 +1,6 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.helper.ExamHelper;
 import com.gracecode.android.gojuon.ui.activity.ExamActivity;
+import com.gracecode.android.gojuon.ui.activity.PrefActivity;
 
 public class ExamResultDialog extends BaseDialogFragment {
     private final ExamActivity mExamActivity;
@@ -56,7 +57,8 @@ public class ExamResultDialog extends BaseDialogFragment {
                     break;
 
                 case R.id.exam_configure:
-                    UIHelper.showShortToast(getActivity(), "Configure!!");
+                    startActivity(new Intent(mExamActivity, PrefActivity.class));
+                    mExamActivity.finish();
                     break;
             }
 

@@ -96,11 +96,9 @@ public class MainActivity extends BaseActivity {
                 mGojunon.sendFeedbackEmail(MainActivity.this);
                 break;
 
-//            case R.id.action_slideshow:
-//                item.setEnabled(false);
-//                item.getIcon().setAlpha(100);
-//                mCharactersFragmentAdapter.startSlide(mViewPager.getCurrentItem());
-//                break;
+            case R.id.action_exam:
+                startActivity(new Intent(this, ExamActivity.class));
+                break;
         }
 
         return super.onMenuItemSelected(featureId, item);

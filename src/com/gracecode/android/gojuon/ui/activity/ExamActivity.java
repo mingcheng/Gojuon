@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.TextView;
-import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Question;
@@ -93,8 +92,15 @@ public class ExamActivity extends BaseActivity {
         showStartDialog();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mResultDialog = null;
+    }
+
     private void markAnswerFinished() {
-        mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
+        if (mResultDialog != null)
+            mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
     }
 
     public ExamHelper getExamHelper() {
