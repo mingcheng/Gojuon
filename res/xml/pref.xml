@@ -37,12 +37,24 @@
                 android:defaultValue="-1"
                 />
 
+
+        <ListPreference
+                android:key="key_show_character_type"
+                android:title="@string/show_character_type"
+                android:entries="@array/character_type_list"
+                android:entryValues="@array/character_type_list_value"
+                android:summary="@string/show_character_type_summray"
+                android:defaultValue="0"
+                />
+
+        <!--
         <CheckBoxPreference
                 android:key="key_katakana_first"
                 android:title="@string/katakana_first"
                 android:summary="@string/katakana_first_summary"
                 android:defaultValue="false"
                 />
+            -->
 
         <CheckBoxPreference
                 android:key="key_highlight_selected"

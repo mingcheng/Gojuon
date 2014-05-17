@@ -20,6 +20,8 @@ public class Gojuon extends CustomApplication {
     public static final String KEY_AUTO_ROTATE = "key_auto_rotate";
     public static final String KEY_LANGUAGE = "key_language";
 
+    public static final String KEY_SHOW_CHARACTER_TYPE = "key_show_character_type";
+
 
     public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";
 
@@ -71,10 +73,6 @@ public class Gojuon extends CustomApplication {
         }
 
         getBaseContext().getResources().updateConfiguration(configuration, null);
-    }
-
-    public boolean isShowKatakana() {
-        return getSharedPreferences().getBoolean(Gojuon.KEY_KATAKANA_FIRST, false);
     }
 
     public void checkUpdate() {

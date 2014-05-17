@@ -80,6 +80,13 @@ public class CharactersFragment extends Fragment {
         }
     };
 
+    public String getPreferencedShowType() {
+        return mSharedPreferences.getString(Gojuon.KEY_SHOW_CHARACTER_TYPE, CharactersAdapter.TYPE_SHOW_CHARACTER_HIRAGANA);
+    }
+
+    public boolean isShowKatakana() {
+        return getPreferencedShowType().equals(CharactersAdapter.TYPE_SHOW_CHARACTER_KATAGANA) ? true : false;
+    }
 
     private String getResourceNameByPosition(int position) {
         return String.format("%s%d", (position / 5 == 0) ? "" : (position / 5) + "", position % 5);
@@ -87,12 +94,12 @@ public class CharactersFragment extends Fragment {
 
     private String getStrokeResourceNameByPosition(int position) {
         return String.format("stroke/%s%sstroke.png",
-                mGojuon.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
+                isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
     }
 
     private String getCharacterResourceNameByPosition(int position) {
         return String.format("stroke/%s%s.png",
-                mGojuon.isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
+                isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
     }
 
     private Drawable getDrawableFromAssets(String path) throws IOException {
@@ -196,6 +203,8 @@ public class CharactersFragment extends Fragment {
         super.onResume();
         if (mCharacters != null && mCharacters.length > 0) {
             mCharactersAdapter = new CharactersAdapter(getActivity(), Arrays.asList(mCharacters));
+            mCharactersAdapter.setShowType(getPreferencedShowType());
+
             mGridView.setAdapter(mCharactersAdapter);
             setOnItemClickListener(mOnItemClickListener);
 

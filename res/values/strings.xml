@@ -50,4 +50,10 @@
 
     <string name="all">All</string>
     <string name="exam_summary">Some preference about exam</string>
+    <string name="show_character_type">Show Type</string>
+    <string name="show_character_type_summray">Detect to show Hiragana or Katagana first</string>
+
+    <string name="hiragana">Hiragana</string>
+    <string name="katagana">Katagana</string>
+    <string name="random">Random</string>
 </resources>
