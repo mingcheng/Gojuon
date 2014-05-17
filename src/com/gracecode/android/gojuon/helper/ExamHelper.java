@@ -34,7 +34,6 @@ public class ExamHelper {
         return questions;
     }
 
-
     private Question generateOneQuestion(String[] answer) {
         List<String[]> question = new ArrayList<>();
         question.add(answer);
@@ -50,21 +49,25 @@ public class ExamHelper {
 
 
     private void fillArrays(List<String[]> list, int size) {
-        for (int i = list.size(); list.size() < size; i++) {
+        do {
             int index = (int) (Math.random() * mQuestionsScope.size());
             String[] character = mQuestionsScope.get(index);
-            if (list.contains(character)) {
-                i--;
-            } else {
-                list.add(i, character);
+            if (!list.contains(character)) {
+                list.add(character);
             }
-        }
+        } while (list.size() < size);
     }
 
     public void generateRandomQuestions(int num) {
+        if (num > mQuestionsScope.size()) {
+            num = mQuestionsScope.size();
+        }
+
+        reset();
+
         ArrayList<String[]> answers = new ArrayList<>();
         fillArrays(answers, num);
-        for (int i = 0; i < answers.size(); i++) {
+        for (int i = 0, size = answers.size(); i < size; i++) {
             Question question = generateOneQuestion(answers.get(i));
             mQuestions.add(question);
         }
