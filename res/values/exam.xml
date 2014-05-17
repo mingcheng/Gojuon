@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exam_question_num">
+        <item>25</item>
+        <item>40</item>
+        <item>60</item>
+    </string-array>
+
+
+    <string-array name="exam_scope_entries">
+        <item>@string/all</item>
+        <item>@string/monographs</item>
+        <item>@string/monographs_with_diacritics</item>
+        <item>@string/digraphs</item>
+        <item>@string/digraphs_with_diacritics</item>
+    </string-array>
+
+
+    <string-array name="exam_scope_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>

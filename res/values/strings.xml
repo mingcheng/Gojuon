@@ -42,4 +42,12 @@
     <string name="try_again">Try Again</string>
     <string name="exam_redo_wrong">Redo Wrong Topic</string>
     <string name="configure">Configure</string>
+    <string name="exam">Exam</string>
+    <string name="question_num">Question Number</string>
+    <string name="exam_question_num_summary">Numbers of questions in single exam.</string>
+    <string name="exam_scope">Exam Scope</string>
+    <string name="exam_scope_summary">Choose scope of single exam</string>
+
+    <string name="all">All</string>
+    <string name="exam_summary">Some preference about exam</string>
 </resources>

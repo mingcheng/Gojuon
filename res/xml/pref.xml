@@ -60,6 +60,36 @@
                 />
     </PreferenceCategory>
 
+    <PreferenceCategory
+            android:title="@string/exam"
+            android:summary="@string/exam_summary">
+
+        <PreferenceScreen
+                android:key="key_exam"
+                android:summary="@string/exam_summary"
+                android:title="@string/exam">
+
+            <ListPreference
+                    android:key="key_question_num"
+                    android:title="@string/question_num"
+                    android:entries="@array/exam_question_num"
+                    android:entryValues="@array/exam_question_num"
+                    android:summary="@string/exam_question_num_summary"
+                    android:defaultValue="25"
+                    />
+
+            <ListPreference
+                    android:key="key_question_scope"
+                    android:title="@string/exam_scope"
+                    android:entries="@array/exam_scope_entries"
+                    android:entryValues="@array/exam_scope_values"
+                    android:summary="@string/exam_scope_summary"
+                    android:defaultValue="-1"
+                    />
+
+        </PreferenceScreen>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/other">
         <Preference
                 android:key="key_feedback"

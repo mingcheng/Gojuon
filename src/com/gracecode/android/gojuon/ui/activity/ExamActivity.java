@@ -39,7 +39,6 @@ public class ExamActivity extends BaseActivity {
         mDialogBuilder = new AlertDialog.Builder(this);
 
         mExamHelper = new ExamHelper(this);
-        mExamHelper.addQuestionScope(Characters.MONOGRAPHS);
 
         mResultDialog = new ExamResultDialog(this);
     }

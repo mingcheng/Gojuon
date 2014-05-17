@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 

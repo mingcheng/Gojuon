@@ -1,7 +1,10 @@
 package com.gracecode.android.gojuon.helper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import com.gracecode.android.common.helper.ArrayHelper;
+import com.gracecode.android.gojuon.Characters;
+import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Question;
 
 import java.util.ArrayList;
@@ -10,18 +13,34 @@ import java.util.List;
 
 public class ExamHelper {
     private static final int DEFAULT_ANSWER_NUM = 4;
-    public static int DEFAULT_QUESTIONS_NUM = 50;
+
+    public static final int DEFAULT_QUESTIONS_NUM = 25;
+    public static final String KEY_QUESTION_NUM = "key_question_num";
+
+    public static final String KEY_EXAM_SCOPE = "key_question_scope";
+
+    public static final String EXAM_SCOPE_ALL = "-1";
+    public static final String EXAM_SCOPE_MONOGRAPHS = "0";
+    public static final String EXAM_SCOPE_MONOGRAPHS_WITH_DIACRITICS = "1";
+    public static final String EXAM_SCOPE_DIGRAPHS = "2";
+    public static final String EXAM_SCOPE_DIGRAPHS_WITH_DIACRITICS = "3";
+
     private final Context mContext;
+    private final Gojuon mGoJuon;
+    private final SharedPreferences mPreferences;
 
     private int mCurrent = 0;
+    private int mQuestionsNumber = DEFAULT_QUESTIONS_NUM;
+
     private List<Question> mQuestions = new ArrayList<>();
     private List<Question> mAnsweredQuestions = new ArrayList<>();
-
     private List<String[]> mQuestionsScope = new ArrayList<>();
-
 
     public ExamHelper(Context context) {
         mContext = context;
+        mGoJuon = Gojuon.getInstance();
+        mPreferences = mGoJuon.getSharedPreferences();
+        reset();
     }
 
     private List<String[]> clearEmptyQuestionScope(List<String[]> questions) {
@@ -32,6 +51,19 @@ public class ExamHelper {
         }
 
         return questions;
+    }
+
+    public int getQuestionsNumber() {
+        return mQuestionsNumber;
+    }
+
+    public void setQuestionsNumber(int i) {
+        this.mQuestionsNumber = i;
+    }
+
+    public void setQuestionsNumber() {
+        String number = mPreferences.getString(KEY_QUESTION_NUM, String.valueOf(DEFAULT_QUESTIONS_NUM));
+        setQuestionsNumber(Integer.parseInt(number));
     }
 
     private Question generateOneQuestion(String[] answer) {
@@ -74,16 +106,11 @@ public class ExamHelper {
     }
 
     public void generateRandomQuestions() {
-        generateRandomQuestions(DEFAULT_QUESTIONS_NUM);
+        generateRandomQuestions(getQuestionsNumber());
     }
 
     public boolean addAnsweredQuestion(Question question) {
         return mAnsweredQuestions.add(question);
-    }
-
-    public Question seekToQuestion(int position) {
-        mCurrent = position;
-        return mQuestions.get(position);
     }
 
     public Question getNextQuestion() throws RuntimeException {
@@ -94,6 +121,40 @@ public class ExamHelper {
         mCurrent = 0;
         mQuestions.clear();
         mAnsweredQuestions.clear();
+        mQuestionsScope.clear();
+        setQuestionsNumber();
+        setExamScopeFromPreferences();
+    }
+
+    private void setExamScopeFromPreferences() {
+        String which = mPreferences.getString(KEY_EXAM_SCOPE, EXAM_SCOPE_ALL);
+
+        switch (which) {
+            case EXAM_SCOPE_ALL:
+                for (String[][] item :
+                        new String[][][]{
+                                Characters.DIGRAPHS, Characters.DIGRAPHS_WITH_DIACRITICS,
+                                Characters.MONOGRAPHS, Characters.MONOGRAPHS_WITH_DIACRITICS}) {
+                    addQuestionScope(item);
+                }
+                break;
+
+            case EXAM_SCOPE_DIGRAPHS:
+                addQuestionScope(Characters.DIGRAPHS);
+                break;
+
+            case EXAM_SCOPE_DIGRAPHS_WITH_DIACRITICS:
+                addQuestionScope(Characters.DIGRAPHS_WITH_DIACRITICS);
+                break;
+
+            case EXAM_SCOPE_MONOGRAPHS:
+                addQuestionScope(Characters.MONOGRAPHS);
+                break;
+
+            case EXAM_SCOPE_MONOGRAPHS_WITH_DIACRITICS:
+                addQuestionScope(Characters.MONOGRAPHS_WITH_DIACRITICS);
+                break;
+        }
     }
 
     public List<Question> getWrongQuestions() {
