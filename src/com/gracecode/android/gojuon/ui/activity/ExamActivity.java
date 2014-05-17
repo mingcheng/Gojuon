@@ -4,22 +4,27 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.TextView;
-import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Question;
 import com.gracecode.android.gojuon.helper.ExamHelper;
+import com.gracecode.android.gojuon.ui.dialog.ExamResultDialog;
 import com.gracecode.android.gojuon.ui.fragment.QuestionFragment;
 
+import java.util.List;
+
 public class ExamActivity extends BaseActivity {
+    private static final String TAG_RESULT_DIALOG = "tag_result_dialog";
 
     private Typeface mCustomTypeface;
     private TextView mAnswersProgress;
     private TextView mAnswersTime;
     private AlertDialog.Builder mDialogBuilder;
     private ExamHelper mExamHelper;
+    private ExamResultDialog mResultDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class ExamActivity extends BaseActivity {
 
         mExamHelper = new ExamHelper(this);
         mExamHelper.addQuestionScope(Characters.MONOGRAPHS);
+
+        mResultDialog = new ExamResultDialog(this);
     }
 
     private void showStartDialog() {
@@ -45,9 +52,7 @@ public class ExamActivity extends BaseActivity {
                 .setCancelable(false)
                 .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mExamHelper.reset();
-                        mExamHelper.generateRandomQuestions();
-                        setNextQuestion();
+                        startExam();
                     }
                 });
 
@@ -58,34 +63,61 @@ public class ExamActivity extends BaseActivity {
         alertDialog.show();
     }
 
+    public void startExam() {
+        mExamHelper.reset();
+        mExamHelper.generateRandomQuestions();
+        setNextQuestion();
+    }
+
+
+    public void redoWrongTopic() {
+        List<Question> questions = mExamHelper.getWrongQuestions();
+
+        mExamHelper.reset();
+        mExamHelper.setQuestions(questions);
+
+        setNextQuestion();
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         mAnswersProgress.setTypeface(mCustomTypeface);
         mAnswersTime.setTypeface(mCustomTypeface);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         showStartDialog();
     }
 
     private void markAnswerFinished() {
-        UIHelper.showShortToast(this,
-                "Finished, total answer " +
-                        mExamHelper.getAnsweredCount() + " / " + mExamHelper.getTotalCount()
-                        + " wrong " + mExamHelper.getWrongCount()
-        );
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_RESULT_DIALOG);
+        if (fragment != null && fragment instanceof ExamResultDialog) {
+            ((ExamResultDialog) fragment).show(getSupportFragmentManager().beginTransaction(), TAG_RESULT_DIALOG);
+        } else {
+            mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
+        }
+    }
 
-        showStartDialog();
+    public ExamHelper getExamHelper() {
+        return mExamHelper;
     }
 
     public void addAnsweredQuestion(Question question) {
         mExamHelper.addAnsweredQuestion(question);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     public void setNextQuestion() {
         try {
             updateProgress();
-
             Question question = mExamHelper.getNextQuestion();
             if (question != null)
                 getFragmentManager().beginTransaction()

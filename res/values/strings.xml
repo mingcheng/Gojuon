@@ -39,4 +39,7 @@
     <string name="language_english">English</string>
     <string name="language_chinese">Chinese</string>
     <string name="play">Play</string>
+    <string name="try_again">Try Again</string>
+    <string name="exam_redo_wrong">Redo Wrong Topic</string>
+    <string name="configure">Configure</string>
 </resources>

@@ -36,5 +36,8 @@
     <string name="language_auto">系统默认</string>
     <string name="language_english">英语</string>
     <string name="language_chinese">中文</string>
-    <string name="play">Play</string>
+    <string name="play">播放</string>
+    <string name="try_again">重新开始</string>
+    <string name="exam_redo_wrong">错题重做</string>
+    <string name="configure">配置</string>
 </resources>

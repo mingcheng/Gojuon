@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ExamHelper {
     private static final int DEFAULT_ANSWER_NUM = 4;
-    public static int DEFAULT_QUESTIONS_NUM = 10;
+    public static int DEFAULT_QUESTIONS_NUM = 50;
     private final Context mContext;
 
     private int mCurrent = 0;
@@ -93,21 +93,25 @@ public class ExamHelper {
         mAnsweredQuestions.clear();
     }
 
-    public int getWrongCount() {
-        int wrongNumber = 0;
+    public List<Question> getWrongQuestions() {
+        List<Question> result = new ArrayList<>();
 
         for (int i = 0; i < mQuestions.size(); i++) {
             try {
                 Question question = mAnsweredQuestions.get(i);
                 if (!question.isCorrect()) {
-                    wrongNumber++;
+                    result.add(question);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                wrongNumber++;
+                result.add(mQuestions.get(i));
             }
         }
 
-        return wrongNumber;
+        return result;
+    }
+
+    public int getWrongCount() {
+        return getWrongQuestions().size();
     }
 
     public int getAnsweredCount() {
@@ -116,5 +120,13 @@ public class ExamHelper {
 
     public int getTotalCount() {
         return mQuestions.size();
+    }
+
+    public List<Question> getAnsweredQuestions() {
+        return mAnsweredQuestions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.mQuestions = questions;
     }
 }

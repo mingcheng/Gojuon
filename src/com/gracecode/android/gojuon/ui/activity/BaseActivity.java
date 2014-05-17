@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import com.gracecode.android.gojuon.common.Gojuon;
 
-class BaseActivity extends FragmentActivity {
+abstract class BaseActivity extends FragmentActivity {
     public Gojuon mGojunon;
     protected Intent mServiceIntent;
     protected SharedPreferences mSharedPreferences;
