@@ -2,7 +2,6 @@ package com.gracecode.android.gojuon.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +11,36 @@ import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 
+import java.util.List;
+
 public class CharactersAdapter extends BaseAdapter {
-    private final String[][] mCharacters;
-    private final Context mContext;
-    private final Gojuon mGojuon;
-    private final SharedPreferences mSharedPreferences;
+    public static final String TYPE_SHOW_CHARACTER_RANDOM = "-1";
+    public static final String TYPE_SHOW_CHARACTER_HIRAGANA = "0";
+    public static final String TYPE_SHOW_CHARACTER_KATAGANA = "1";
+
+    private List<String[]> mCharacters;
+    private Context mContext;
+    private Gojuon mGojuon;
+    private SharedPreferences mSharedPreferences;
+    private String mShowType = TYPE_SHOW_CHARACTER_HIRAGANA;
+
+    public String getShowType() {
+        return mShowType;
+    }
+
+    public void setShowType(String type) {
+        this.mShowType = type;
+    }
 
     private static final class Holder {
         private final TextView mRoumaji;
         private final TextView mHiragana;
         private final TextView mKatakana;
-        private static Typeface mHannariFace;
 
         private Holder(View view) {
             mRoumaji = (TextView) view.findViewById(R.id.roumaji);
             mHiragana = (TextView) view.findViewById(R.id.hiragana);
             mKatakana = (TextView) view.findViewById(R.id.katakana);
-//            mHannariFace = Typeface.createFromAsset(context.getAssets(), "hannari.otf");
-//
-//            mRoumaji.setTypeface(mHannariFace);
-//            mHiragana.setTypeface(mHannariFace);
-//            mKatakana.setTypeface(mHannariFace);
-
             view.setTag(this);
         }
 
@@ -58,8 +65,7 @@ public class CharactersAdapter extends BaseAdapter {
         }
     }
 
-
-    public CharactersAdapter(Context context, String[][] characters) {
+    public CharactersAdapter(Context context, List<String[]> characters) {
         this.mCharacters = characters;
         this.mContext = context;
         this.mGojuon = Gojuon.getInstance();
@@ -68,17 +74,17 @@ public class CharactersAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mCharacters.length;
+        return mCharacters.size();
     }
 
     @Override
     public String[] getItem(int i) {
-        return mCharacters[i];
+        return mCharacters.get(i);
     }
 
     @Override
     public boolean isEnabled(int position) {
-        String roumaji = mCharacters[position][Characters.INDEX_ROUMAJI];
+        String roumaji = mCharacters.get(position)[Characters.INDEX_ROUMAJI];
         return roumaji.length() > 0;
     }
 
@@ -101,18 +107,31 @@ public class CharactersAdapter extends BaseAdapter {
     }
 
     public void fillCharacters(Holder holder, int i) {
+        String[] character = getItem(i);
+
         // Each array element (representing sound) consists of 3 subelements
         // roumaji record, and hiragana and katakana symbols.
-        if (mGojuon.isShowKatakana()) {
-            holder.setHiragana(mCharacters[i][Characters.INDEX_KATAKANA]);
-            holder.setKatakana(mCharacters[i][Characters.INDEX_HIRAGANA]);
-        } else {
-            holder.setHiragana(mCharacters[i][Characters.INDEX_HIRAGANA]);
-            holder.setKatakana(mCharacters[i][Characters.INDEX_KATAKANA]);
+        String type = getShowType();
+        if (type.equals(TYPE_SHOW_CHARACTER_RANDOM)) {
+            type = Math.rint(Math.random()) > 0 ? TYPE_SHOW_CHARACTER_HIRAGANA : TYPE_SHOW_CHARACTER_KATAGANA;
         }
 
-        holder.setRoumaji(mCharacters[i][Characters.INDEX_ROUMAJI]);
+        switch (type) {
+            default:
+            case TYPE_SHOW_CHARACTER_HIRAGANA:
+                holder.setHiragana(character[Characters.INDEX_HIRAGANA]);
+                holder.setKatakana(character[Characters.INDEX_KATAKANA]);
+                break;
+
+            case TYPE_SHOW_CHARACTER_KATAGANA:
+                holder.setHiragana(character[Characters.INDEX_KATAKANA]);
+                holder.setKatakana(character[Characters.INDEX_HIRAGANA]);
+                break;
+        }
+
+        holder.setRoumaji(mCharacters.get(i)[Characters.INDEX_ROUMAJI]);
     }
+
 
     public void fillCharacters(View view, int i) {
         fillCharacters(Holder.get(view), i);

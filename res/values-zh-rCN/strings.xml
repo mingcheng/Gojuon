@@ -36,4 +36,25 @@
     <string name="language_auto">系统默认</string>
     <string name="language_english">英语</string>
     <string name="language_chinese">中文</string>
+    <string name="play">播放</string>
+    <string name="try_again">重新开始</string>
+    <string name="exam_redo_wrong">错题重做</string>
+    <string name="configure">配置</string>
+    <string name="exam">测验</string>
+    <string name="question_num">题目数量</string>
+    <string name="exam_question_num_summary">设置一次测验的题目数量</string>
+    <string name="exam_scope">题目范围</string>
+    <string name="exam_scope_summary">设置需要测验的范围</string>
+    <string name="all">所有</string>
+    <string name="exam_summary">有关测验相关的一些配置项目</string>
+    <string name="show_character_type">显示类型</string>
+    <string name="show_character_type_summary">测验时题面显示哪些字符，片假名还是平假名？</string>
+    <string name="random">随机</string>
+    <string name="exit">退出</string>
+    <string name="exam_exit">退出测验</string>
+    <string name="auto_rexam_wrong_topic">错题自动重做</string>
+    <string name="exam_start">开始测验</string>
+    <string name="are_you_ready">您准备好了吗？</string>
+    <string name="hiragana">平假名</string>
+    <string name="katagana">片假名</string>
 </resources>
