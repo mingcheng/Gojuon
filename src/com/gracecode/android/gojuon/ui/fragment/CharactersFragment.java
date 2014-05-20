@@ -47,14 +47,13 @@ public class CharactersFragment extends Fragment {
                 // Detect current screen orientation.
                 // @see https://stackoverflow.com/questions/3663665/how-can-i-get-the-current-screen-orientation
                 int orientation = mGojuon.getScreenOrientation();
-                if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false)
-                        && orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false) && orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     Fragment fragment = new Fragment();
                     View layout = getActivity().findViewById(R.id.layout_item_character);
 
                     if (getCharacters() == Characters.MONOGRAPHS) {
                         fragment = new StrokeDialog(getActivity());
-                        setStrokeDialog((StrokeDialog) fragment, i);
+                        setStrokeDialog((StrokeDialog) fragment, i, true);
                         layout.setVisibility(View.GONE);
                     } else {
                         if (layout instanceof CharacterLayout) {
@@ -108,7 +107,7 @@ public class CharactersFragment extends Fragment {
     }
 
 
-    private void setStrokeDialog(final StrokeDialog fragment, final int position) {
+    private void setStrokeDialog(final StrokeDialog fragment, final int position, final boolean autoFit) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -121,6 +120,9 @@ public class CharactersFragment extends Fragment {
                             .setCharacterDrawable(
                                     getDrawableFromAssets(getCharacterResourceNameByPosition(position)));
 
+                    if (autoFit) {
+                        fragment.autoFitContainer();
+                    }
                 } catch (IOException e) {
                     fragment.dismiss();
                 }
@@ -129,18 +131,28 @@ public class CharactersFragment extends Fragment {
     }
 
     private void setStrokeDialog(final int position) {
-        setStrokeDialog(mStrokeDialog, position);
+        setStrokeDialog(mStrokeDialog, position, false);
+    }
+
+    private void setStrokeDialog(int position, boolean autoFit) {
+        setStrokeDialog(mStrokeDialog, position, autoFit);
     }
 
     AdapterView.OnItemLongClickListener mOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
             final int position = i;
-            setStrokeDialog(position);
+            if (mGojuon.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE) {
+                setStrokeDialog(position);
+            } else {
+                setStrokeDialog(position, true);
+            }
+
             mStrokeDialog.show(getFragmentManager(), STROKE_DIALOG_TAG);
             return false;
         }
     };
+
 
     public CharactersFragment() {
 

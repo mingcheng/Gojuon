@@ -13,6 +13,10 @@ public class StrokeDialog extends BaseDialog {
     private ImageView mImageCharacter;
     private ImageView mImageStroke;
 
+    public StrokeDialog() {
+        super();
+    }
+
     public StrokeDialog(Context context) {
         super(context);
     }
@@ -27,6 +31,12 @@ public class StrokeDialog extends BaseDialog {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismiss();
+    }
+
     public void setStrokeDrawable(Drawable drawable) {
         mImageStroke.setImageDrawable(drawable);
     }
@@ -34,5 +44,14 @@ public class StrokeDialog extends BaseDialog {
     public void setCharacterDrawable(Drawable drawable) {
         mImageCharacter.setImageDrawable(drawable);
         mImageCharacter.setImageAlpha((int) (255 * .25));
+    }
+
+    public void autoFitContainer() {
+        View view = getView().findViewById(R.id.layout_stroke);
+        if (view != null) {
+            ViewGroup.LayoutParams params = view.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            view.setLayoutParams(params);
+        }
     }
 }

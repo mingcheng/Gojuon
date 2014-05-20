@@ -8,7 +8,7 @@
               android:background="@android:color/holo_blue_dark">
 
     <RelativeLayout
-            android:layout_width="300dip"
+            android:layout_width="match_parent"
             android:layout_height="50dip"
             android:background="@android:color/white"
             android:layout_marginBottom="1dip"
@@ -26,20 +26,29 @@
     </RelativeLayout>
 
     <FrameLayout
-            android:layout_width="300dip"
+            android:layout_width="match_parent"
             android:layout_height="300dip"
             android:background="@android:color/white"
             android:layout_marginBottom="1dip"
+            android:id="@+id/layout_stroke"
             >
 
-        <ImageView
+        <RelativeLayout
                 android:padding="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:background="@android:color/white"
-                android:id="@+id/img_character"
-                />
+                android:layout_height="match_parent">
+
+            <ImageView
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:background="@android:color/white"
+                    android:id="@+id/img_character"
+                    />
+
+        </RelativeLayout>
+
 
         <com.gracecode.android.gojuon.ui.widget.StrokeView
                 android:layout_width="match_parent"

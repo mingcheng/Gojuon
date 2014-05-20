@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.android.gojuon"
           android:versionCode="20140601"
-          android:versionName="1.2.2">
+          android:versionName="1.3.2">
 
     <uses-sdk
             android:minSdkVersion="16"
@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     <uses-permission android:name="com.xiaomi.market.sdk.UPDATE"/>
 
     <application

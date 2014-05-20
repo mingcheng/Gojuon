@@ -3,10 +3,7 @@ package com.gracecode.android.gojuon.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
+import android.view.*;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
@@ -34,8 +31,23 @@ public class MainActivity extends BaseActivity {
 
         mIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mViewPager);
-
         mGojunon.checkUpdate();
+
+        detectActionbar();
+    }
+
+    private void detectActionbar() {
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
+        switch (rotation) {
+            case Surface.ROTATION_0:
+            case Surface.ROTATION_180:
+                getActionBar().show();
+                break;
+
+            default:
+                getActionBar().hide();
+                break;
+        }
     }
 
     @Override

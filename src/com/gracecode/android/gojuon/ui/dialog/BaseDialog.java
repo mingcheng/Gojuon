@@ -14,6 +14,10 @@ abstract class BaseDialog extends DialogFragment {
     private final Context mContext;
     private static Typeface mCustomTypeface;
 
+    BaseDialog() {
+        mContext = null;
+    }
+
     BaseDialog(Context context) {
         mContext = context;
     }
@@ -26,14 +30,17 @@ abstract class BaseDialog extends DialogFragment {
             e.printStackTrace();
         }
 
-        mCustomTypeface = Typeface.createFromAsset(mContext.getAssets(), Gojuon.CUSTOM_FONT_NAME);
+        if (mContext != null) {
+            mCustomTypeface = Typeface.createFromAsset(mContext.getAssets(), Gojuon.CUSTOM_FONT_NAME);
+        }
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        UIHelper.setCustomTypeface((ViewGroup) getView(), mCustomTypeface);
+        if (mCustomTypeface != null) {
+            UIHelper.setCustomTypeface((ViewGroup) getView(), mCustomTypeface);
+        }
     }
-
 }
