@@ -1,5 +1,6 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.gracecode.android.gojuon.R;
 
-public class StrokeDialog extends BaseDialogFragment {
+public class StrokeDialog extends BaseDialog {
     private ImageView mImageCharacter;
     private ImageView mImageStroke;
 
-    public StrokeDialog() {
-
+    public StrokeDialog(Context context) {
+        super(context);
     }
 
     @Override

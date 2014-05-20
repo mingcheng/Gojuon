@@ -1,7 +1,6 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.gracecode.android.gojuon.R;
-import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.helper.ExamHelper;
 import com.gracecode.android.gojuon.ui.activity.ExamActivity;
 import com.gracecode.android.gojuon.ui.activity.PrefActivity;
 
-public class ExamResultDialog extends BaseDialogFragment {
+public class ExamResultDialog extends BaseDialog {
     private final ExamActivity mExamActivity;
-    private static Typeface mCustomTypeface;
     private final ExamHelper mExamHelper;
     private TextView mExamPercent;
     private Button mExamButtonTryAgain;
@@ -25,9 +22,9 @@ public class ExamResultDialog extends BaseDialogFragment {
     private Button mExamButtonExit;
 
     public ExamResultDialog(ExamActivity activity) {
+        super(activity);
         mExamActivity = activity;
         mExamHelper = activity.getExamHelper();
-        mCustomTypeface = Typeface.createFromAsset(mExamActivity.getAssets(), Gojuon.CUSTOM_FONT_NAME);
     }
 
     @Override
@@ -35,8 +32,6 @@ public class ExamResultDialog extends BaseDialogFragment {
         View view = inflater.inflate(R.layout.fragment_exam_result, null);
         if (view != null) {
             mExamPercent = (TextView) view.findViewById(R.id.exam_percent);
-            mExamPercent.setTypeface(mCustomTypeface);
-
             mExamButtonTryAgain = (Button) view.findViewById(R.id.exam_try_again);
             mExamButtonRedoWrong = (Button) view.findViewById(R.id.exam_redo_wrong);
             mExamButtonConfigure = (Button) view.findViewById(R.id.exam_configure);

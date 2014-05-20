@@ -29,7 +29,7 @@
     <string name="katakana_first_summary">Set katakana as main title for every grid item.</string>
     <string name="highlight_selected">Highlight Selected</string>
     <string name="highlight_selected_summary">Highlight selected item when pressed on it.</string>
-    <string name="version">Versioin</string>
+    <string name="version">Version</string>
     <string name="auto_rotate">Auto Rotate</string>
     <string name="auto_rotate_summary">Auto rotate when the device\'s direction is changed.</string>
     <string name="slideshow">Slide Show</string>
@@ -42,21 +42,24 @@
     <string name="try_again">Try Again</string>
     <string name="exam_redo_wrong">Redo Wrong Topic</string>
     <string name="configure">Configure</string>
-    <string name="exam">Exam</string>
+    <string name="exam">Quiz</string>
     <string name="question_num">Question Number</string>
     <string name="exam_question_num_summary">Numbers of questions in single exam.</string>
     <string name="exam_scope">Exam Scope</string>
     <string name="exam_scope_summary">Choose scope of single exam</string>
 
     <string name="all">All</string>
-    <string name="exam_summary">Some preference about exam</string>
-    <string name="show_character_type">Show Type</string>
-    <string name="show_character_type_summary">Detect to show Hiragana or Katagana first</string>
+    <string name="exam_summary">Test your Hiragana or Katagana skills</string>
+
+    <string name="show_character_type">Show Character Type</string>
+    <string name="show_character_type_summary">Which character needs primary to show, Hiragana or Katagana?</string>
 
     <string name="hiragana">Hiragana</string>
     <string name="katagana">Katagana</string>
     <string name="random">Random</string>
     <string name="exit">Exit</string>
-    <string name="exam_exit">Exit Exam</string>
-    <string name="auto_rexam_wrong_topic">Auto Rexam Wrong Topic</string>
+    <string name="exam_exit">Exit Quiz</string>
+    <string name="auto_rexam_wrong_topic">Auto ReQuiz The Wrong Topic</string>
+    <string name="exam_start">Start Quiz</string>
+    <string name="are_you_ready">Are you ready?</string>
 </resources>

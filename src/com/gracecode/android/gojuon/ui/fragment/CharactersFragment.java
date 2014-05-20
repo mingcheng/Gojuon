@@ -53,7 +53,7 @@ public class CharactersFragment extends Fragment {
                     View layout = getActivity().findViewById(R.id.layout_item_character);
 
                     if (getCharacters() == Characters.MONOGRAPHS) {
-                        fragment = new StrokeDialog();
+                        fragment = new StrokeDialog(getActivity());
                         setStrokeDialog((StrokeDialog) fragment, i);
                         layout.setVisibility(View.GONE);
                     } else {
@@ -166,7 +166,7 @@ public class CharactersFragment extends Fragment {
 
         mGojuon = Gojuon.getInstance();
         mSharedPreferences = mGojuon.getSharedPreferences();
-        mStrokeDialog = new StrokeDialog();
+        mStrokeDialog = new StrokeDialog(getActivity());
     }
 
     public CharactersAdapter getAdapter() {
