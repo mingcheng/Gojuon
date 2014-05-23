@@ -37,12 +37,24 @@
                 android:defaultValue="-1"
                 />
 
+
+        <ListPreference
+                android:key="key_show_character_type"
+                android:title="@string/show_character_type"
+                android:entries="@array/character_type_list"
+                android:entryValues="@array/character_type_list_value"
+                android:summary="@string/show_character_type_summary"
+                android:defaultValue="0"
+                />
+
+        <!--
         <CheckBoxPreference
                 android:key="key_katakana_first"
                 android:title="@string/katakana_first"
                 android:summary="@string/katakana_first_summary"
                 android:defaultValue="false"
                 />
+            -->
 
         <CheckBoxPreference
                 android:key="key_highlight_selected"
@@ -58,6 +70,63 @@
                 android:defaultValue="false"
                 android:enabled="false"
                 />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/exam"
+            android:summary="@string/exam_summary">
+
+        <!--
+<CheckBoxPreference android:title="@string/auto_rexam_wrong_topic"
+        />
+
+<CheckBoxPreference android:title="Show Timer"
+        />
+
+<CheckBoxPreference android:title="Show Speaker Button"
+        />
+
+<CheckBoxPreference
+        android:title="Highlight Result"
+        android:defaultValue="true"
+        />
+
+<CheckBoxPreference
+        android:title="Auto Save When Paused"
+        android:defaultValue="true"
+        />
+
+<Preference android:title="Timeout Speed"/>
+                -->
+
+        <ListPreference
+                android:key="key_question_scope"
+                android:title="@string/exam_scope"
+                android:entries="@array/exam_scope_entries"
+                android:entryValues="@array/exam_scope_values"
+                android:summary="@string/exam_scope_summary"
+                android:defaultValue="-1"
+                />
+
+        <ListPreference
+                android:key="key_question_num"
+                android:title="@string/question_num"
+                android:entries="@array/exam_question_num"
+                android:entryValues="@array/exam_question_num"
+                android:summary="@string/exam_question_num_summary"
+                android:defaultValue="25"
+                />
+
+        <ListPreference
+                android:key="key_exam_show_character_type"
+                android:title="@string/show_character_type"
+                android:entries="@array/exam_character_type_list"
+                android:entryValues="@array/exam_character_type_list_value"
+                android:summary="@string/show_character_type_summary"
+                android:defaultValue="-1"
+                />
+
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/other">

@@ -27,4 +27,26 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+
+    <string-array name="character_type_list">
+        <item>@string/hiragana</item>
+        <item>@string/katagana</item>
+    </string-array>
+
+    <string-array name="character_type_list_value">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="exam_character_type_list">
+        <item>@string/random</item>
+        <item>@string/hiragana</item>
+        <item>@string/katagana</item>
+    </string-array>
+
+    <string-array name="exam_character_type_list_value">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>

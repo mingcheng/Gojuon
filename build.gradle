@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.10.+'
+    }
+}
+
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.google.android', name: 'support-v4', version: 'r7'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':libs:Common')
+    compile project(':libs:ViewPager-Indicator')
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate.toInteger()
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        targetSdkVersion 19
+        minSdkVersion 16
+        versionCode getDate()
+        //versionName "build-${getDate()}"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(System.getProperty("user.home") + "/.android/debug.keystore")
+        }
+
+        release {
+            storeFile file(System.getProperty("user.home") + "/Workbench/Android/release.key")
+            storePassword "hello1234"
+            keyAlias "gojuon"
+            keyPassword "hello1234"
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix "-DEBUG"
+        }
+
+        release {
+            debuggable false
+            jniDebugBuild false
+            signingConfig signingConfigs.release
+            runProguard true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    sourceSets {
+        main {
+            manifest {
+                srcFile 'AndroidManifest.xml'
+            }
+            java {
+                srcDir 'src'
+            }
+            res {
+                srcDir 'res'
+            }
+            assets {
+                srcDir 'assets'
+            }
+            resources {
+                srcDir 'src'
+            }
+        }
+    }
+}
+
+
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+
