@@ -48,10 +48,11 @@ android {
         }
 
         release {
-            storeFile file(System.getProperty("user.home") + "/Workbench/Android/release.key")
-            storePassword "hello1234"
+            // Save password to ~/.gradle/gradle.properties
+            storeFile file(System.getProperty("user.home") + androidStorePath)
+            storePassword androidStorePassword
             keyAlias "gojuon"
-            keyPassword "hello1234"
+            keyPassword androidKeyPassword
         }
     }
 
