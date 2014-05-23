@@ -61,8 +61,6 @@ public class MainActivity extends BaseActivity {
 
         getWindow().getDecorView()
                 .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-
-        mGojunon.showAboutDialog(this, mGojunon.getPackageInfo());
     }
 
     @Override
