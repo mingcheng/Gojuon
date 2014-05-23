@@ -21,4 +21,9 @@
             android:icon="@android:drawable/ic_menu_send"
             />
 
+    <item
+            android:id="@+id/action_about"
+            android:title="@string/about"
+            android:showAsAction="withText"
+            />
 </menu>

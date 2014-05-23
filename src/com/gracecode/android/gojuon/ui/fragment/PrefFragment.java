@@ -60,7 +60,7 @@ public class PrefFragment extends PreferenceFragment {
                     break;
 
                 case Gojuon.KEY_FEEDBACK:
-                    mGojuon.sendFeedbackEmail(mContext);
+                    mGojuon.sendFeedbackEmail(mContext, getString(R.string.app_name));
                     break;
 
                 case Gojuon.KEY_DONATE:

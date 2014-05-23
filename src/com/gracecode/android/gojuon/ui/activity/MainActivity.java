@@ -61,6 +61,8 @@ public class MainActivity extends BaseActivity {
 
         getWindow().getDecorView()
                 .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+
+        mGojunon.showAboutDialog(this, mGojunon.getPackageInfo());
     }
 
     @Override
@@ -100,14 +102,12 @@ public class MainActivity extends BaseActivity {
             case R.id.action_prefs:
                 startActivity(new Intent(this, PrefActivity.class));
                 break;
-//            case R.id.action_about:
-//                break;
-//            case R.id.action_donate:
-//                break;
-            case R.id.action_feedback:
-                mGojunon.sendFeedbackEmail(MainActivity.this);
+            case R.id.action_about:
+                mGojunon.showAboutDialog(this, mGojunon.getPackageInfo());
                 break;
-
+            case R.id.action_feedback:
+                mGojunon.sendFeedbackEmail(MainActivity.this, mGojunon.getFeedbackSubject(getString(R.string.app_name)));
+                break;
             case R.id.action_exam:
                 startActivity(new Intent(this, ExamActivity.class));
                 break;
