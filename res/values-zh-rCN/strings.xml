@@ -48,7 +48,7 @@
     <string name="all">所有</string>
     <string name="exam_summary">有关测验相关的一些配置项目</string>
     <string name="show_character_type">显示类型</string>
-    <string name="show_character_type_summary">测验时题面显示哪些字符，片假名还是平假名？</string>
+    <string name="show_character_type_summary">优先显示哪些字符，片假名还是平假名？</string>
     <string name="random">随机</string>
     <string name="exit">退出</string>
     <string name="exam_exit">退出测验</string>
@@ -57,4 +57,15 @@
     <string name="are_you_ready">您准备好了吗？</string>
     <string name="hiragana">平假名</string>
     <string name="katagana">片假名</string>
+    <string name="exam_show_character_type_summary">题面的测试类型，片假名、平假名还是随机？</string>
+    <string name="question_timeout">题目超时</string>
+    <string name="question_timeout_summary">设置每道题目的超时时间，超时自动下一题</string>
+    <string name="fast">快速</string>
+    <string name="normal">普通</string>
+    <string name="slow">缓慢</string>
+    <string name="highlight_result">高亮答案</string>
+    <string name="highlight_result_summary">当做错选题的时，高亮正确答案</string>
+    <string name="auto_requiz_wrong_topic">自动错题重做</string>
+    <string name="auto_requiz_wrong_topic_summary">自动做题重做，不需要每次都确认</string>
+    <string name="auto_requiz_wrong_topic_notify" formatted="false">有 %d 道问题答错了，重新测验错题</string>
 </resources>

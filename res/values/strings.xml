@@ -62,4 +62,16 @@
     <string name="auto_rexam_wrong_topic">Auto ReQuiz The Wrong Topic</string>
     <string name="exam_start">Start Quiz</string>
     <string name="are_you_ready">Are you ready?</string>
+    <string name="exam_show_character_type_summary">Which character needs primary for quiz,
+        Hiragana or Katagana or Random?</string>
+    <string name="question_timeout">Question Timeout</string>
+    <string name="question_timeout_summary">Set each question timeout</string>
+    <string name="fast">Fast</string>
+    <string name="normal">Normal</string>
+    <string name="slow">Slow</string>
+    <string name="highlight_result">Highlight Result</string>
+    <string name="highlight_result_summary">Hightlight the result if wrong</string>
+    <string name="auto_requiz_wrong_topic">Auto Requiz Wrong Topic</string>
+    <string name="auto_requiz_wrong_topic_summary">Auto requiz the wrong topic without comfirm</string>
+    <string name="auto_requiz_wrong_topic_notify" formatted="false">Have %d wrong topics, auto requiz!</string>
 </resources>
