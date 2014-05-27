@@ -67,4 +67,5 @@
     <string name="highlight_result_summary">当做错选题的时，高亮正确答案</string>
     <string name="auto_requiz_wrong_topic">自动错题重做</string>
     <string name="auto_requiz_wrong_topic_summary">自动做题重做，不需要每次都确认</string>
+    <string name="auto_requiz_wrong_topic_notify" formatted="false">有 %d 道问题答错了，重新测验错题</string>
 </resources>

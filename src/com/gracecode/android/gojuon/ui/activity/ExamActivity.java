@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.gracecode.android.common.helper.ArrayHelper;
+import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Question;
@@ -56,7 +56,7 @@ public class ExamActivity extends BaseActivity {
         List<Question> questions = mExamHelper.getWrongQuestions();
         mExamHelper.reset();
         // shuffle the questions for next quiz.
-        ArrayHelper.shuffle(questions);
+        //ArrayHelper.shuffle(questions);
         mExamHelper.setQuestions(questions);
         setNextQuestion();
     }
@@ -93,9 +93,16 @@ public class ExamActivity extends BaseActivity {
 
     private void markAnswerFinished() {
         boolean autoRedoWrongTopic = mSharedPreferences.getBoolean(KEY_EXAM_AUTO_REDO_WRONG_TOPIC, false);
-        if (autoRedoWrongTopic) {
+
+        if (mExamHelper.getWrongCount() > 0 && autoRedoWrongTopic) {
+            UIHelper.showShortToast(this, String.format(
+                    getString(R.string.auto_requiz_wrong_topic_notify),
+                    mExamHelper.getWrongCount()));
             redoWrongTopic();
-        } else if (mResultDialog != null) {
+            return;
+        }
+
+        if (mResultDialog != null) {
             mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
         }
     }
