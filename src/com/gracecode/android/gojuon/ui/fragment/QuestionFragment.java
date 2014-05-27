@@ -24,6 +24,8 @@ import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 public class QuestionFragment extends Fragment {
     public static final String KEY_EXAM_TYPE_TYPE = "key_exam_show_character_type";
     public static final String KEY_EXAM_TIMEOUT = "key_question_timeout";
+    public static final String KEY_EXAM_HIGHLIGHT_RESULT = "key_exam_highlight_result";
+
     private static final long DEFAULT_QUESTION_TIMEOUT = 3000;
 
     private Question mQuestion;
@@ -206,7 +208,7 @@ public class QuestionFragment extends Fragment {
 
     public void markAnswer(String[] selectedAnswer) {
         boolean isCorrect = mQuestion.isCorrect(selectedAnswer);
-        boolean showAnswer = true;
+        boolean showAnswer = mSharedPreferences.getBoolean(KEY_EXAM_HIGHLIGHT_RESULT, true);
 
         if (!isCorrect && showAnswer) {
             highlightAnswer();

@@ -69,4 +69,6 @@
     <string name="fast">Fast</string>
     <string name="normal">Normal</string>
     <string name="slow">Slow</string>
+    <string name="highlight_result">Highlight Result</string>
+    <string name="highlight_result_summary">Hightlight the result if wrong</string>
 </resources>

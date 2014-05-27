@@ -63,4 +63,6 @@
     <string name="fast">快速</string>
     <string name="normal">普通</string>
     <string name="slow">缓慢</string>
+    <string name="highlight_result">高亮答案</string>
+    <string name="highlight_result_summary">当做错选题的时，高亮正确答案</string>
 </resources>

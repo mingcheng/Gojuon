@@ -77,11 +77,6 @@
         />
 
 <CheckBoxPreference
-        android:title="Highlight Result"
-        android:defaultValue="true"
-        />
-
-<CheckBoxPreference
         android:title="Auto Save When Paused"
         android:defaultValue="true"
         />
@@ -125,7 +120,12 @@
                 android:defaultValue="-1"
                 />
 
-
+        <CheckBoxPreference
+                android:title="@string/highlight_result"
+                android:key="key_exam_highlight_result"
+                android:summary="@string/highlight_result_summary"
+                android:defaultValue="true"
+                />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/other">
