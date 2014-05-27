@@ -122,7 +122,7 @@
                 android:title="@string/show_character_type"
                 android:entries="@array/exam_character_type_list"
                 android:entryValues="@array/exam_character_type_list_value"
-                android:summary="@string/show_character_type_summary"
+                android:summary="@string/exam_show_character_type_summary"
                 android:defaultValue="-1"
                 />
 
