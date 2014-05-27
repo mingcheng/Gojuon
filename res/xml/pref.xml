@@ -37,7 +37,6 @@
                 android:defaultValue="-1"
                 />
 
-
         <ListPreference
                 android:key="key_show_character_type"
                 android:title="@string/show_character_type"
@@ -46,15 +45,6 @@
                 android:summary="@string/show_character_type_summary"
                 android:defaultValue="0"
                 />
-
-        <!--
-        <CheckBoxPreference
-                android:key="key_katakana_first"
-                android:title="@string/katakana_first"
-                android:summary="@string/katakana_first_summary"
-                android:defaultValue="false"
-                />
-            -->
 
         <CheckBoxPreference
                 android:key="key_highlight_selected"
@@ -98,6 +88,15 @@
 
 <Preference android:title="Timeout Speed"/>
                 -->
+
+        <ListPreference
+                android:key="key_question_timeout"
+                android:title="@string/question_timeout"
+                android:entries="@array/question_timeout_list"
+                android:entryValues="@array/question_timeout_value"
+                android:summary="@string/question_timeout_summary"
+                android:defaultValue="3000"
+                />
 
         <ListPreference
                 android:key="key_question_scope"

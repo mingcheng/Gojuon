@@ -58,4 +58,9 @@
     <string name="hiragana">平假名</string>
     <string name="katagana">片假名</string>
     <string name="exam_show_character_type_summary">题面的测试类型，片假名、平假名还是随机？</string>
+    <string name="question_timeout">题目超时</string>
+    <string name="question_timeout_summary">设置每道题目的超时时间，超时自动下一题</string>
+    <string name="fast">快速</string>
+    <string name="normal">普通</string>
+    <string name="slow">缓慢</string>
 </resources>

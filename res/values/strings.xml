@@ -64,4 +64,9 @@
     <string name="are_you_ready">Are you ready?</string>
     <string name="exam_show_character_type_summary">Which character needs primary for quiz,
         Hiragana or Katagana or Random?</string>
+    <string name="question_timeout">Question Timeout</string>
+    <string name="question_timeout_summary">Set each question timeout</string>
+    <string name="fast">Fast</string>
+    <string name="normal">Normal</string>
+    <string name="slow">Slow</string>
 </resources>

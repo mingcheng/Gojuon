@@ -23,6 +23,8 @@ import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
 public class QuestionFragment extends Fragment {
     public static final String KEY_EXAM_TYPE_TYPE = "key_exam_show_character_type";
+    public static final String KEY_EXAM_TIMEOUT = "key_question_timeout";
+    private static final long DEFAULT_QUESTION_TIMEOUT = 3000;
 
     private Question mQuestion;
     private ExamActivity mExamActivity;
@@ -100,8 +102,11 @@ public class QuestionFragment extends Fragment {
     }
 
     private void startCountdownAnimation() {
+        long timeout = Integer.parseInt(mSharedPreferences.getString(KEY_EXAM_TIMEOUT,
+                String.valueOf(DEFAULT_QUESTION_TIMEOUT)));
+
         mCountdownAnimation = ValueAnimator.ofInt(0, mGridView.getWidth());
-        mCountdownAnimation.setDuration(3000);
+        mCountdownAnimation.setDuration(timeout);
         mCountdownAnimation.setInterpolator(new AccelerateInterpolator());
         mCountdownAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
