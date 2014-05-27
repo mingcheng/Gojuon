@@ -81,7 +81,7 @@
         android:defaultValue="true"
         />
 
-<Preference android:title="Timeout Speed"/>
+
                 -->
 
         <ListPreference
@@ -125,6 +125,13 @@
                 android:key="key_exam_highlight_result"
                 android:summary="@string/highlight_result_summary"
                 android:defaultValue="true"
+                />
+
+        <CheckBoxPreference
+                android:title="@string/auto_requiz_wrong_topic"
+                android:key="key_auto_requiz_wrong_topic"
+                android:summary="@string/auto_requiz_wrong_topic_summary"
+                android:defaultValue="false"
                 />
     </PreferenceCategory>
 

@@ -71,4 +71,6 @@
     <string name="slow">Slow</string>
     <string name="highlight_result">Highlight Result</string>
     <string name="highlight_result_summary">Hightlight the result if wrong</string>
+    <string name="auto_requiz_wrong_topic">Auto Requiz Wrong Topic</string>
+    <string name="auto_requiz_wrong_topic_summary">Auto requiz the wrong topic without comfirm</string>
 </resources>

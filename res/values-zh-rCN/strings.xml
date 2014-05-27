@@ -65,4 +65,6 @@
     <string name="slow">缓慢</string>
     <string name="highlight_result">高亮答案</string>
     <string name="highlight_result_summary">当做错选题的时，高亮正确答案</string>
+    <string name="auto_requiz_wrong_topic">自动错题重做</string>
+    <string name="auto_requiz_wrong_topic_summary">自动做题重做，不需要每次都确认</string>
 </resources>
