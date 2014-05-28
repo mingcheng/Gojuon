@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Question;
@@ -16,6 +17,8 @@ import com.gracecode.android.gojuon.ui.fragment.QuestionFragment;
 import java.util.List;
 
 public class ExamActivity extends BaseActivity {
+    public static final String KEY_EXAM_AUTO_REDO_WRONG_TOPIC = "key_auto_requiz_wrong_topic";
+
     private static final String TAG_RESULT_DIALOG = "tag_result_dialog";
     private static final String TAG_FRAGMENT_QUESTION = "tag_question_fragment";
     private static final String TAG_START_DIALOG = "tag_start_dialog";
@@ -51,10 +54,10 @@ public class ExamActivity extends BaseActivity {
 
     public void redoWrongTopic() {
         List<Question> questions = mExamHelper.getWrongQuestions();
-
         mExamHelper.reset();
+        // shuffle the questions for next quiz.
+        //ArrayHelper.shuffle(questions);
         mExamHelper.setQuestions(questions);
-
         setNextQuestion();
     }
 
@@ -89,8 +92,19 @@ public class ExamActivity extends BaseActivity {
     }
 
     private void markAnswerFinished() {
-        if (mResultDialog != null)
+        boolean autoRedoWrongTopic = mSharedPreferences.getBoolean(KEY_EXAM_AUTO_REDO_WRONG_TOPIC, false);
+
+        if (mExamHelper.getWrongCount() > 0 && autoRedoWrongTopic) {
+            UIHelper.showShortToast(this, String.format(
+                    getString(R.string.auto_requiz_wrong_topic_notify),
+                    mExamHelper.getWrongCount()));
+            redoWrongTopic();
+            return;
+        }
+
+        if (mResultDialog != null) {
             mResultDialog.show(getSupportFragmentManager(), TAG_RESULT_DIALOG);
+        }
     }
 
     public ExamHelper getExamHelper() {

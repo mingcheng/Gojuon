@@ -18,7 +18,7 @@
     <string name="auto_resume_summray">应用重新打开后恢复到指定的页</string>
     <string name="using_tts">使用 TTS 引擎</string>
     <string name="using_tts_summary">使用系统的 TTS 引擎发音</string>
-    <string name="feedback_summary">如果您有任何的意见和建议，请发我邮件</string>
+    <string name="feedback_summary">如果您有任何的意见和建议，请发给作者邮件</string>
     <string name="donate_summary">感谢您捐助我一杯咖啡</string>
     <string name="send_email_faild">发送邮件失败，您安装了邮件客户端了吗？</string>
     <string name="about_summary" formatted="false">当前版本：%s(%s)</string>
@@ -41,14 +41,14 @@
     <string name="exam_redo_wrong">错题重做</string>
     <string name="configure">配置</string>
     <string name="exam">测验</string>
-    <string name="question_num">题目数量</string>
+    <string name="question_num">考题数量</string>
     <string name="exam_question_num_summary">设置一次测验的题目数量</string>
-    <string name="exam_scope">题目范围</string>
+    <string name="exam_scope">考题范围</string>
     <string name="exam_scope_summary">设置需要测验的范围</string>
     <string name="all">所有</string>
     <string name="exam_summary">有关测验相关的一些配置项目</string>
     <string name="show_character_type">显示类型</string>
-    <string name="show_character_type_summary">测验时题面显示哪些字符，片假名还是平假名？</string>
+    <string name="show_character_type_summary">优先显示哪些字符，片假名还是平假名？</string>
     <string name="random">随机</string>
     <string name="exit">退出</string>
     <string name="exam_exit">退出测验</string>
@@ -57,4 +57,16 @@
     <string name="are_you_ready">您准备好了吗？</string>
     <string name="hiragana">平假名</string>
     <string name="katagana">片假名</string>
+    <string name="exam_show_character_type_summary">题面的测试类型，片假名、平假名还是随机？</string>
+    <string name="question_timeout">考题超时</string>
+    <string name="question_timeout_summary">设置每道题目的超时时间，超时自动下一题</string>
+    <string name="fast">快速</string>
+    <string name="normal">普通</string>
+    <string name="slow">缓慢</string>
+    <string name="highlight_result">高亮答案</string>
+    <string name="highlight_result_summary">当选错选题的时，高亮正确的答案</string>
+    <string name="auto_requiz_wrong_topic">自动错题重做</string>
+    <string name="auto_requiz_wrong_topic_summary">自动做题重做，不需要每次都弹出对话框</string>
+    <string name="auto_requiz_wrong_topic_notify" formatted="false">有 %d 道问题答错了，重新测验错题</string>
+    <string name="exam_show_character_type">测验类型</string>
 </resources>

@@ -49,4 +49,17 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+
+    <string-array name="question_timeout_list">
+        <item>@string/fast</item>
+        <item>@string/normal</item>
+        <item>@string/slow</item>
+    </string-array>
+
+
+    <string-array name="question_timeout_value">
+        <item>2000</item>
+        <item>3000</item>
+        <item>5000</item>
+    </string-array>
 </resources>
