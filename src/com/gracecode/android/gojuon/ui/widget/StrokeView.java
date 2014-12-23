@@ -16,6 +16,15 @@ public class StrokeView extends View {
     private final Handler mHandler;
     private Paint mPaint = new Paint();
     private Path mPath = new Path();
+    private OnStockListener listener;
+
+    public static abstract interface OnStockListener {
+        public abstract void onStockStart(View view);
+
+        public abstract void OnStock(View view);
+
+        public abstract void onStockFinish(View view);
+    }
 
     public StrokeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -32,11 +41,22 @@ public class StrokeView extends View {
             public void run() {
                 if (mPath != null) {
                     mPath.reset();
+                    if (listener != null) {
+                        listener.onStockFinish(getView());
+                    }
                     invalidate();
                 }
             }
         };
         mHandler = new Handler();
+    }
+
+    public void setOnStockListener(OnStockListener listener) {
+        this.listener = listener;
+    }
+
+    public StrokeView getView() {
+        return this;
     }
 
     @Override
@@ -53,9 +73,15 @@ public class StrokeView extends View {
             case MotionEvent.ACTION_DOWN:
                 mPath.moveTo(eventX, eventY);
                 mHandler.removeCallbacks(mClearPathRunnable);
+                if (listener != null) {
+                    listener.onStockStart(getView());
+                }
                 return true;
             case MotionEvent.ACTION_MOVE:
                 mPath.lineTo(eventX, eventY);
+                if (listener != null) {
+                    listener.OnStock(getView());
+                }
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
