@@ -1,2 +1,1 @@
-include ':libs:Common', ':libs:ViewPager-Indicator'
-
+include ':libs:common'

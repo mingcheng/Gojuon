@@ -3,21 +3,23 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.10.+'
+        classpath 'com.android.tools.build:gradle:1.0.0'
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 repositories {
+    maven { url "http://dl.bintray.com/populov/maven" }
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'com.google.android', name: 'support-v4', version: 'r7'
+    compile 'com.google.android:support-v4:r7'
+    compile 'com.viewpagerindicator:library:2.4.1@aar'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':libs:Common')
-    compile project(':libs:ViewPager-Indicator')
+    compile project(':libs:common')
+    //compile project(':libs:ViewPager-Indicator')
 }
 
 def getDate() {
@@ -27,19 +29,14 @@ def getDate() {
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         targetSdkVersion 19
         minSdkVersion 16
         versionCode getDate()
         //versionName "build-${getDate()}"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     signingConfigs {
@@ -63,7 +60,6 @@ android {
 
         release {
             debuggable false
-            jniDebugBuild false
             signingConfig signingConfigs.release
             //runProguard true
             //proguardFile getDefaultProguardFile('proguard-android.txt')
@@ -93,10 +89,14 @@ android {
             }
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
-
-tasks.withType(Compile) {
+// https://stackoverflow.com/questions/24668746
+tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
