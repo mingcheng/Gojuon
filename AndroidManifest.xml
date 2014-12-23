@@ -21,7 +21,7 @@
             android:icon="@drawable/ic_launcher"
             android:name=".common.Gojuon"
             android:theme="@android:style/Theme.Holo"
-            >
+            android:allowBackup="false">
         <activity
                 android:screenOrientation="portrait"
                 android:name=".ui.activity.MainActivity"
