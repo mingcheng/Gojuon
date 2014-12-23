@@ -1,0 +1,3 @@
+[submodule "libs/common"]
+	path = libs/common
+	url = git@bitbucket.org:feelinglucky/android-common.git
