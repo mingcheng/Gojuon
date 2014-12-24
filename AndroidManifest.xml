@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.android.gojuon"
-          android:versionName="1.4.5">
+          android:versionName="1.6.0">
 
     <uses-sdk
-            android:minSdkVersion="16"
+            android:minSdkVersion="15"
             android:targetSdkVersion="19"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-    <uses-permission android:name="com.xiaomi.market.sdk.UPDATE"/>
 
     <application
             android:label="@string/app_name"
             android:icon="@drawable/ic_launcher"
             android:name=".common.Gojuon"
-            android:theme="@android:style/Theme.Holo"
             android:allowBackup="false">
         <activity
                 android:screenOrientation="portrait"
@@ -52,12 +42,6 @@
                 android:name=".service.PronounceService"
                 android:label="@string/app_name"
                 />
-
-        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>
 
