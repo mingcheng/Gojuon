@@ -12,10 +12,16 @@ Holo Gojuon（五十音圖）是一款 Holo 风格的日语五十音助记软件
 ## 下载
 
 
-* [Google Play](https://play.google.com/store/apps/details?id=com.gracecode.android.gojuon)  
+* [Google Play](https://play.google.com/store/apps/details?id=com.gracecode.android.gojuon)
 
 
 ## 更新历史
+
+#### 2014年12月24日
+
+* 精简笔画功能类库组织方式，支持画完笔画后发音
+* 更新小米的更新检查包
+* 导航菜单调整，更精简
 
 #### 2014年5月28日
 
