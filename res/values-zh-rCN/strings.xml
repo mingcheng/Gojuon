@@ -30,7 +30,7 @@
     <string name="version">版本</string>
     <string name="auto_rotate">自动旋转</string>
     <string name="auto_rotate_summary">当设备方向改变时，自动旋转屏幕</string>
-    <string name="slideshow">Slide Show</string>
+    <string name="slideshow">滚动展示</string>
     <string name="language">语言</string>
     <string name="language_summray">选择界面需要显示的语言</string>
     <string name="language_auto">系统默认</string>
