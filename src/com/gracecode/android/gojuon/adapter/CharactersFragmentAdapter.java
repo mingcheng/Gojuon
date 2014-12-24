@@ -39,21 +39,22 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
         if (mFragments.containsKey(position)) {
             fragment = mFragments.get(position);
         } else {
+            fragment = new CharactersFragment();
             switch (TITLES[position]) {
                 case R.string.digraphs:
-                    fragment = new CharactersFragment(Characters.DIGRAPHS, 3);
+                    fragment.setCharactersAndColumns(Characters.DIGRAPHS, 3);
                     break;
 
                 case R.string.monographs_with_diacritics:
-                    fragment = new CharactersFragment(Characters.MONOGRAPHS_WITH_DIACRITICS);
+                    fragment.setCharacters(Characters.MONOGRAPHS_WITH_DIACRITICS);
                     break;
 
                 case R.string.digraphs_with_diacritics:
-                    fragment = new CharactersFragment(Characters.DIGRAPHS_WITH_DIACRITICS, 3);
+                    fragment.setCharactersAndColumns(Characters.DIGRAPHS_WITH_DIACRITICS, 3);
                     break;
 
                 default:
-                    fragment = new CharactersFragment(Characters.MONOGRAPHS);
+                    fragment.setCharacters(Characters.MONOGRAPHS);
             }
 
             mFragments.put(position, fragment);
