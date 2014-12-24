@@ -73,11 +73,20 @@ public class Gojuon extends CustomApplication {
         getBaseContext().getResources().updateConfiguration(configuration, null);
     }
 
+    /**
+     * 检查更新，目前使用小米的方案
+     */
     public void checkUpdate() {
         XiaomiUpdateAgent.setCheckUpdateOnlyWifi(true);
         XiaomiUpdateAgent.update(this);
     }
 
+    /**
+     * 发音，方便调用使用广播的方式
+     *
+     * @param context
+     * @param roumaji
+     */
     public static void pronounce(Context context, String roumaji) {
         Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
         intent.putExtra(PronounceService.EXTRA_ROUMAJI, roumaji);
