@@ -46,11 +46,10 @@
                     android:background="@android:color/white"
                     android:id="@+id/img_character"
                     />
-
         </RelativeLayout>
 
-
         <com.gracecode.android.gojuon.ui.widget.StrokeView
+                android:id="@+id/stroke_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
     </FrameLayout>
