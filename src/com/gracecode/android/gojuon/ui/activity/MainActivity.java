@@ -31,9 +31,6 @@ public class MainActivity extends BaseActivity {
 
         mIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mViewPager);
-
-        // 检查项目更新
-        mGojunon.checkUpdate();
     }
 
     @Override
