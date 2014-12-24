@@ -25,6 +25,7 @@
             android:title="@string/auto_rotate"
             android:summary="@string/auto_rotate_summary"
             android:defaultValue="false"
+            android:enabled="false"
             />
 
     <PreferenceCategory android:title="@string/app_name">

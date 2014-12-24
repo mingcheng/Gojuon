@@ -1,6 +1,5 @@
 package com.gracecode.android.gojuon.ui.fragment;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
@@ -17,13 +16,12 @@ import com.gracecode.android.gojuon.common.Gojuon;
  * Date: 14-3-17
  */
 public class PrefFragment extends PreferenceFragment {
-    private final Context mContext;
-    private final Gojuon mGojuon;
-    private final SharedPreferences mSharedPreferences;
-    private final PackageInfo mPackageInfo;
+    private Gojuon mGojuon;
+    private SharedPreferences mSharedPreferences;
+    private PackageInfo mPackageInfo;
 
-    public PrefFragment(Context context) {
-        mContext = context;
+    public PrefFragment() {
+        super();
         mGojuon = Gojuon.getInstance();
 
         mSharedPreferences = mGojuon.getSharedPreferences();
@@ -60,7 +58,7 @@ public class PrefFragment extends PreferenceFragment {
                     break;
 
                 case Gojuon.KEY_FEEDBACK:
-                    mGojuon.sendFeedbackEmail(mContext, getString(R.string.app_name));
+                    mGojuon.sendEmail(getActivity(), getString(R.string.app_name));
                     break;
 
                 case Gojuon.KEY_DONATE:
