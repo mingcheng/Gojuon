@@ -5,25 +5,25 @@
     <item
             android:id="@+id/action_exam"
             android:title="@string/exam"
-            android:showAsAction="ifRoom"
-            android:icon="@android:drawable/ic_menu_compass"/>
+            android:showAsAction="always"
+            android:icon="@android:drawable/ic_menu_slideshow"/>
 
     <item
             android:id="@+id/action_prefs"
             android:title="@string/setting"
-            android:showAsAction="ifRoom"
+            android:showAsAction="never"
             android:icon="@android:drawable/ic_menu_preferences"/>
 
     <item
             android:id="@+id/action_feedback"
             android:title="@string/feedback"
-            android:showAsAction="withText"
+            android:showAsAction="never"
             android:icon="@android:drawable/ic_menu_send"
             />
 
     <item
             android:id="@+id/action_about"
             android:title="@string/about"
-            android:showAsAction="withText"
+            android:showAsAction="never"
             />
 </menu>

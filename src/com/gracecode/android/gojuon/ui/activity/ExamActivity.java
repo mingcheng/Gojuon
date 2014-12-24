@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
-import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Question;
 import com.gracecode.android.gojuon.helper.ExamHelper;
 import com.gracecode.android.gojuon.ui.dialog.ExamBeginDialog;
@@ -35,12 +34,11 @@ public class ExamActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
 
-        mCustomTypeface = Typeface.createFromAsset(getAssets(), Gojuon.CUSTOM_FONT_NAME);
+//        mCustomTypeface = Typeface.createFromAsset(getAssets(), Gojuon.CUSTOM_FONT_NAME);
         mAnswersProgress = (TextView) findViewById(R.id.answer_progress);
         mAnswersTime = (TextView) findViewById(R.id.answer_time);
 
         mExamHelper = new ExamHelper(this);
-
         mResultDialog = new ExamResultDialog(this);
         mExamBeginDialog = new ExamBeginDialog(this);
     }
@@ -64,8 +62,8 @@ public class ExamActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAnswersProgress.setTypeface(mCustomTypeface);
-        mAnswersTime.setTypeface(mCustomTypeface);
+//        mAnswersProgress.setTypeface(mCustomTypeface);
+//        mAnswersTime.setTypeface(mCustomTypeface);
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

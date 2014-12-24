@@ -21,9 +21,7 @@ public class Gojuon extends CustomApplication {
     public static final String KEY_LANGUAGE = "key_language";
 
     public static final String KEY_SHOW_CHARACTER_TYPE = "key_show_character_type";
-
-
-    public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";
+//    public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";
 
     public static final String LANGUAGE_AUTO = "-1";
     public static final String LANGUAGE_CHINESE = "1";

@@ -8,7 +8,6 @@ import android.support.v4.app.DialogFragment;
 import android.view.ViewGroup;
 import android.view.Window;
 import com.gracecode.android.common.helper.UIHelper;
-import com.gracecode.android.gojuon.common.Gojuon;
 
 abstract class BaseDialog extends DialogFragment {
     private final Context mContext;
@@ -29,10 +28,10 @@ abstract class BaseDialog extends DialogFragment {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
-        if (mContext != null) {
-            mCustomTypeface = Typeface.createFromAsset(mContext.getAssets(), Gojuon.CUSTOM_FONT_NAME);
-        }
+//
+//        if (mContext != null) {
+//            mCustomTypeface = Typeface.createFromAsset(mContext.getAssets(), Gojuon.CUSTOM_FONT_NAME);
+//        }
         super.onActivityCreated(savedInstanceState);
     }
 

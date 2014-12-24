@@ -1,11 +1,7 @@
 package com.gracecode.android.gojuon.ui.fragment;
 
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +13,7 @@ import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.ui.dialog.StrokeDialog;
-import com.gracecode.android.gojuon.ui.widget.CharacterLayout;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 
 public class CharactersFragment extends Fragment {
@@ -30,43 +23,21 @@ public class CharactersFragment extends Fragment {
     private static final String STROKE_DIALOG_TAG = "stroke_dialog_tag";
 
     private String[][] mCharacters;
-    private Gojuon mGojuon;
     private SharedPreferences mSharedPreferences;
     private int mColumns = DEFAULT_COLUMN_NUM;
     private GridView mGridView;
     private CharactersAdapter mCharactersAdapter;
     private StrokeDialog mStrokeDialog;
 
+    /**
+     * 点击每个字符触发的操作
+     */
     AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             try {
                 // Pronounce the character
                 Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
-
-                // Detect current screen orientation.
-                // @see https://stackoverflow.com/questions/3663665/how-can-i-get-the-current-screen-orientation
-                int orientation = mGojuon.getScreenOrientation();
-                if (mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false) && orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    Fragment fragment = new Fragment();
-                    View layout = getActivity().findViewById(R.id.layout_item_character);
-
-                    if (getCharacters() == Characters.MONOGRAPHS) {
-                        fragment = new StrokeDialog(getActivity());
-                        setStrokeDialog((StrokeDialog) fragment, i, true);
-                        layout.setVisibility(View.GONE);
-                    } else {
-                        if (layout instanceof CharacterLayout) {
-                            ((CharacterLayout) layout).autoAdjustTextSize();
-                        }
-                        mCharactersAdapter.fillCharacters(layout, i);
-                        layout.setVisibility(View.VISIBLE);
-                    }
-
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.layout_item_stoke, fragment)
-                            .commit();
-                }
 
                 // Mark as selected.
                 if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
@@ -79,92 +50,37 @@ public class CharactersFragment extends Fragment {
         }
     };
 
-    public String getPreferencedShowType() {
-        return mSharedPreferences.getString(Gojuon.KEY_SHOW_CHARACTER_TYPE, CharactersAdapter.TYPE_SHOW_CHARACTER_HIRAGANA);
-    }
-
-    public boolean isShowKatakana() {
-        return getPreferencedShowType().equals(CharactersAdapter.TYPE_SHOW_CHARACTER_KATAGANA) ? true : false;
-    }
-
-    private String getResourceNameByPosition(int position) {
-        return String.format("%s%d", (position / 5 == 0) ? "" : (position / 5) + "", position % 5);
-    }
-
-    private String getStrokeResourceNameByPosition(int position) {
-        return String.format("stroke/%s%sstroke.png",
-                isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
-    }
-
-    private String getCharacterResourceNameByPosition(int position) {
-        return String.format("stroke/%s%s.png",
-                isShowKatakana() ? "k" : "h", getResourceNameByPosition(position));
-    }
-
-    private Drawable getDrawableFromAssets(String path) throws IOException {
-        InputStream inputStream = getActivity().getAssets().open(path);
-        return Drawable.createFromStream(inputStream, null);
-    }
-
-
-    private void setStrokeDialog(final StrokeDialog fragment, final int position, final boolean autoFit) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    fragment
-                            .setStrokeDrawable(
-                                    getDrawableFromAssets(getStrokeResourceNameByPosition(position)));
-
-                    fragment
-                            .setCharacterDrawable(
-                                    getDrawableFromAssets(getCharacterResourceNameByPosition(position)));
-
-                    if (autoFit) {
-                        fragment.autoFitContainer();
-                    }
-                } catch (IOException e) {
-                    fragment.dismiss();
-                }
-            }
-        }, 100);
-    }
-
-    private void setStrokeDialog(final int position) {
-        setStrokeDialog(mStrokeDialog, position, false);
-    }
-
-    private void setStrokeDialog(int position, boolean autoFit) {
-        setStrokeDialog(mStrokeDialog, position, autoFit);
-    }
-
+    /**
+     * 长按事件，弹出对话框
+     */
     AdapterView.OnItemLongClickListener mOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-            final int position = i;
-            if (mGojuon.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE) {
-                setStrokeDialog(position);
-            } else {
-                setStrokeDialog(position, true);
-            }
-
+            mStrokeDialog.setCharacter(mCharacters[i]);
             mStrokeDialog.show(getFragmentManager(), STROKE_DIALOG_TAG);
             return false;
         }
     };
 
-
     public CharactersFragment() {
-
+        super();
     }
 
-    public CharactersFragment(String[][] characters) {
-        this.mCharacters = characters;
+    public void setCharactersAndColumns(String[][] characters, int columns) {
+        setCharacters(characters);
+        setColumns(columns);
     }
 
-    public CharactersFragment(String[][] characters, int columns) {
-        this.mCharacters = characters;
-        this.mColumns = columns;
+    public void setCharacters(String[][] mCharacters) {
+        this.mCharacters = mCharacters;
+    }
+
+    public String[][] getCharacters() {
+        return mCharacters;
+    }
+
+    public void setColumns(int mColumns) {
+        this.mColumns = mColumns;
     }
 
     @Override
@@ -176,17 +92,8 @@ public class CharactersFragment extends Fragment {
             mCharacters = (String[][]) savedInstanceState.getSerializable(STAT_CHARACTERS);
         }
 
-        mGojuon = Gojuon.getInstance();
-        mSharedPreferences = mGojuon.getSharedPreferences();
-        mStrokeDialog = new StrokeDialog(getActivity());
-    }
-
-    public CharactersAdapter getAdapter() {
-        return mCharactersAdapter;
-    }
-
-    public String[][] getCharacters() {
-        return mCharacters;
+        mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
+        mStrokeDialog = new StrokeDialog();
     }
 
     @Override
@@ -210,38 +117,31 @@ public class CharactersFragment extends Fragment {
         outState.putSerializable(STAT_CHARACTERS, mCharacters);
     }
 
+    public String getPreferenceShowType() {
+        return mSharedPreferences.getString(Gojuon.KEY_SHOW_CHARACTER_TYPE, CharactersAdapter.TYPE_SHOW_CHARACTER_HIRAGANA);
+    }
+
+    public CharactersAdapter getCharactersAdapter() {
+        return mCharactersAdapter;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         if (mCharacters != null && mCharacters.length > 0) {
+
             mCharactersAdapter = new CharactersAdapter(getActivity(), Arrays.asList(mCharacters));
-            mCharactersAdapter.setShowType(getPreferencedShowType());
+
+            // 根据配置项设置显示类型
+            mCharactersAdapter.setShowType(getPreferenceShowType());
 
             mGridView.setAdapter(mCharactersAdapter);
-            setOnItemClickListener(mOnItemClickListener);
+            mGridView.setOnItemClickListener(mOnItemClickListener);
 
+            // 如果是平假名，则长按可以显示笔画对话框
             if (getCharacters() == Characters.MONOGRAPHS) {
-                setOnItemLongClickListener(mOnItemLongClickListener);
+                mGridView.setOnItemLongClickListener(mOnItemLongClickListener);
             }
         }
     }
-
-    public void setOnItemLongClickListener(AdapterView.OnItemLongClickListener listener) {
-        mGridView.setOnItemLongClickListener(listener);
-    }
-
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
-        mGridView.setOnItemClickListener(listener);
-    }
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message message) {
-            switch (message.what) {
-                case 0:
-                    mGridView.requestFocusFromTouch();
-                    break;
-            }
-        }
-    };
 }
