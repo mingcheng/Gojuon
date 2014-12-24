@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import com.gracecode.android.common.CustomApplication;
 import com.gracecode.android.gojuon.service.PronounceService;
-import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 import java.util.Locale;
 
@@ -73,11 +72,12 @@ public class Gojuon extends CustomApplication {
         getBaseContext().getResources().updateConfiguration(configuration, null);
     }
 
-    public void checkUpdate() {
-        XiaomiUpdateAgent.setCheckUpdateOnlyWifi(true);
-        XiaomiUpdateAgent.update(this);
-    }
-
+    /**
+     * 发音，方便调用使用广播的方式
+     *
+     * @param context
+     * @param roumaji
+     */
     public static void pronounce(Context context, String roumaji) {
         Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
         intent.putExtra(PronounceService.EXTRA_ROUMAJI, roumaji);

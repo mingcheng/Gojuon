@@ -31,23 +31,6 @@ public class MainActivity extends BaseActivity {
 
         mIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mViewPager);
-        mGojunon.checkUpdate();
-
-        detectActionbar();
-    }
-
-    private void detectActionbar() {
-        int rotation = getWindowManager().getDefaultDisplay().getRotation();
-        switch (rotation) {
-            case Surface.ROTATION_0:
-            case Surface.ROTATION_180:
-                getActionBar().show();
-                break;
-
-            default:
-                getActionBar().hide();
-                break;
-        }
     }
 
     @Override

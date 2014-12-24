@@ -75,4 +75,7 @@
     </string>
     <string name="auto_requiz_wrong_topic_notify" formatted="false">You have %d wrong topics, auto redo!</string>
     <string name="exam_show_character_type">Character Type for Quiz</string>
+    <string name="katakana_first">Katakana First</string>
+    <string name="katakana_first_summary">Show Katakana first at each grid</string>
+    <string name="slideshow">Slide Show</string>
 </resources>
