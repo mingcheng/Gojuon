@@ -19,7 +19,6 @@ dependencies {
     compile 'com.viewpagerindicator:library:2.4.1@aar'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':libs:common')
-    //compile project(':libs:ViewPager-Indicator')
 }
 
 def getDate() {
@@ -29,13 +28,15 @@ def getDate() {
 }
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 19
     buildToolsVersion "21.1.1"
     defaultConfig {
         targetSdkVersion 19
-        minSdkVersion 15
-        versionName "build-${getDate()}"
+        minSdkVersion 14
+        versionCode getDate()
+        //versionName "build-" + getDate()
     }
+
     signingConfigs {
         debug {
             storeFile file(System.getProperty("user.home") + "/.android/debug.keystore")
