@@ -1,5 +1,6 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,18 +14,26 @@ import com.gracecode.android.gojuon.ui.activity.ExamActivity;
 import com.gracecode.android.gojuon.ui.activity.PrefActivity;
 
 public class ExamResultDialog extends BaseDialog {
-    private final ExamActivity mExamActivity;
-    private final ExamHelper mExamHelper;
+    private ExamActivity mExamActivity;
+    private ExamHelper mExamHelper;
     private TextView mExamPercent;
     private Button mExamButtonTryAgain;
     private Button mExamButtonRedoWrong;
     private Button mExamButtonConfigure;
     private Button mExamButtonExit;
 
-    public ExamResultDialog(ExamActivity activity) {
-        super(activity);
-        mExamActivity = activity;
-        mExamHelper = activity.getExamHelper();
+    public ExamResultDialog() {
+        super();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Activity activity = getActivity();
+        if (activity instanceof ExamActivity) {
+            mExamActivity = (ExamActivity) activity;
+            mExamHelper = mExamActivity.getExamHelper();
+        }
     }
 
     @Override

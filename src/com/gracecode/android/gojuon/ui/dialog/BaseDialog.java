@@ -1,7 +1,6 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -10,15 +9,10 @@ import android.view.Window;
 import com.gracecode.android.common.helper.UIHelper;
 
 abstract class BaseDialog extends DialogFragment {
-    private final Context mContext;
     private static Typeface mCustomTypeface;
 
     BaseDialog() {
-        mContext = null;
-    }
-
-    BaseDialog(Context context) {
-        mContext = context;
+        super();
     }
 
     @Override
