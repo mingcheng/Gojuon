@@ -1,5 +1,6 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,11 @@ import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.ui.activity.ExamActivity;
 
 public class ExamBeginDialog extends BaseDialog {
-    private final ExamActivity mActivity;
+    private ExamActivity mActivity;
     private Button mStartButton;
 
-    public ExamBeginDialog(ExamActivity activity) {
-        super(activity);
-        this.mActivity = activity;
+    public ExamBeginDialog() {
+        super();
     }
 
     @Override
@@ -33,7 +33,10 @@ public class ExamBeginDialog extends BaseDialog {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActivity.startExam();
+                Activity activity = getActivity();
+                if (activity instanceof ExamActivity) {
+                    ((ExamActivity) activity).startExam();
+                }
                 dismiss();
             }
         });

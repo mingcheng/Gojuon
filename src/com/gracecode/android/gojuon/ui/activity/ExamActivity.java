@@ -39,8 +39,8 @@ public class ExamActivity extends BaseActivity {
         mAnswersTime = (TextView) findViewById(R.id.answer_time);
 
         mExamHelper = new ExamHelper(this);
-        mResultDialog = new ExamResultDialog(this);
-        mExamBeginDialog = new ExamBeginDialog(this);
+        mResultDialog = new ExamResultDialog();
+        mExamBeginDialog = new ExamBeginDialog();
     }
 
     public void startExam() {
