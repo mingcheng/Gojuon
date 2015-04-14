@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:orientation="vertical"
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
-          android:numColumns="5"
-          android:id="@+id/list"
-          android:horizontalSpacing="1dp"
-          android:verticalSpacing="1dp"
-          android:scrollbars="none"
-        />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/color_accent"
+        >
+
+    <GridView
+            android:background="@android:color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="5"
+            android:padding="1dp"
+            android:id="@+id/list"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="1dp"
+            android:scrollbars="none"
+            />
+
+</FrameLayout>
 

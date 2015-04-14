@@ -11,32 +11,46 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
+            android:background="@color/color_primary_dark"
+            custom:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            custom:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             />
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
-            android:id="@+id/smart_tab_layout"
+    <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:padding="@dimen/abc_action_bar_default_padding_material"
-            android:clipToPadding="false"
-            custom:stl_indicatorInterpolation="smart"
-            custom:stl_indicatorColor="@android:color/black"
-            custom:stl_indicatorThickness="40dp"
-            custom:stl_indicatorCornerRadius="20dp"
-            custom:stl_underlineThickness="0dp"
-            custom:stl_underlineColor="@android:color/transparent"
-            custom:stl_dividerThickness="0dp"
-            custom:stl_dividerColor="@android:color/transparent"
-            custom:stl_defaultTabTextColor="@android:color/white"
-            custom:stl_defaultTabTextSize="14sp"
-            custom:stl_defaultTabTextHorizontalPadding="?attr/actionBarSize"
-            custom:stl_defaultTabTextMinWidth="100dp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@+id/smart_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:padding="7dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_primary_dark"
+                android:clipToPadding="true"
+                custom:stl_indicatorInterpolation="linear"
+                custom:stl_indicatorColor="@color/color_primary"
+                custom:stl_indicatorThickness="30dp"
+                custom:stl_indicatorCornerRadius="3dp"
+                custom:stl_underlineThickness="0dp"
+                custom:stl_underlineColor="@android:color/transparent"
+                custom:stl_dividerThickness="0dp"
+                custom:stl_dividerColor="@android:color/transparent"
+                custom:stl_defaultTabTextColor="@color/color_accent"
+                custom:stl_defaultTabTextSize="@dimen/abc_text_size_subhead_material"
+                custom:stl_defaultTabTextHorizontalPadding="?attr/actionBarSize"
+                custom:stl_customTabTextLayoutId="@layout/item_tab"
+                custom:stl_customTabTextViewId="@+id/custom_text"
+                />
+
+        <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+    </LinearLayout>
+
 </LinearLayout>

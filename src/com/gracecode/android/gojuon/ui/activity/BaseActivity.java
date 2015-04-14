@@ -38,4 +38,9 @@ abstract class BaseActivity extends ActionBarActivity {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR :
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
+
+
+    protected int getScreenHeight() {
+        return findViewById(android.R.id.content).getHeight();
+    }
 }

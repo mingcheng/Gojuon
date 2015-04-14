@@ -98,16 +98,12 @@ public class CharactersFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_characters, null);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mGridView = (GridView) getView().findViewById(R.id.list);
+        View view = inflater.inflate(R.layout.fragment_characters, null);
+        mGridView = (GridView) view.findViewById(R.id.list);
         mGridView.setNumColumns(mColumns);
         mGridView.setSoundEffectsEnabled(false);
         mGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
+        return view;
     }
 
     @Override
@@ -129,7 +125,6 @@ public class CharactersFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (mCharacters != null && mCharacters.length > 0) {
-
             mCharactersAdapter = new CharactersAdapter(getActivity(), Arrays.asList(mCharacters));
 
             // 根据配置项设置显示类型

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:color/black" android:state_selected="true"/>
-    <item android:drawable="@android:color/black" android:state_pressed="true"/>
-    <item android:drawable="@android:color/black" android:state_checked="true"/>
-    <item android:drawable="@color/accent_material_dark"/>
+    <item android:drawable="@drawable/radius"
+          android:state_selected="true"/>
+    <item android:drawable="@drawable/radius"
+          android:state_pressed="true"/>
+    <item android:drawable="@drawable/radius"
+          android:state_checked="true"/>
+    <item android:drawable="@color/color_accent"/>
 </selector>

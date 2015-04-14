@@ -29,6 +29,9 @@ public class MainActivity extends BaseActivity {
     @InjectView(R.id.toolbar)
     Toolbar mToolbarView;
 
+    @InjectView(R.id.container)
+    View mContainerView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +48,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        mIndicator.setCurrentItem(getSavedResumePage());
-
+        mViewPager.setCurrentItem(getSavedResumePage(), false);
         if (mSharedPreferences.getBoolean(Gojuon.KEY_KEEP_SCREEN, true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }

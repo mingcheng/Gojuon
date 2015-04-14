@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppBaseTheme"
+    <style name="AppTheme.Base"
            parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
@@ -9,8 +9,10 @@
 
     <!-- Application theme. -->
     <style name="AppTheme"
-           parent="AppBaseTheme">
+           parent="AppTheme.Base">
         <item name="android:soundEffectsEnabled">false</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
-
 </resources>
