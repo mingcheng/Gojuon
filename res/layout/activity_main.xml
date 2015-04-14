@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-    <com.viewpagerindicator.TitlePageIndicator
-            android:id="@+id/indicator"
-            android:padding="10dip"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+            android:id="@+id/smart_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:clipToPadding="false"
+            custom:stl_indicatorInterpolation="smart"
+            custom:stl_indicatorColor="@android:color/black"
+            custom:stl_indicatorThickness="40dp"
+            custom:stl_indicatorCornerRadius="20dp"
+            custom:stl_underlineThickness="0dp"
+            custom:stl_underlineColor="@android:color/transparent"
+            custom:stl_dividerThickness="0dp"
+            custom:stl_dividerColor="@android:color/transparent"
+            custom:stl_defaultTabTextColor="@android:color/white"
+            custom:stl_defaultTabTextSize="14sp"
+            custom:stl_defaultTabTextHorizontalPadding="20dp"
+            custom:stl_defaultTabTextMinWidth="100dp"
             />
 
     <android.support.v4.view.ViewPager

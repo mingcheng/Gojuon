@@ -39,13 +39,11 @@ public class QuestionFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
 
     public QuestionFragment() {
-
+        mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
     }
 
-    public QuestionFragment(ExamActivity activity, Question question) {
-        this.mExamActivity = activity;
+    public void setQuestion(Question question) {
         this.mQuestion = question;
-        mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
     }
 
     @Override
