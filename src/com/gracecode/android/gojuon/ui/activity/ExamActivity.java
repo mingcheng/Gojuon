@@ -28,6 +28,7 @@ public class ExamActivity extends BaseActivity {
     private ExamHelper mExamHelper;
     private ExamResultDialog mResultDialog;
     private ExamBeginDialog mExamBeginDialog;
+    private QuestionFragment mQuestionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +125,9 @@ public class ExamActivity extends BaseActivity {
                             .remove(fragment).commit();
                 }
 
+                mQuestionFragment = new QuestionFragment();
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_question, new QuestionFragment(this, question), TAG_FRAGMENT_QUESTION)
+                        .replace(R.id.fragment_question, mQuestionFragment, TAG_FRAGMENT_QUESTION)
                         .commit();
             }
         } catch (RuntimeException e) {

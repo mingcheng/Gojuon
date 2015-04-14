@@ -3,40 +3,44 @@ package com.gracecode.android.gojuon.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersFragmentAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
-import com.viewpagerindicator.TitlePageIndicator;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 public class MainActivity extends BaseActivity {
-    private ViewPager mViewPager;
-    private TitlePageIndicator mIndicator;
     private CharactersFragmentAdapter mCharactersFragmentAdapter;
 
     private static String KEY_AUTO_RESUME_SAVED = "key_auto_resume_saved";
 
-    /**
-     * Called when the activity is first created.
-     */
+    @InjectView(R.id.pager)
+    ViewPager mViewPager;
+
+    @InjectView(R.id.smart_tab_layout)
+    SmartTabLayout mSmartTabLayout;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        ButterKnife.inject(this);
 
         mCharactersFragmentAdapter = new CharactersFragmentAdapter(this, getSupportFragmentManager());
         mViewPager.setAdapter(mCharactersFragmentAdapter);
-
-        mIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
-        mIndicator.setViewPager(mViewPager);
+        mSmartTabLayout.setViewPager(mViewPager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mIndicator.setCurrentItem(getSavedResumePage());
+//        mIndicator.setCurrentItem(getSavedResumePage());
 
         if (mSharedPreferences.getBoolean(Gojuon.KEY_KEEP_SCREEN, true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
