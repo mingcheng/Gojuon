@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import com.gracecode.android.gojuon.common.Gojuon;
 
-abstract class BaseActivity extends FragmentActivity {
+abstract class BaseActivity extends ActionBarActivity {
     public Gojuon mGojunon;
     protected Intent mServiceIntent;
     protected SharedPreferences mSharedPreferences;

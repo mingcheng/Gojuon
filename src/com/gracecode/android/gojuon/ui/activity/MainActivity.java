@@ -3,6 +3,7 @@ package com.gracecode.android.gojuon.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,12 +26,16 @@ public class MainActivity extends BaseActivity {
     @InjectView(R.id.smart_tab_layout)
     SmartTabLayout mSmartTabLayout;
 
+    @InjectView(R.id.toolbar)
+    Toolbar mToolbarView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        setSupportActionBar(mToolbarView);
 
         mCharactersFragmentAdapter = new CharactersFragmentAdapter(this, getSupportFragmentManager());
         mViewPager.setAdapter(mCharactersFragmentAdapter);
@@ -82,7 +87,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_prefs:
                 startActivity(new Intent(this, PrefActivity.class));
@@ -98,6 +103,6 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
-        return super.onMenuItemSelected(featureId, item);
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,13 +6,18 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            />
+
     <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:id="@+id/smart_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:layout_height="?attr/actionBarSize"
+            android:padding="@dimen/abc_action_bar_default_padding_material"
             android:clipToPadding="false"
             custom:stl_indicatorInterpolation="smart"
             custom:stl_indicatorColor="@android:color/black"
@@ -24,7 +29,7 @@
             custom:stl_dividerColor="@android:color/transparent"
             custom:stl_defaultTabTextColor="@android:color/white"
             custom:stl_defaultTabTextSize="14sp"
-            custom:stl_defaultTabTextHorizontalPadding="20dp"
+            custom:stl_defaultTabTextHorizontalPadding="?attr/actionBarSize"
             custom:stl_defaultTabTextMinWidth="100dp"
             />
 
