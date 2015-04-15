@@ -4,6 +4,11 @@
           android:versionName="2.0.0"
         >
 
+    <supports-screens
+            android:smallScreens="false"
+            android:resizeable="true"
+            />
+
     <application
             android:label="@string/app_name"
             android:icon="@drawable/ic_launcher"
