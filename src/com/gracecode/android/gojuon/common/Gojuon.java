@@ -18,6 +18,7 @@ public class Gojuon extends CustomApplication {
     public static final String KEY_HIGHLIGHT_SELECTED = "key_highlight_selected";
     public static final String KEY_AUTO_ROTATE = "key_auto_rotate";
     public static final String KEY_LANGUAGE = "key_language";
+    public static final String KEY_SHOW_SHADOW = "key_show_shadow";
 
     public static final String KEY_SHOW_CHARACTER_TYPE = "key_show_character_type";
 //    public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";

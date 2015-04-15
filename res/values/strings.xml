@@ -78,4 +78,6 @@
     <string name="katakana_first">Katakana First</string>
     <string name="katakana_first_summary">Show Katakana first at each grid</string>
     <string name="slideshow">Slide Show</string>
+    <string name="show_shadow">Show Shadow Animator</string>
+    <string name="show_shadow_summary">Show shadow animator when character grid was pressed.</string>
 </resources>

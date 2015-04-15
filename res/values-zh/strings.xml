@@ -41,7 +41,7 @@
     <string name="play">播放</string>
     <string name="try_again">重新开始</string>
     <string name="exam_redo_wrong">错题重做</string>
-    <string name="configure">配置</string>
+    <string name="configure">设置</string>
     <string name="exam">测验</string>
     <string name="question_num">考题数量</string>
     <string name="exam_question_num_summary">设置一次测验的题目数量</string>
@@ -72,4 +72,6 @@
     <string name="auto_requiz_wrong_topic_notify"
             formatted="false">有 %d 道问题答错了，重新测验错题</string>
     <string name="exam_show_character_type">测验类型</string>
+    <string name="show_shadow">单元格动画</string>
+    <string name="show_shadow_summary">当按下单元格的时候显示字符动画</string>
 </resources>

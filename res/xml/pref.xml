@@ -55,6 +55,14 @@
                 />
 
         <CheckBoxPreference
+                android:key="key_show_shadow"
+                android:title="@string/show_shadow"
+                android:summary="@string/show_shadow_summary"
+                android:defaultValue="true"
+                android:enabled="true"
+                />
+
+        <CheckBoxPreference
                 android:key="key_tts"
                 android:title="@string/using_tts"
                 android:summary="@string/using_tts_summary"
