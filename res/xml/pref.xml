@@ -73,6 +73,7 @@
 
     <PreferenceCategory
             android:title="@string/exam"
+            android:enabled="false"
             android:summary="@string/exam_summary">
 
         <!--
@@ -89,8 +90,6 @@
         android:title="Auto Save When Paused"
         android:defaultValue="true"
         />
-
-
                 -->
 
         <ListPreference

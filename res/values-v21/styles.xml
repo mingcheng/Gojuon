@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme"
+           parent="AppTheme.Base">
+        <item name="android:soundEffectsEnabled">false</item>
+        <item name="android:statusBarColor">@color/color_primary</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+</resources>

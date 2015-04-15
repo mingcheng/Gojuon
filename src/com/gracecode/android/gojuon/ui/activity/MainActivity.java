@@ -35,7 +35,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
         setSupportActionBar(mToolbarView);
@@ -43,6 +42,11 @@ public class MainActivity extends BaseActivity {
         mCharactersFragmentAdapter = new CharactersFragmentAdapter(this, getSupportFragmentManager());
         mViewPager.setAdapter(mCharactersFragmentAdapter);
         mSmartTabLayout.setViewPager(mViewPager);
+    }
+
+    @Override
+    protected int getContentViewId() {
+        return R.layout.activity_main;
     }
 
     @Override

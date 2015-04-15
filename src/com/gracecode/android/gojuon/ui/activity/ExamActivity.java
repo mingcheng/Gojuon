@@ -33,7 +33,6 @@ public class ExamActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exam);
 
 //        mCustomTypeface = Typeface.createFromAsset(getAssets(), Gojuon.CUSTOM_FONT_NAME);
         mAnswersProgress = (TextView) findViewById(R.id.answer_progress);
@@ -42,6 +41,11 @@ public class ExamActivity extends BaseActivity {
         mExamHelper = new ExamHelper(this);
         mResultDialog = new ExamResultDialog();
         mExamBeginDialog = new ExamBeginDialog();
+    }
+
+    @Override
+    protected int getContentViewId() {
+        return R.layout.activity_exam;
     }
 
     public void startExam() {

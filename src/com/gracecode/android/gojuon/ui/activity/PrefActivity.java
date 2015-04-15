@@ -16,7 +16,6 @@ public class PrefActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toolbar);
         ButterKnife.inject(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -31,6 +30,11 @@ public class PrefActivity extends BaseActivity {
                 .beginTransaction()
                 .replace(R.id.container, new PrefFragment())
                 .commit();
+    }
+
+    @Override
+    protected int getContentViewId() {
+        return R.layout.activity_toolbar;
     }
 
     @Override
