@@ -1,7 +1,6 @@
 package com.gracecode.android.gojuon.ui.widget;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,6 @@ import com.gracecode.android.gojuon.R;
 public class CharacterLayout extends RelativeLayout {
     public CharacterLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     private void autoAdjustTextSize(ViewGroup rootView) {
@@ -44,18 +38,5 @@ public class CharacterLayout extends RelativeLayout {
 
     public void autoAdjustTextSize() {
         autoAdjustTextSize(this);
-    }
-
-    public void hideOther() {
-        View view = findViewById(R.id.character_other);
-        if (view != null) {
-            view.setVisibility(View.GONE);
-        }
-        invalidate();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-
     }
 }

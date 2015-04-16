@@ -192,4 +192,8 @@ public class ExamHelper {
     public void setQuestions(List<Question> questions) {
         this.mQuestions = questions;
     }
+
+    public List<Question> getAllQuestions() {
+        return mQuestions;
+    }
 }

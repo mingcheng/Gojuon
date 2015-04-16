@@ -11,7 +11,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
-            android:background="@color/color_primary_dark"
+            android:background="@color/primary_dark"
             custom:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             custom:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             />

@@ -45,7 +45,7 @@ public class ExamActivity extends BaseActivity {
 
     @Override
     protected int getContentViewId() {
-        return R.layout.activity_exam;
+        return R.layout.activity_toolbar;
     }
 
     public void startExam() {
@@ -69,7 +69,7 @@ public class ExamActivity extends BaseActivity {
         super.onStart();
 //        mAnswersProgress.setTypeface(mCustomTypeface);
 //        mAnswersTime.setTypeface(mCustomTypeface);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

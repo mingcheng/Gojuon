@@ -1,16 +1,11 @@
 package com.gracecode.android.gojuon.ui.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -43,76 +38,23 @@ public class CharactersFragment extends Fragment {
     private CharactersAdapter mCharactersAdapter;
     private StrokeDialog mStrokeDialog;
 
-    /**
-     * 点击每个字符触发的操作
-     */
     AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
-        public static final long ANIMATOR_DURATION = 800;
-
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             try {
                 // Pronounce the character
-                Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
+//                Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
 
                 // Mark as selected.
                 if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
                     view.setSelected(true);
                 }
-
-                if (mSharedPreferences.getBoolean(Gojuon.KEY_SHOW_SHADOW, true)) {
-                    showShadowAnimator(mCharacters[i], view);
-                }
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
         }
-
-        private Animator getFadeOutAnimator() {
-            ObjectAnimator animator = ObjectAnimator.ofFloat(mShadowView, "alpha", 1f, 0f);
-            animator.setDuration((long) (ANIMATOR_DURATION * .8));
-            return animator;
-        }
-
-        private Animator getScaleAnimator(View refView) {
-            mShadowView.setX(refView.getX() + refView.getWidth() / 2 - mShadowView.getWidth() / 2);
-            mShadowView.setY(refView.getY() + refView.getHeight() / 2 - mShadowView.getHeight() / 2);
-            ValueAnimator animator = ValueAnimator.ofFloat(1f, 10f);
-            animator.setDuration(ANIMATOR_DURATION);
-            animator.setInterpolator(new AccelerateDecelerateInterpolator());
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    float i = (float) valueAnimator.getAnimatedValue();
-                    mShadowView.setScaleX(i);
-                    mShadowView.setScaleY(i);
-                }
-            });
-
-            return animator;
-        }
-
-
-        private void showShadowAnimator(String[] character, View refView) {
-            switch (getPreferenceShowType()) {
-                case CharactersAdapter.TYPE_SHOW_CHARACTER_HIRAGANA:
-                    mShadowView.setText(character[Characters.INDEX_HIRAGANA]);
-                    break;
-                case CharactersAdapter.TYPE_SHOW_CHARACTER_KATAGANA:
-                    mShadowView.setText(character[Characters.INDEX_KATAKANA]);
-                    break;
-            }
-
-            AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.play(getScaleAnimator(refView)).with(getFadeOutAnimator());
-            animatorSet.start();
-        }
     };
 
-
-    /**
-     * 长按事件，弹出对话框
-     */
     AdapterView.OnItemLongClickListener mOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -189,6 +131,7 @@ public class CharactersFragment extends Fragment {
 
             // 根据配置项设置显示类型
             mCharactersAdapter.setShowType(getPreferenceShowType());
+            mCharactersAdapter.setShadowView(mShadowView);
 
             mGridView.setAdapter(mCharactersAdapter);
             mGridView.setOnItemClickListener(mOnItemClickListener);

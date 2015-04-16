@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import com.gracecode.android.gojuon.R;
@@ -45,7 +46,7 @@ abstract class BaseActivity extends ActionBarActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(getResources().getColor(R.color.color_primary_deep));
+            window.setStatusBarColor(getResources().getColor(R.color.primary_deep));
         }
     }
 
@@ -55,6 +56,16 @@ abstract class BaseActivity extends ActionBarActivity {
         setRequestedOrientation(mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false) ?
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR :
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     protected int getScreenHeight() {
