@@ -3,6 +3,7 @@ package com.gracecode.android.gojuon.ui.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
+import com.gracecode.android.common.Logger;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.QuestionAdapter;
+import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.helper.ViewHelper;
 import com.gracecode.android.gojuon.ui.widget.CountdownTextView;
 
@@ -33,7 +36,11 @@ import java.util.List;
  * Date: 15/4/16
  */
 public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickListener, Animator.AnimatorListener {
+    public static final String KEY_EXAM_HIGHLIGHT_RESULT = "key_exam_highlight_result";
+
     private static final String NONE_ANSWER = "";
+    private static final int DEFAULT_QUESTION_AMOUNT = 2;
+    private final SharedPreferences mSharedPreferences;
 
     private OnExam2Listener mListener;
 
@@ -52,7 +59,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     private QuestionAdapter mGridViewAdapter;
     private List<String> mSyllabus;
 
-    private int mAmount = 10;
+    private int mAmount = DEFAULT_QUESTION_AMOUNT;
     private AnimatorSet mAnimatorSet;
     private List<String> mAnswers = new ArrayList<>();
     private List<String> mAnswered = new ArrayList<>();
@@ -70,7 +77,6 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     public void onAnimationEnd(Animator animator) {
         if (!mStoppedByUser) {
             markAnswer(mCurrentPosition, NONE_ANSWER);
-            fillNextQuestion();
         }
     }
 
@@ -87,7 +93,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     public interface OnExam2Listener {
         abstract public void onExamStart();
 
-        abstract public void onItemAnswered(String answered, View view);
+        abstract public void onItemAnswered(String answered, int position);
 
         abstract public void onExamStop();
 
@@ -96,6 +102,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     public Exam2Fragment() {
         super();
+        mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
     }
 
     public long getAnswerDuration() {
@@ -161,6 +168,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
                 question.add(item);
             }
         }
+
         Collections.shuffle(question);
         return question;
     }
@@ -168,16 +176,12 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     @OnItemClick(R.id.questions_list)
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        stopRemainViewAnimator();
         mStoppedByUser = true;
         mQuestionsGridView.setEnabled(false);
-
-        if (mAnswered.size() >= mAnswers.size()) {
-            return;
-        }
-        stopRemainViewAnimator();
         markAnswer(mCurrentPosition, mGridViewAdapter.getItem(i));
-        fillNextQuestion();
     }
+
 
     private void fillNextQuestion() {
         if (mAnswered.size() >= mAnswers.size()) {
@@ -186,6 +190,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         }
         fillQuestion(++mCurrentPosition);
     }
+
 
     private void fillQuestion(int position) {
         String answer = NONE_ANSWER;
@@ -236,10 +241,39 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     private void markAnswer(int position, String answer) {
-        mAnswered.add(position, answer);
         if (mListener != null) {
-            mListener.onItemAnswered(answer, null);
+            mListener.onItemAnswered(answer, position);
         }
+
+        mAnswered.add(position, answer);
+        String correctAnswer = mAnswers.get(position);
+        boolean isHighlightAnswer = mSharedPreferences.getBoolean(KEY_EXAM_HIGHLIGHT_RESULT, true);
+        if (isHighlightAnswer && !answer.equals(correctAnswer)) {
+            Logger.i("Answer is " + mAnswers.get(mCurrentPosition) + ", you answered " + answer);
+            highlightViewByAnswer(correctAnswer, new CountdownTextView.CountdownListener() {
+                @Override
+                public void onRepeat(int repeat) {
+
+                }
+
+                @Override
+                public void onCountdownEnd() {
+                    detectAnswerFinished();
+                    fillNextQuestion();
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+        } else {
+            detectAnswerFinished();
+            fillNextQuestion();
+        }
+    }
+
+    private void detectAnswerFinished() {
         if (mAnswered.size() >= mAnswers.size()) {
             stopRemainViewAnimator();
             mQuestionsGridView.setEnabled(false);
@@ -252,6 +286,15 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     private void setAnswerProgress(int i) {
         mAnswerStatusView.setText(++i + "/" + mAmount);
+    }
+
+    public void highlightViewByAnswer(String answer, CountdownTextView.CountdownListener listener) {
+        mCountdownView.setText(answer);
+        mCountdownView.setTextColor(getResources().getColor(R.color.red));
+        mCountdownView.setCountdownNumber(1);
+        mCountdownView.setCountdownCharacters(new String[]{answer});
+        mCountdownView.setCountdownListener(listener);
+        mCountdownView.startCountdown();
     }
 
     public void init() {
@@ -268,6 +311,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         init();
 
         mCountdownView.setCountdownNumber(3);
+        mCountdownView.setCountdownCharacters(new String[]{"いち", "に", "さん"});
         mCountdownView.setCountdownListener(new CountdownTextView.CountdownListener() {
             @Override
             public void onRepeat(int repeat) {
@@ -299,6 +343,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onStop() {
         super.onStop();
+        mCountdownView.stopCountdown();
         stop();
     }
 }

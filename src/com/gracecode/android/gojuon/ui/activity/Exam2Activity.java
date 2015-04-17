@@ -3,7 +3,6 @@ package com.gracecode.android.gojuon.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.gracecode.android.common.Logger;
@@ -43,7 +42,7 @@ public class Exam2Activity extends BaseActivity implements Exam2Fragment.OnExam2
         super.onResume();
 
         ExamHelper helper = new ExamHelper(this);
-        helper.generateRandomQuestions(10);
+        helper.generateRandomQuestions(3);
 
         ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < Characters.MONOGRAPHS.length; i++) {
@@ -79,8 +78,8 @@ public class Exam2Activity extends BaseActivity implements Exam2Fragment.OnExam2
     }
 
     @Override
-    public void onItemAnswered(String answered, View view) {
-        Logger.i("Answer:" + answered);
+    public void onItemAnswered(String answered, int position) {
+        Logger.i("Answer " + position + " :" + answered);
     }
 
     @Override

@@ -19,10 +19,17 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
     private int mCountdownNumber;
     private AnimatorSet mAnimatorSet;
     private CountdownListener mListener;
+    private String[] mCountdownCharacters;
 
     @Override
     public void onAnimationStart(Animator animator) {
-        setText(String.valueOf(mCountdownNumber));
+        try {
+            String character = mCountdownCharacters[mCountdownNumber - 1];
+            setText(character);
+        } catch (RuntimeException e) {
+            setText(String.valueOf(mCountdownNumber));
+        }
+
         if (mListener != null) {
             mListener.onRepeat(mCountdownNumber);
         }
@@ -51,6 +58,10 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
 
     }
 
+    public void setCountdownCharacters(String[] characters) {
+        this.mCountdownCharacters = characters;
+    }
+
     public interface CountdownListener {
         abstract public void onRepeat(int repeat);
 
@@ -75,7 +86,7 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
         mAnimatorSet = new AnimatorSet();
         mAnimatorSet.playTogether(
                 ViewHelper.getFadeOutAnimator(this, DURATION),
-                ViewHelper.getScaleAnimator(this, 1f, 3f, DURATION));
+                ViewHelper.getScaleAnimator(this, 1f, 2f, DURATION));
         mAnimatorSet.setDuration((long) (DURATION * .8));
         mAnimatorSet.addListener(this);
         mAnimatorSet.start();
