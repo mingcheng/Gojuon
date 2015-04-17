@@ -18,7 +18,6 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-import com.gracecode.android.common.Logger;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.QuestionAdapter;
 import com.gracecode.android.gojuon.common.Gojuon;
@@ -39,7 +38,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     public static final String KEY_EXAM_HIGHLIGHT_RESULT = "key_exam_highlight_result";
 
     private static final String NONE_ANSWER = "";
-    private static final int DEFAULT_QUESTION_AMOUNT = 2;
+    private static final int DEFAULT_QUESTION_AMOUNT = 30;
     private final SharedPreferences mSharedPreferences;
 
     private OnExam2Listener mListener;
@@ -69,8 +68,8 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onAnimationStart(Animator animator) {
-        // pronounce
         mStoppedByUser = false;
+        pronounce(getCorrectAnswer());
     }
 
     @Override
@@ -88,6 +87,10 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onAnimationRepeat(Animator animator) {
 
+    }
+
+    private void pronounce(String charsets) {
+        Gojuon.pronounce(getActivity(), charsets);
     }
 
     public interface OnExam2Listener {
@@ -240,17 +243,25 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         }
     }
 
+    private String getCorrectAnswer() {
+        try {
+            return mAnswers.get(mCurrentPosition);
+        } catch (RuntimeException e) {
+            return NONE_ANSWER;
+        }
+    }
+
     private void markAnswer(int position, String answer) {
         if (mListener != null) {
             mListener.onItemAnswered(answer, position);
         }
 
         mAnswered.add(position, answer);
-        String correctAnswer = mAnswers.get(position);
         boolean isHighlightAnswer = mSharedPreferences.getBoolean(KEY_EXAM_HIGHLIGHT_RESULT, true);
-        if (isHighlightAnswer && !answer.equals(correctAnswer)) {
-            Logger.i("Answer is " + mAnswers.get(mCurrentPosition) + ", you answered " + answer);
-            highlightViewByAnswer(correctAnswer, new CountdownTextView.CountdownListener() {
+        if (isHighlightAnswer && !answer.equals(getCorrectAnswer())) {
+//            Logger.i("Answer is " + mAnswers.get(mCurrentPosition) + ", you answered " + answer);
+            pronounce(getCorrectAnswer());
+            highlightViewByAnswer(getCorrectAnswer(), new CountdownTextView.CountdownListener() {
                 @Override
                 public void onRepeat(int repeat) {
 
@@ -310,6 +321,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         }
         init();
 
+        mCountdownView.setTextColor(getResources().getColor(R.color.primary_dark));
         mCountdownView.setCountdownNumber(3);
         mCountdownView.setCountdownCharacters(new String[]{"いち", "に", "さん"});
         mCountdownView.setCountdownListener(new CountdownTextView.CountdownListener() {
@@ -328,7 +340,6 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
             }
         });
-
         mCountdownView.startCountdown();
     }
 
