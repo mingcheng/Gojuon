@@ -6,25 +6,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.IBinder;
-import android.widget.Toast;
+import android.support.v4.util.LruCache;
+import com.gracecode.android.common.Logger;
+import com.gracecode.android.gojuon.Characters;
+import com.gracecode.android.gojuon.R;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class PronounceService extends Service {
     public static final String PLAY_PRONOUNCE_NAME = PronounceService.class.getName();
-    public static final String EXTRA_ROUMAJI = "extra_roumaji";
+    public static final String EXTRA_CHARSET = "extra_charset";
+    private static final int MAX_STREAMS = 5;
 
     BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String roumaji = intent.getStringExtra(EXTRA_ROUMAJI);
-            if (roumaji != null && roumaji.length() > 0) {
+            String charset = intent.getStringExtra(EXTRA_CHARSET);
+            if (charset != null && charset.length() > 0) {
                 try {
-                    AssetFileDescriptor pronounceFile = getPronounceAssetFile(roumaji);
+                    AssetFileDescriptor pronounceFile = getPronounceAssetFile(charset);
                     if (pronounceFile.getLength() > 0) {
                         final int playId = mSoundPool.load(pronounceFile, 1);
                         mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -35,17 +42,40 @@ public class PronounceService extends Service {
                                 mSoundPool.unload(playId);
                             }
                         });
-                    } else {
-                        Toast.makeText(PronounceService.this, pronounceFile.toString(), Toast.LENGTH_SHORT).show();
                     }
+
+                    Logger.v(getString(R.string.pronounce, charset, getRoumajiFromCharset(charset)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        private AssetFileDescriptor getPronounceAssetFile(String roumaji) throws IOException {
-            roumaji = roumaji.replaceAll("(\\*+)$", "") ;
+        private String getRoumajiFromCharset(String needle) {
+            String[] cached = mLruCache.get(needle);
+            if (cached != null && cached.length > 0) {
+                return cached[Characters.INDEX_ROUMAJI];
+            }
+
+            String[][][] all = new String[][][]{
+                    Characters.MONOGRAPHS, Characters.DIGRAPHS, Characters.MONOGRAPHS_WITH_DIACRITICS, Characters.DIGRAPHS_WITH_DIACRITICS
+            };
+
+            for (String[][] characters : all) {
+                for (String[] item : characters) {
+                    if (Arrays.asList(item).contains(needle)) {
+                        mLruCache.put(needle, item);
+                        return item[Characters.INDEX_ROUMAJI];
+                    }
+                }
+            }
+
+            return "";
+        }
+
+        private AssetFileDescriptor getPronounceAssetFile(String charset) throws IOException {
+            String roumaji = getRoumajiFromCharset(charset);
+            roumaji = roumaji.replaceAll("(\\*+)$", "");
             switch (roumaji) {
                 case "o/wo":
                     roumaji = "wo";
@@ -54,8 +84,10 @@ public class PronounceService extends Service {
             return getAssets().openFd("pronounce/" + roumaji + ".ogg");
         }
     };
+
     private SoundPool mSoundPool;
     private AudioManager mAudioManager;
+    private LruCache<String, String[]> mLruCache;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -66,8 +98,23 @@ public class PronounceService extends Service {
     public void onCreate() {
         super.onCreate();
         registerReceiver(mBroadcastReceiver, new IntentFilter(PronounceService.PLAY_PRONOUNCE_NAME));
-        mSoundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            SoundPool.Builder builder = new SoundPool.Builder();
+            AudioAttributes.Builder attributes = new AudioAttributes.Builder();
+            attributes.setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .setLegacyStreamType(AudioManager.STREAM_MUSIC)
+                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY);
+
+            builder.setAudioAttributes(attributes.build())
+                    .setMaxStreams(MAX_STREAMS);
+            mSoundPool = builder.build();
+        } else {
+            mSoundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        }
+
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mLruCache = new LruCache<String, String[]>(Characters.MONOGRAPHS.length * 4);
     }
 
     @Override

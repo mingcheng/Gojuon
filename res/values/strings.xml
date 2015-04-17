@@ -87,4 +87,6 @@
     <string name="slideshow">Slide Show</string>
     <string name="show_shadow">Show Shadow Animator</string>
     <string name="show_shadow_summary">Show shadow animator when character grid was pressed.</string>
+    <string name="pronounce"
+            formatted="false">%s is pronounced as %s</string>
 </resources>

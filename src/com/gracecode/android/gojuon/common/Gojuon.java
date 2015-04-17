@@ -77,12 +77,12 @@ public class Gojuon extends CustomApplication {
      * 发音，方便调用使用广播的方式
      *
      * @param context
-     * @param roumaji
+     * @param charset
      */
-    public static void pronounce(Context context, String roumaji) {
+    public static void pronounce(Context context, String charset) {
         try {
             Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
-            intent.putExtra(PronounceService.EXTRA_ROUMAJI, roumaji);
+            intent.putExtra(PronounceService.EXTRA_CHARSET, charset);
             context.sendBroadcast(intent);
         } catch (RuntimeException e) {
             e.printStackTrace();

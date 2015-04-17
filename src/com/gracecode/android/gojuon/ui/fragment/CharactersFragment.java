@@ -43,7 +43,7 @@ public class CharactersFragment extends Fragment {
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             try {
                 // Pronounce the character
-//                Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
+                Gojuon.pronounce(getActivity(), mCharactersAdapter.getItem(i)[Characters.INDEX_KATAKANA]);
 
                 // Mark as selected.
                 if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
