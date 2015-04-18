@@ -25,6 +25,10 @@ public class PronounceService extends Service {
     public static final String EXTRA_CHARSET = "extra_charset";
     private static final int MAX_STREAMS = 5;
 
+    private SoundPool mSoundPool;
+    private AudioManager mAudioManager;
+    private LruCache<String, String[]> mLruCache;
+
     BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -85,9 +89,6 @@ public class PronounceService extends Service {
         }
     };
 
-    private SoundPool mSoundPool;
-    private AudioManager mAudioManager;
-    private LruCache<String, String[]> mLruCache;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -114,7 +115,7 @@ public class PronounceService extends Service {
         }
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mLruCache = new LruCache<String, String[]>(Characters.MONOGRAPHS.length * 4);
+        mLruCache = new LruCache<String, String[]>(Characters.MONOGRAPHS.length);
     }
 
     @Override
