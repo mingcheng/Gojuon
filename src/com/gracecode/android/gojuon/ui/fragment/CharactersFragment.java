@@ -42,11 +42,13 @@ public class CharactersFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             try {
+                String katakana = mCharactersAdapter.getItem(i)[Characters.INDEX_KATAKANA];
+
                 // Pronounce the character
-                Gojuon.pronounce(getActivity(), mCharactersAdapter.getItem(i)[Characters.INDEX_KATAKANA]);
+                Gojuon.pronounce(getActivity(), katakana);
 
                 // Mark as selected.
-                if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
+                if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true) && !katakana.isEmpty()) {
                     view.setSelected(true);
                 }
             } catch (RuntimeException e) {
