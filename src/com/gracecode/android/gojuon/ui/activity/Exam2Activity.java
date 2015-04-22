@@ -99,7 +99,7 @@ public class Exam2Activity extends SlideActivity
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
         mCurrentStage = mStages.get(i);
         mExam2Fragment.setSyllabus(mCurrentStage.getSyllabus());
-        getSupportActionBar().setTitle(getString(R.string.exam) + " - " + mCurrentStage.getLevel());
+        setTitle(getString(R.string.exam) + " - " + mCurrentStage.getLevel());
         open();
     }
 
@@ -114,12 +114,13 @@ public class Exam2Activity extends SlideActivity
 
     @Override
     public void OnPanelOpened() {
-//        mExam2Fragment.start();
+        mExam2Fragment.init();
+        mExam2Fragment.start();
     }
 
     @Override
     public void OnPanelClosed() {
-        getSupportActionBar().setTitle(getString(R.string.exam));
-//        mExam2Fragment.stop();
+        setTitle(getString(R.string.exam));
+        mExam2Fragment.stop();
     }
 }

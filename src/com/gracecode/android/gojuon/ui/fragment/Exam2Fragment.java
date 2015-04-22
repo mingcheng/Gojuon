@@ -54,6 +54,9 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     @InjectView(R.id.time_remain)
     View mTimeRemainView;
 
+    @InjectView(R.id.mask)
+    View mMaskView;
+
     @InjectView(R.id.countdown)
     CountdownTextView mCountdownView;
 
@@ -69,6 +72,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     private boolean mStoppedByUser;
     private boolean mSelectedByUser;
+    private boolean mRunning;
 
     public static Exam2Fragment getInstance() {
         if (fragment == null) {
@@ -116,14 +120,29 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     }
 
+    /**
+     * 根据某个字符发音
+     *
+     * @param charsets
+     */
     private void pronounce(String charsets) {
         Gojuon.pronounce(getActivity(), charsets);
     }
 
+    /**
+     * 获取回答的超时时间
+     *
+     * @return
+     */
     public long getAnswerDuration() {
         return mAnswerDuration;
     }
 
+    /**
+     * 设置回答的超时时间
+     *
+     * @param duration
+     */
     public void setAnswerDuration(long duration) {
         this.mAnswerDuration = duration;
     }
@@ -147,20 +166,42 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         return view;
     }
 
+    /**
+     * 设置回调操作，方便外部调用
+     *
+     * @param listener
+     */
     public void setOnExam2Listener(OnExam2Listener listener) {
         this.mListener = listener;
     }
 
+    /**
+     * 设置提纲
+     *
+     * @param syllabus
+     * @throws IllegalArgumentException
+     */
     public void setSyllabus(List<String> syllabus) throws IllegalArgumentException {
+        if (isRunning()) {
+            stop();
+        }
         if (syllabus.size() < QuestionAdapter.MAX_SELECTION_COUNT) {
             throw new IllegalArgumentException();
         }
         mSyllabus.clear();
         mSyllabus.addAll(syllabus);
-        //generateAnswers();
     }
 
-    public void setSyllabus(String[] syllabus) {
+    /**
+     * 设置提纲
+     *
+     * @param syllabus
+     * @throws IllegalArgumentException
+     */
+    public void setSyllabus(String[] syllabus) throws IllegalArgumentException {
+        if (isRunning()) {
+            stop();
+        }
         if (syllabus.length < QuestionAdapter.MAX_SELECTION_COUNT) {
             throw new IllegalArgumentException();
         }
@@ -168,13 +209,29 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         for (int i = 0, length = syllabus.length; i < length; i++) {
             mSyllabus.add(i, syllabus[i]);
         }
-        //generateAnswers();
     }
 
+    /**
+     * 判断是否正在运行
+     *
+     * @return
+     */
+    public boolean isRunning() {
+        return mRunning;
+    }
+
+    /**
+     * 设置题目的数量
+     *
+     * @param amount
+     */
     public void setAmount(int amount) {
         mAmount = amount;
     }
 
+    /**
+     * 生成答案列表
+     */
     private void generateAnswers() {
         mAnswers.clear();
         setAmount(DEFAULT_QUESTION_AMOUNT);
@@ -192,6 +249,12 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         }
     }
 
+    /**
+     * 根据答案生成选择
+     *
+     * @param answer
+     * @return
+     */
     private List<String> generateQuestionByAnswer(String answer) {
         ArrayList<String> question = new ArrayList<>();
         question.add(answer); // Add answer first
@@ -202,7 +265,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
             }
         }
 
-        Collections.shuffle(question);
+        Collections.shuffle(question);    // 打乱选择
         return question;
     }
 
@@ -210,8 +273,8 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     @OnItemClick(R.id.questions_list)
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         mQuestionsGridView.setEnabled(false);
-        stopRemainViewAnimator();
         mSelectedByUser = true;
+        stopRemainViewAnimator();
         markAnswer(mCurrentPosition, mGridViewAdapter.getItem(i));
     }
 
@@ -223,6 +286,11 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         fillQuestion(++mCurrentPosition);
     }
 
+    /**
+     * 填充答题的内容
+     *
+     * @param position
+     */
     private void fillQuestion(int position) {
         String answer = NONE_ANSWER;
         try {
@@ -279,12 +347,13 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     private void markAnswer(int position, String answer) {
+        boolean isHighlightAnswer = mSharedPreferences.getBoolean(KEY_EXAM_HIGHLIGHT_RESULT, true);
+
         if (mListener != null) {
             mListener.onItemAnswered(answer, position);
         }
-
         mAnswered.add(position, answer);
-        boolean isHighlightAnswer = mSharedPreferences.getBoolean(KEY_EXAM_HIGHLIGHT_RESULT, true);
+
         if (isHighlightAnswer && !answer.equals(getCorrectAnswer())) {
             pronounce(getCorrectAnswer());
             highlightViewByAnswer(getCorrectAnswer(), new CountdownTextView.CountdownListener() {
@@ -295,7 +364,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
                 @Override
                 public void onCountdownEnd() {
-                    if (!isAnswerFinished()) {
+                    if (!isAnswerFinished() && !mStoppedByUser) {
                         fillNextQuestion();
                     }
                 }
@@ -306,7 +375,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
                 }
             });
         } else {
-            if (!isAnswerFinished()) {
+            if (!isAnswerFinished() && !mStoppedByUser) {
                 fillNextQuestion();
             }
         }
@@ -348,13 +417,13 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         generateAnswers();
         stopRemainViewAnimator();
         mCountdownView.stopCountdown();
+        mMaskView.setVisibility(View.VISIBLE);
     }
 
     public void start() {
         if (mListener != null) {
             mListener.onExamStart();
         }
-        init();
 
         if (mAnswers.size() <= 0) {
             return;
@@ -371,6 +440,8 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
             @Override
             public void onCountdownEnd() {
                 if (!mStoppedByUser || !mSelectedByUser) {
+                    mRunning = true;
+                    mMaskView.setVisibility(View.GONE);
                     fillQuestion(mCurrentPosition);
                 } else {
                     toString();
@@ -382,6 +453,8 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
             }
         });
+
+        mMaskView.setVisibility(View.VISIBLE);
         mCountdownView.startCountdown();
     }
 
@@ -393,12 +466,14 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
         mStoppedByUser = true;
         mSelectedByUser = true;
+        mRunning = false;
+
         mSyllabus.clear();
         mAnswers.clear();
         mAnswered.clear();
-        mAmount = 0;
         mCountdownView.stopCountdown();
         stopRemainViewAnimator();
+        mMaskView.setVisibility(View.VISIBLE);
     }
 
     @Override

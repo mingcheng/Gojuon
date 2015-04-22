@@ -68,6 +68,15 @@ abstract class BaseActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+        super.setTitle(title);
+    }
+
     protected int getScreenHeight() {
         return findViewById(android.R.id.content).getHeight();
     }
