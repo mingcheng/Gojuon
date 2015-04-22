@@ -9,7 +9,7 @@
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="4"
+            android:numColumns="5"
             android:padding="1dp"
             android:id="@+id/stage_list"
             android:stretchMode="columnWidth"

@@ -1,11 +1,13 @@
 package com.gracecode.android.gojuon.ui.activity;
 
 import android.animation.ValueAnimator;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import butterknife.ButterKnife;
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.gracecode.android.common.Logger;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
@@ -90,9 +92,17 @@ public class Exam2Activity extends SlideActivity
     }
 
     @Override
-    public void onExamFinished(List<String> answers, List<String> answered) {
-        Logger.i(answers.size() + ", " + answers.toString());
-        Logger.w(answered.size() + ", " + answered.toString());
+    public void onExamFinished(int score, List<String> answers, List<String> answered) {
+        new AlertDialogWrapper.Builder(this)
+                .setTitle(R.string.exam)
+                .setMessage(String.valueOf(score))
+                .setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @Override
@@ -106,7 +116,7 @@ public class Exam2Activity extends SlideActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (isOpened() && item.getItemId() == android.R.id.home) {
-            close();
+            dismiss();
             return true;
         }
         return super.onOptionsItemSelected(item);

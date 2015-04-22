@@ -109,7 +109,7 @@ abstract class SlideActivity extends BaseActivity implements Animator.AnimatorLi
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (isOpened()) {
-                close();
+                dismiss();
                 return true;
             }
         }
@@ -124,7 +124,7 @@ abstract class SlideActivity extends BaseActivity implements Animator.AnimatorLi
         animate(ValueAnimator.ofFloat(getScreenHeight(), 0f));
     }
 
-    protected void close() {
+    protected void dismiss() {
         animate(ValueAnimator.ofFloat(0f, getScreenHeight()));
     }
 
