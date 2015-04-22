@@ -60,6 +60,7 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
 
     public void setCountdownCharacters(String[] characters) {
         this.mCountdownCharacters = characters;
+        setCountdownNumber(characters.length);
     }
 
     public interface CountdownListener {
@@ -93,6 +94,9 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
     }
 
     public void stopCountdown() {
-        mAnimatorSet.cancel();
+        if (mAnimatorSet != null) {
+            mAnimatorSet.cancel();
+            mAnimatorSet = null;
+        }
     }
 }

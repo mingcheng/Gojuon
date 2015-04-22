@@ -19,14 +19,21 @@ import java.util.List;
  */
 public class QuestionAdapter extends BaseCharactersAdapter<String> {
     public static final int MAX_SELECTION_COUNT = 4;
+    private List<String> mQuestions;
 
-    public QuestionAdapter(Context context, List<String> characters) {
-        super(context, characters);
+    public QuestionAdapter(Context context, List<String> list) {
+        super(context, list);
+        setQuestion(list);
     }
 
-    public void setQuestion(List<String> question) {
-        setItem(question);
+    public void setQuestion(List<String> list) {
+        setItem(list);
         notifyDataSetChanged();
+        mQuestions = list;
+    }
+
+    public List<String> geAllItems() {
+        return mQuestions;
     }
 
     public static final class Holder {

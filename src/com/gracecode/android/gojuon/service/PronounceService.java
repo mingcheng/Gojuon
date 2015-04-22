@@ -98,7 +98,6 @@ public class PronounceService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerReceiver(mBroadcastReceiver, new IntentFilter(PronounceService.PLAY_PRONOUNCE_NAME));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             SoundPool.Builder builder = new SoundPool.Builder();
@@ -116,12 +115,14 @@ public class PronounceService extends Service {
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mLruCache = new LruCache<String, String[]>(Characters.MONOGRAPHS.length);
+
+        registerReceiver(mBroadcastReceiver, new IntentFilter(PronounceService.PLAY_PRONOUNCE_NAME));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mBroadcastReceiver);
         mSoundPool.release();
+        unregisterReceiver(mBroadcastReceiver);
     }
 }

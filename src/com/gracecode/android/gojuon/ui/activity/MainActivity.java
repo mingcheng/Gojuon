@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity {
                 mGojunon.sendEmail(MainActivity.this, mGojunon.getFeedbackSubject(getString(R.string.app_name)));
                 break;
             case R.id.action_exam:
-                startActivity(new Intent(this, ExamActivity.class));
+//                startActivity(new Intent(this, ExamActivity.class));
                 break;
         }
 

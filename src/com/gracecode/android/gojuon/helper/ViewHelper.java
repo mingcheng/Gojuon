@@ -13,7 +13,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
  * User: mingcheng
  * Date: 15/4/16
  */
-public class ViewHelper {
+final public class ViewHelper {
     public static Animator getFadeOutAnimator(View view, int duration) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
         animator.setDuration((long) (duration));

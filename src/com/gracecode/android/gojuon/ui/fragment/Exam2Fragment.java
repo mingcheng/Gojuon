@@ -3,6 +3,7 @@ package com.gracecode.android.gojuon.ui.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     private static final String NONE_ANSWER = "";
     private static final int DEFAULT_QUESTION_AMOUNT = 30;
+    private static Exam2Fragment fragment;
     private final SharedPreferences mSharedPreferences;
 
     private OnExam2Listener mListener;
@@ -56,7 +58,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     CountdownTextView mCountdownView;
 
     private QuestionAdapter mGridViewAdapter;
-    private List<String> mSyllabus;
+    private List<String> mSyllabus = new ArrayList<>();
 
     private int mAmount = DEFAULT_QUESTION_AMOUNT;
     private AnimatorSet mAnimatorSet;
@@ -64,33 +66,15 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     private List<String> mAnswered = new ArrayList<>();
     private int mCurrentPosition = 0;
     private long mAnswerDuration = 3000;
+
     private boolean mStoppedByUser;
+    private boolean mSelectedByUser;
 
-    @Override
-    public void onAnimationStart(Animator animator) {
-        mStoppedByUser = false;
-        pronounce(getCorrectAnswer());
-    }
-
-    @Override
-    public void onAnimationEnd(Animator animator) {
-        if (!mStoppedByUser) {
-            markAnswer(mCurrentPosition, NONE_ANSWER);
+    public static Exam2Fragment getInstance() {
+        if (fragment == null) {
+            fragment = new Exam2Fragment();
         }
-    }
-
-    @Override
-    public void onAnimationCancel(Animator animator) {
-        mStoppedByUser = true;
-    }
-
-    @Override
-    public void onAnimationRepeat(Animator animator) {
-
-    }
-
-    private void pronounce(String charsets) {
-        Gojuon.pronounce(getActivity(), charsets);
+        return fragment;
     }
 
     public interface OnExam2Listener {
@@ -103,9 +87,37 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         abstract public void onExamFinished(List<String> answers, List<String> answered);
     }
 
-    public Exam2Fragment() {
+    @SuppressLint("ValidFragment")
+    Exam2Fragment() {
         super();
         mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
+    }
+
+    @Override
+    public void onAnimationStart(Animator animator) {
+        mSelectedByUser = false;
+        pronounce(getCorrectAnswer());
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animator) {
+        if (!mSelectedByUser) {
+            markAnswer(mCurrentPosition, NONE_ANSWER);
+        }
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animator) {
+        mSelectedByUser = true;
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animator) {
+
+    }
+
+    private void pronounce(String charsets) {
+        Gojuon.pronounce(getActivity(), charsets);
     }
 
     public long getAnswerDuration() {
@@ -118,7 +130,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_exam2, null);
+        View view = inflater.inflate(R.layout.fragment_exam2, container, false);
         ButterKnife.inject(this, view);
         mQuestionsGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -143,9 +155,20 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         if (syllabus.size() < QuestionAdapter.MAX_SELECTION_COUNT) {
             throw new IllegalArgumentException();
         }
+        mSyllabus.clear();
+        mSyllabus.addAll(syllabus);
+        //generateAnswers();
+    }
 
-        mSyllabus = syllabus;
-        generateAnswers();
+    public void setSyllabus(String[] syllabus) {
+        if (syllabus.length < QuestionAdapter.MAX_SELECTION_COUNT) {
+            throw new IllegalArgumentException();
+        }
+        mSyllabus.clear();
+        for (int i = 0, length = syllabus.length; i < length; i++) {
+            mSyllabus.add(i, syllabus[i]);
+        }
+        //generateAnswers();
     }
 
     public void setAmount(int amount) {
@@ -154,6 +177,13 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     private void generateAnswers() {
         mAnswers.clear();
+        setAmount(DEFAULT_QUESTION_AMOUNT);
+        if (mSyllabus.size() < mAmount) {
+            setAmount(mSyllabus.size());
+            mAnswers.addAll(mSyllabus);
+            return;
+        }
+
         while (mAnswers.size() < mAmount) {
             String answer = mSyllabus.get((int) (Math.random() * (mSyllabus.size() - 1)));
             if (!mAnswers.contains(answer)) {
@@ -179,12 +209,11 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     @OnItemClick(R.id.questions_list)
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        stopRemainViewAnimator();
-        mStoppedByUser = true;
         mQuestionsGridView.setEnabled(false);
+        stopRemainViewAnimator();
+        mSelectedByUser = true;
         markAnswer(mCurrentPosition, mGridViewAdapter.getItem(i));
     }
-
 
     private void fillNextQuestion() {
         if (mAnswered.size() >= mAnswers.size()) {
@@ -193,7 +222,6 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         }
         fillQuestion(++mCurrentPosition);
     }
-
 
     private void fillQuestion(int position) {
         String answer = NONE_ANSWER;
@@ -210,7 +238,6 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         setAnswerProgress(position);
         startRemainViewAnimator();
     }
-
 
     private void startRemainViewAnimator() {
         if (mAnimatorSet != null && mAnimatorSet.isRunning()) {
@@ -259,7 +286,6 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         mAnswered.add(position, answer);
         boolean isHighlightAnswer = mSharedPreferences.getBoolean(KEY_EXAM_HIGHLIGHT_RESULT, true);
         if (isHighlightAnswer && !answer.equals(getCorrectAnswer())) {
-//            Logger.i("Answer is " + mAnswers.get(mCurrentPosition) + ", you answered " + answer);
             pronounce(getCorrectAnswer());
             highlightViewByAnswer(getCorrectAnswer(), new CountdownTextView.CountdownListener() {
                 @Override
@@ -269,8 +295,9 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
                 @Override
                 public void onCountdownEnd() {
-                    detectAnswerFinished();
-                    fillNextQuestion();
+                    if (!isAnswerFinished()) {
+                        fillNextQuestion();
+                    }
                 }
 
                 @Override
@@ -279,20 +306,25 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
                 }
             });
         } else {
-            detectAnswerFinished();
-            fillNextQuestion();
+            if (!isAnswerFinished()) {
+                fillNextQuestion();
+            }
         }
     }
 
-    private void detectAnswerFinished() {
-        if (mAnswered.size() >= mAnswers.size()) {
+    private boolean isAnswerFinished() {
+        if (mAnswered.size() >= mAnswers.size() || mStoppedByUser) {
             stopRemainViewAnimator();
             mQuestionsGridView.setEnabled(false);
 
             if (mListener != null) {
                 mListener.onExamFinished(mAnswers, mAnswered);
             }
+
+            return true;
         }
+
+        return false;
     }
 
     private void setAnswerProgress(int i) {
@@ -309,10 +341,13 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     public void init() {
+        mStoppedByUser = false;
+        mSelectedByUser = false;
         mCurrentPosition = 0;
         mAnswered.clear();
         generateAnswers();
         stopRemainViewAnimator();
+        mCountdownView.stopCountdown();
     }
 
     public void start() {
@@ -321,8 +356,11 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         }
         init();
 
+        if (mAnswers.size() <= 0) {
+            return;
+        }
+
         mCountdownView.setTextColor(getResources().getColor(R.color.primary_dark));
-        mCountdownView.setCountdownNumber(3);
         mCountdownView.setCountdownCharacters(new String[]{"いち", "に", "さん"});
         mCountdownView.setCountdownListener(new CountdownTextView.CountdownListener() {
             @Override
@@ -332,7 +370,11 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
             @Override
             public void onCountdownEnd() {
-                fillQuestion(mCurrentPosition);
+                if (!mStoppedByUser || !mSelectedByUser) {
+                    fillQuestion(mCurrentPosition);
+                } else {
+                    toString();
+                }
             }
 
             @Override
@@ -348,13 +390,20 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         if (mListener != null) {
             mListener.onExamStop();
         }
+
+        mStoppedByUser = true;
+        mSelectedByUser = true;
+        mSyllabus.clear();
+        mAnswers.clear();
+        mAnswered.clear();
+        mAmount = 0;
+        mCountdownView.stopCountdown();
         stopRemainViewAnimator();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mCountdownView.stopCountdown();
         stop();
     }
 }

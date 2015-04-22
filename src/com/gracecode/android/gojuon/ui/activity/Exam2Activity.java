@@ -1,15 +1,18 @@
 package com.gracecode.android.gojuon.ui.activity;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import com.gracecode.android.common.Logger;
-import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
-import com.gracecode.android.gojuon.helper.ExamHelper;
+import com.gracecode.android.gojuon.common.Gojuon;
+import com.gracecode.android.gojuon.dao.Stage;
+import com.gracecode.android.gojuon.helper.StageHelper;
 import com.gracecode.android.gojuon.ui.fragment.Exam2Fragment;
+import com.gracecode.android.gojuon.ui.fragment.StageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,57 +23,56 @@ import java.util.List;
  * User: mingcheng
  * Date: 15/4/16
  */
-public class Exam2Activity extends BaseActivity implements Exam2Fragment.OnExam2Listener {
-    @InjectView(R.id.toolbar)
-    Toolbar mToolbarView;
+public class Exam2Activity extends SlideActivity
+        implements Exam2Fragment.OnExam2Listener, AdapterView.OnItemClickListener, SlideActivity.OnPanelStatusChangeListener {
+
     private Exam2Fragment mExam2Fragment;
+    private StageHelper mStageHelper;
+    private ArrayList<Stage> mStages = new ArrayList<>();
+    private StageFragment mStageFragment;
+    private ValueAnimator animator;
+    private boolean mEndedByUser;
+    private Stage mCurrentStage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
-        setSupportActionBar(mToolbarView);
 
-        mExam2Fragment = new Exam2Fragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, mExam2Fragment)
+        mExam2Fragment = Exam2Fragment.getInstance();
+        mExam2Fragment.setOnExam2Listener(this);
+
+        mStageHelper = StageHelper.getInstance(Gojuon.getInstance());
+        mStageFragment = new StageFragment();
+
+        mStages.clear();
+        mStages.addAll(mStageHelper.getAllStages());
+        mStageFragment.setStages(mStages);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, mStageFragment)
+                .replace(R.id.panel, mExam2Fragment)
                 .commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setOnPanelStatusChangeListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        ExamHelper helper = new ExamHelper(this);
-        helper.generateRandomQuestions(3);
-
-        ArrayList<String> items = new ArrayList<>();
-        for (int i = 0; i < Characters.MONOGRAPHS.length; i++) {
-            String item = Characters.MONOGRAPHS[i][1];
-            if (!item.isEmpty()) {
-                items.add(item);
-            }
-        }
-
-        mExam2Fragment.setSyllabus(items);
-        mExam2Fragment.setOnExam2Listener(this);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mExam2Fragment.start();
-            }
-        }, 1000);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.exam));
     }
 
     @Override
     protected int getContentViewId() {
-        return R.layout.activity_toolbar;
+        return R.layout.activity_slide;
     }
-
 
     @Override
     public void onExamStart() {
@@ -84,12 +86,40 @@ public class Exam2Activity extends BaseActivity implements Exam2Fragment.OnExam2
 
     @Override
     public void onExamStop() {
-
+        Logger.i("Exam Stop");
     }
 
     @Override
     public void onExamFinished(List<String> answers, List<String> answered) {
         Logger.i(answers.size() + ", " + answers.toString());
         Logger.w(answered.size() + ", " + answered.toString());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+        mCurrentStage = mStages.get(i);
+        mExam2Fragment.setSyllabus(mCurrentStage.getSyllabus());
+        getSupportActionBar().setTitle(getString(R.string.exam) + " - " + mCurrentStage.getLevel());
+        open();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (isOpened() && item.getItemId() == android.R.id.home) {
+            close();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void OnPanelOpened() {
+//        mExam2Fragment.start();
+    }
+
+    @Override
+    public void OnPanelClosed() {
+        getSupportActionBar().setTitle(getString(R.string.exam));
+//        mExam2Fragment.stop();
     }
 }

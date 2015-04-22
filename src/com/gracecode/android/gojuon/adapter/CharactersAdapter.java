@@ -107,5 +107,4 @@ public class CharactersAdapter extends BaseCharactersAdapter<String[]> {
         mShadowView.setY(view.getY() + view.getHeight() / 2 - mShadowView.getHeight() / 2);
         return animator;
     }
-
 }

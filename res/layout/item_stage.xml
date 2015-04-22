@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/accent"
+             android:minHeight="90dp"
+        >
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/radius_good"
+            />
+
+    <TextView
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:id="@+id/stage_level"
+            android:textSize="@dimen/abc_text_size_large_material"
+            android:textColor="@color/primary"
+            android:layout_height="90dp"/>
+
+</FrameLayout>
