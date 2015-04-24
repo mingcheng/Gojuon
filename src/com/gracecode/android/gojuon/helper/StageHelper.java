@@ -105,8 +105,8 @@ final public class StageHelper {
         }
     }
 
-    public void confirmToClearAllRecord(final Runnable runnable) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+    public void confirmToClearAllRecord(Context context, final Runnable runnable) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -120,8 +120,8 @@ final public class StageHelper {
                         dialog.dismiss();
                     }
                 })
-                .setTitle(mContext.getString(R.string.app_name))
-                .setMessage(mContext.getString(R.string.sure_to_clear_record))
+                .setTitle(context.getString(R.string.app_name))
+                .setMessage(context.getString(R.string.sure_to_clear_record))
                 .setCancelable(true)
                 .show();
     }

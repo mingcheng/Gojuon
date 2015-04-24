@@ -50,7 +50,7 @@ public class PrefFragment extends PreferenceFragment {
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, final Preference preference) {
 
         try {
             switch (preference.getKey()) {
@@ -65,8 +65,12 @@ public class PrefFragment extends PreferenceFragment {
                     break;
 
                 case Gojuon.KEY_CLEAR_RECORD:
-                    mGojuon.getStageHelper().clearAllRecord();
-                    preference.setEnabled(false);
+                    mGojuon.getStageHelper().confirmToClearAllRecord(getActivity(), new Runnable() {
+                        @Override
+                        public void run() {
+                            preference.setEnabled(false);
+                        }
+                    });
                     break;
             }
         } catch (NullPointerException e) {

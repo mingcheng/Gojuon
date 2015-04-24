@@ -134,7 +134,7 @@ public class Exam2Activity extends SlideActivity
 
         switch (item.getItemId()) {
             case R.id.clear_record:
-                mStageHelper.confirmToClearAllRecord(new Runnable() {
+                mStageHelper.confirmToClearAllRecord(Exam2Activity.this, new Runnable() {
                     @Override
                     public void run() {
                         mStageFragment.notifyDataSetChanged();
