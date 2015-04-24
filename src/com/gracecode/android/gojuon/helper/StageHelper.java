@@ -1,7 +1,9 @@
 package com.gracecode.android.gojuon.helper;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.support.v7.app.AlertDialog;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.dao.Stage;
 import org.json.JSONArray;
@@ -101,5 +103,26 @@ final public class StageHelper {
         for (Stage stage : mStages) {
             stage.setScore(Stage.NONE_SCORE);
         }
+    }
+
+    public void confirmToClearAllRecord(final Runnable runnable) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        clearAllRecord();
+                        runnable.run();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle(mContext.getString(R.string.app_name))
+                .setMessage(mContext.getString(R.string.sure_to_clear_record))
+                .setCancelable(true)
+                .show();
     }
 }

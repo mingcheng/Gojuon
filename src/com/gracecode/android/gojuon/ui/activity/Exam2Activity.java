@@ -56,6 +56,8 @@ public class Exam2Activity extends SlideActivity
                 .replace(R.id.container, mStageFragment)
                 .replace(R.id.panel, mExam2Fragment)
                 .commit();
+
+        setOnPanelStatusChangeListener(this);
     }
 
     @Override
@@ -92,9 +94,8 @@ public class Exam2Activity extends SlideActivity
 
     @Override
     public void onExamFinished(final int score, List<String> answers, List<String> answered) {
-
+        // @TODO 需要更好的提示文案
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         builder.setTitle(String.valueOf(score));
         builder.setCancelable(false);
         builder.setMessage(String.valueOf(score));
@@ -133,23 +134,16 @@ public class Exam2Activity extends SlideActivity
 
         switch (item.getItemId()) {
             case R.id.clear_record:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        mStageHelper.clearAllRecord();
+                mStageHelper.confirmToClearAllRecord(new Runnable() {
+                    @Override
+                    public void run() {
                         mStageFragment.notifyDataSetChanged();
                         UIHelper.showShortToast(Exam2Activity.this, getString(R.string.clear_record_finished));
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
                     }
                 });
-                builder.setTitle(getString(R.string.app_name)).setMessage(getString(R.string.sure_to_clear_record));
-                builder.setCancelable(true).show();
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
