@@ -78,4 +78,5 @@
     <string name="clear_record">清除记录</string>
     <string name="sure_to_clear_record">您确定清除所有的答题记录吗？\n这个操作无法撤回。</string>
     <string name="clear_record_finished">所有的答题记录已经被清除</string>
+    <string name="clear_record_summaray">清除所有的答题记录，请注意这个操作无法撤回</string>
 </resources>

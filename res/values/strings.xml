@@ -93,4 +93,5 @@
     <string name="clear_record">Clear Record</string>
     <string name="sure_to_clear_record">Are you sure to clear all exam record?</string>
     <string name="clear_record_finished">All records was cleared.</string>
+    <string name="clear_record_summaray">Clear all exam score record. Notice! this action can not be undo.</string>
 </resources>

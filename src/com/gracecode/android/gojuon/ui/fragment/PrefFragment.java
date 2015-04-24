@@ -62,7 +62,11 @@ public class PrefFragment extends PreferenceFragment {
                     break;
 
                 case Gojuon.KEY_DONATE:
+                    break;
 
+                case Gojuon.KEY_CLEAR_RECORD:
+                    mGojuon.getStageHelper().clearAllRecord();
+                    preference.setEnabled(false);
                     break;
             }
         } catch (NullPointerException e) {

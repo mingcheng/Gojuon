@@ -73,60 +73,7 @@
 
     <PreferenceCategory
             android:title="@string/exam"
-            android:enabled="false"
             android:summary="@string/exam_summary">
-
-        <!--
-<CheckBoxPreference android:title="@string/auto_rexam_wrong_topic"
-        />
-
-<CheckBoxPreference android:title="Show Timer"
-        />
-
-<CheckBoxPreference android:title="Show Speaker Button"
-        />
-
-<CheckBoxPreference
-        android:title="Auto Save When Paused"
-        android:defaultValue="true"
-        />
-                -->
-
-        <ListPreference
-                android:key="key_question_timeout"
-                android:title="@string/question_timeout"
-                android:entries="@array/question_timeout_list"
-                android:entryValues="@array/question_timeout_value"
-                android:summary="@string/question_timeout_summary"
-                android:defaultValue="3000"
-                />
-
-        <ListPreference
-                android:key="key_question_scope"
-                android:title="@string/exam_scope"
-                android:entries="@array/exam_scope_entries"
-                android:entryValues="@array/exam_scope_values"
-                android:summary="@string/exam_scope_summary"
-                android:defaultValue="-1"
-                />
-
-        <ListPreference
-                android:key="key_question_num"
-                android:title="@string/question_num"
-                android:entries="@array/exam_question_num"
-                android:entryValues="@array/exam_question_num"
-                android:summary="@string/exam_question_num_summary"
-                android:defaultValue="25"
-                />
-
-        <ListPreference
-                android:key="key_exam_show_character_type"
-                android:title="@string/exam_show_character_type"
-                android:entries="@array/exam_character_type_list"
-                android:entryValues="@array/exam_character_type_list_value"
-                android:summary="@string/exam_show_character_type_summary"
-                android:defaultValue="-1"
-                />
 
         <CheckBoxPreference
                 android:title="@string/highlight_result"
@@ -135,11 +82,10 @@
                 android:defaultValue="true"
                 />
 
-        <CheckBoxPreference
-                android:title="@string/auto_requiz_wrong_topic"
-                android:key="key_auto_requiz_wrong_topic"
-                android:summary="@string/auto_requiz_wrong_topic_summary"
-                android:defaultValue="false"
+        <Preference
+                android:title="@string/clear_record"
+                android:key="key_clear_record"
+                android:summary="@string/clear_record_summaray"
                 />
     </PreferenceCategory>
 
