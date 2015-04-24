@@ -15,6 +15,7 @@ import com.gracecode.android.gojuon.dao.Stage;
 import com.gracecode.android.gojuon.ui.activity.Exam2Activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +27,7 @@ public class StageFragment extends Fragment {
     private static final String KEY_PREFIX = StageFragment.class.getName();
     private static final String KEY_STAGES = KEY_PREFIX + ".key_stages";
 
-    private static ArrayList<Stage> mStages = new ArrayList<>();
+    private static List<Stage> mStages = new ArrayList<>();
 
     @InjectView(R.id.stage_list)
     GridView mStageGridView;
@@ -45,12 +46,18 @@ public class StageFragment extends Fragment {
         super();
     }
 
-    public void setStages(ArrayList<Stage> stages) {
-        mStages.clear();
-        mStages.addAll(stages);
-        if (mStageAdapter != null) {
+    public void notifyDataSetChanged() {
+        try {
             mStageAdapter.notifyDataSetChanged();
+            mStageGridView.requestLayout();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void setStages(List<Stage> stages) {
+        mStages = stages;
+        notifyDataSetChanged();
     }
 
     @Override

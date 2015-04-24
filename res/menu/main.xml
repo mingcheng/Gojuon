@@ -8,8 +8,7 @@
             android:id="@+id/action_exam"
             android:title="@string/exam"
             custom:showAsAction="always"
-            android:enabled="false"
-            android:visible="false"
+            android:enabled="true"
             android:icon="@android:drawable/ic_menu_slideshow"/>
 
     <item

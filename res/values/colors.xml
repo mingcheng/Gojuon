@@ -6,4 +6,5 @@
     <color name="accent">#e8e9e3</color>
     <color name="red">#c73737</color>
     <color name="black">#333333</color>
+    <color name="time_remain">#bbc73737</color>
 </resources>

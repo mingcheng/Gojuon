@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:padding="5sp"
         android:background="@drawable/item_background"
-        android:minHeight="@dimen/item_min_height">
+        android:minHeight="@dimen/item_minheight">
 
     <LinearLayout
             android:orientation="vertical"

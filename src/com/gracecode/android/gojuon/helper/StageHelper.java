@@ -96,4 +96,10 @@ final public class StageHelper {
     public List<Stage> getAllStages() {
         return mStages;
     }
+
+    public void clearAllRecord() {
+        for (Stage stage : mStages) {
+            stage.setScore(Stage.NONE_SCORE);
+        }
+    }
 }

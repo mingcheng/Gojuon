@@ -3,14 +3,15 @@ package com.gracecode.android.gojuon.ui.activity;
 import android.animation.ValueAnimator;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import butterknife.ButterKnife;
-import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.gracecode.android.common.Logger;
+import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
-import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.dao.Stage;
 import com.gracecode.android.gojuon.helper.StageHelper;
 import com.gracecode.android.gojuon.ui.fragment.Exam2Fragment;
@@ -30,7 +31,7 @@ public class Exam2Activity extends SlideActivity
 
     private Exam2Fragment mExam2Fragment;
     private StageHelper mStageHelper;
-    private ArrayList<Stage> mStages = new ArrayList<>();
+    private List<Stage> mStages = new ArrayList<>();
     private StageFragment mStageFragment;
     private ValueAnimator animator;
     private boolean mEndedByUser;
@@ -44,11 +45,10 @@ public class Exam2Activity extends SlideActivity
         mExam2Fragment = Exam2Fragment.getInstance();
         mExam2Fragment.setOnExam2Listener(this);
 
-        mStageHelper = StageHelper.getInstance(Gojuon.getInstance());
+        mStageHelper = mGojunon.getStageHelper();
         mStageFragment = new StageFragment();
 
-        mStages.clear();
-        mStages.addAll(mStageHelper.getAllStages());
+        mStages = mStageHelper.getAllStages();
         mStageFragment.setStages(mStages);
 
         getSupportFragmentManager()
@@ -59,9 +59,8 @@ public class Exam2Activity extends SlideActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        setOnPanelStatusChangeListener(this);
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -92,17 +91,23 @@ public class Exam2Activity extends SlideActivity
     }
 
     @Override
-    public void onExamFinished(int score, List<String> answers, List<String> answered) {
-        new AlertDialogWrapper.Builder(this)
-                .setTitle(R.string.exam)
-                .setMessage(String.valueOf(score))
-                .setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
-                        dialog.dismiss();
-                    }
-                }).show();
+    public void onExamFinished(final int score, List<String> answers, List<String> answered) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(String.valueOf(score));
+        builder.setCancelable(false);
+        builder.setMessage(String.valueOf(score));
+        builder.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dismiss();
+                mCurrentStage.setScore(score);
+                mStageFragment.notifyDataSetChanged();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override
@@ -114,10 +119,36 @@ public class Exam2Activity extends SlideActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.stage, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (isOpened() && item.getItemId() == android.R.id.home) {
             dismiss();
             return true;
+        }
+
+        switch (item.getItemId()) {
+            case R.id.clear_record:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mStageHelper.clearAllRecord();
+                        mStageFragment.notifyDataSetChanged();
+                        UIHelper.showShortToast(Exam2Activity.this, getString(R.string.clear_record_finished));
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setTitle(getString(R.string.app_name)).setMessage(getString(R.string.sure_to_clear_record));
+                builder.setCancelable(true).show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

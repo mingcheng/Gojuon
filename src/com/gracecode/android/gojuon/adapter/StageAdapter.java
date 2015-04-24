@@ -43,13 +43,29 @@ public class StageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        Stage stage = getItem(i);
+        int score = stage.getScore();
 
         LayoutInflater inflater = (LayoutInflater)
                 mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.item_stage, null);
 
+        TextView scoreView = (TextView) view.findViewById(R.id.score);
+        if (score == Stage.NONE_SCORE) {
+            scoreView.setText(mContext.getString(R.string.no_score));
+            view.setBackgroundResource(R.drawable.stage_nop);
+        } else {
+            if (score >= 60) {
+                view.setBackgroundResource(R.drawable.stage_good);
+            } else {
+                view.setBackgroundResource(R.drawable.stage_bad);
+            }
+            scoreView.setText(score + "%");
+        }
+
+
         TextView textView = (TextView) view.findViewById(R.id.stage_level);
-        textView.setText(String.valueOf(getItem(i).getLevel()));
+        textView.setText(String.valueOf(stage.getLevel()));
         return view;
     }
 }

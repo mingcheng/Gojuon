@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import com.gracecode.android.common.CustomApplication;
+import com.gracecode.android.gojuon.helper.StageHelper;
 import com.gracecode.android.gojuon.service.PronounceService;
 
 import java.util.Locale;
@@ -87,5 +88,9 @@ public class Gojuon extends CustomApplication {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+    }
+
+    public StageHelper getStageHelper() {
+        return StageHelper.getInstance(Gojuon.getInstance());
     }
 }

@@ -3,18 +3,20 @@
              android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/accent">
+             android:background="@color/accent"
+        >
 
-    <GridView
+    <com.github.ksoichiro.android.observablescrollview.ObservableGridView
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="5"
-            android:padding="1dp"
+            android:numColumns="4"
             android:id="@+id/stage_list"
             android:stretchMode="columnWidth"
             android:horizontalSpacing="1dp"
             android:verticalSpacing="1dp"
+            android:padding="1dp"
+            android:scrollbars="none"
             />
 
 </FrameLayout>

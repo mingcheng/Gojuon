@@ -26,7 +26,7 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
         try {
             String character = mCountdownCharacters[mCountdownNumber - 1];
             setText(character);
-        } catch (RuntimeException e) {
+        } catch (IndexOutOfBoundsException e) {
             setText(String.valueOf(mCountdownNumber));
         }
 
@@ -91,6 +91,12 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
         mAnimatorSet.setDuration((long) (DURATION * .8));
         mAnimatorSet.addListener(this);
         mAnimatorSet.start();
+    }
+
+    public void clearListener() {
+        if (mAnimatorSet != null) {
+            mAnimatorSet.removeAllListeners();
+        }
     }
 
     public void stopCountdown() {

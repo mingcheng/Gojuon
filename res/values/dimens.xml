@@ -2,5 +2,7 @@
 <resources>
     <dimen name="character_title">30sp</dimen>
     <dimen name="question_title_text_size">40sp</dimen>
-    <dimen name="item_min_height">72dp</dimen>
+    <dimen name="item_minheight">72dp</dimen>
+    <dimen name="time_remain_height">2dp</dimen>
+    <dimen name="corner">2dp</dimen>
 </resources>

@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/accent"
-             android:minHeight="90dp"
         >
 
-    <View
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/radius_good"
-            />
+            android:minHeight="100dp"
+            android:padding="@dimen/corner"
+            >
 
-    <TextView
-            android:background="?attr/selectableItemBackground"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:id="@+id/stage_level"
-            android:textSize="@dimen/abc_text_size_large_material"
-            android:textColor="@color/primary"
-            android:layout_height="90dp"/>
+        <TextView
+                android:textSize="@dimen/abc_text_size_large_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A"
+                android:textColor="@color/accent"
+                android:id="@+id/score"
+                />
 
+        <TextView
+                android:textColor="@android:color/darker_gray"
+                android:layout_width="wrap_content"
+                android:id="@+id/stage_level"
+                android:textSize="@dimen/abc_text_size_small_material"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content"
+                />
+    </RelativeLayout>
 </FrameLayout>

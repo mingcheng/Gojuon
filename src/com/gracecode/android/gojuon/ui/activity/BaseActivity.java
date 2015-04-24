@@ -5,14 +5,14 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 
-abstract class BaseActivity extends ActionBarActivity {
+abstract class BaseActivity extends AppCompatActivity {
     public Gojuon mGojunon;
     protected Intent mServiceIntent;
     protected SharedPreferences mSharedPreferences;
@@ -64,10 +64,22 @@ abstract class BaseActivity extends ActionBarActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_prefs:
+                startActivity(new Intent(this, PrefActivity.class));
+                break;
+            case R.id.action_about:
+                mGojunon.showAboutDialog(this, mGojunon.getPackageInfo());
+                break;
+            case R.id.action_feedback:
+                mGojunon.sendEmail(this, mGojunon.getFeedbackSubject(getString(R.string.app_name)));
+                break;
+            case R.id.action_exam:
+                startActivity(new Intent(this, Exam2Activity.class));
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void setTitle(CharSequence title) {

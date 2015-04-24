@@ -89,7 +89,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
         abstract public void onExamStop();
 
-        abstract public void onExamFinished(int Score, List<String> answers, List<String> answered);
+        abstract public void onExamFinished(final int Score, List<String> answers, List<String> answered);
     }
 
     @SuppressLint("ValidFragment")
@@ -336,6 +336,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     private void stopRemainViewAnimator() {
         if (mAnimatorSet != null) {
+            mAnimatorSet.removeAllListeners();
             mAnimatorSet.cancel();
             mAnimatorSet = null;
         }
@@ -494,6 +495,8 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         mSyllabus.clear();
         mAnswers.clear();
         mAnswered.clear();
+
+        mCountdownView.clearListener();
         mCountdownView.stopCountdown();
         stopRemainViewAnimator();
         mMaskView.setVisibility(View.VISIBLE);

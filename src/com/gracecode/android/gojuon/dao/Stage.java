@@ -75,7 +75,7 @@ public class Stage implements Parcelable {
     }
 
     private String getFieldNameByLevel() {
-        return "_" + getLevel();
+        return CLASS_NAME + ".level." + getLevel();
     }
 
     public void setAnswerTimeout(int answerTimeout) {

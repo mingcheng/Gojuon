@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.gracecode.android.gojuon.R;
@@ -21,7 +21,7 @@ import com.gracecode.android.gojuon.helper.ViewHelper;
  * Date: 15/4/22
  */
 abstract class SlideActivity extends BaseActivity implements Animator.AnimatorListener {
-    private static final int DURATION = 300;
+    private static final int DURATION = 500;
     private STATUS mStatus;
     private AnimatorSet mAnimatorSet;
 
@@ -145,7 +145,7 @@ abstract class SlideActivity extends BaseActivity implements Animator.AnimatorLi
         mAnimatorSet.playTogether(animator, isOpened() ?
                 ViewHelper.getFadeOutAnimator(mPanelView, DURATION) : ViewHelper.getFadeInAnimator(mPanelView, DURATION));
         mAnimatorSet.setDuration(DURATION);
-        mAnimatorSet.setInterpolator(new AccelerateInterpolator());
+        mAnimatorSet.setInterpolator(new DecelerateInterpolator());
         mAnimatorSet.addListener(this);
         mAnimatorSet.start();
     }
