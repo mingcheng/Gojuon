@@ -452,7 +452,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
         if (mAnswers.size() <= 0) {
             return;
         }
-
+        mQuestionsGridView.setEnabled(false);
         mCountdownView.setTextColor(getResources().getColor(R.color.primary_dark));
         mCountdownView.setCountdownCharacters(new String[]{"いち", "に", "さん"});
         mCountdownView.setCountdownListener(new CountdownTextView.CountdownListener() {
@@ -498,6 +498,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
         mCountdownView.clearListener();
         mCountdownView.stopCountdown();
+        mCountdownView.setText("");
         stopRemainViewAnimator();
         mMaskView.setVisibility(View.VISIBLE);
     }
