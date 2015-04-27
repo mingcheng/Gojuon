@@ -19,6 +19,7 @@ public class Stage implements Parcelable {
     public static final int NONE_SCORE = -1;
     public static final int DEFAULT_ANSWER_TIMEOUT = 3000;
     private static final int NONE_LEVEL = -1;
+    public static final int SCORE_QUALIFIED = 60;
 
     private static Gojuon mGojuon;
     private static SharedPreferences mPreferences;

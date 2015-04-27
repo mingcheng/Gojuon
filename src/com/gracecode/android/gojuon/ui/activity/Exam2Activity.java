@@ -1,9 +1,7 @@
 package com.gracecode.android.gojuon.ui.activity;
 
 import android.animation.ValueAnimator;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +11,7 @@ import com.gracecode.android.common.Logger;
 import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.dao.Stage;
+import com.gracecode.android.gojuon.helper.ResultDialogHelper;
 import com.gracecode.android.gojuon.helper.StageHelper;
 import com.gracecode.android.gojuon.ui.fragment.Exam2Fragment;
 import com.gracecode.android.gojuon.ui.fragment.StageFragment;
@@ -36,6 +35,8 @@ public class Exam2Activity extends SlideActivity
     private ValueAnimator animator;
     private boolean mEndedByUser;
     private Stage mCurrentStage;
+    private ResultDialogHelper mResultDialogHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class Exam2Activity extends SlideActivity
         mStages = mStageHelper.getAllStages();
         mStageFragment.setStages(mStages);
 
+        mResultDialogHelper = new ResultDialogHelper(this, null);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, mStageFragment)
@@ -94,21 +96,13 @@ public class Exam2Activity extends SlideActivity
 
     @Override
     public void onExamFinished(final int score, List<String> answers, List<String> answered) {
-        // @TODO 需要更好的提示文案
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(String.valueOf(score));
-        builder.setCancelable(false);
-        builder.setMessage(String.valueOf(score));
-        builder.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dismiss();
-                mCurrentStage.setScore(score);
-                mStageFragment.notifyDataSetChanged();
-                dialogInterface.dismiss();
-            }
-        });
-        builder.show();
+        if (mCurrentStage != null) {
+            mCurrentStage.setScore(score);
+        }
+
+        mResultDialogHelper.show();
+        mResultDialogHelper.setScore(score);
+        mResultDialogHelper.setAnswered(answers, answered);
     }
 
     @Override

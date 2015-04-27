@@ -55,7 +55,7 @@ public class StageAdapter extends BaseAdapter {
             scoreView.setText(mContext.getString(R.string.no_score));
             view.setBackgroundResource(R.drawable.stage_nop);
         } else {
-            if (score >= 60) {
+            if (score >= Stage.SCORE_QUALIFIED) {
                 view.setBackgroundResource(R.drawable.stage_good);
             } else {
                 view.setBackgroundResource(R.drawable.stage_bad);

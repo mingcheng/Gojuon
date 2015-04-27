@@ -9,7 +9,7 @@
             android:title="@string/exam"
             custom:showAsAction="always"
             android:enabled="true"
-            android:icon="@android:drawable/ic_menu_slideshow"/>
+            />
 
     <item
             android:id="@+id/action_prefs"

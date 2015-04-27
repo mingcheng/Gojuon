@@ -15,7 +15,7 @@ public class PrefActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
-        setTheme(R.style.Theme_AppCompat_Light);
+//        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         setSupportActionBar(mToolbarView);
         getFragmentManager()
                 .beginTransaction()

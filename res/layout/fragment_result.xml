@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:minWidth="250dp"
+              android:padding="@dimen/abc_control_padding_material"
+              android:orientation="vertical"
+        >
+
+    <TextView
+            android:paddingTop="@dimen/abc_action_bar_content_inset_material"
+            android:gravity="center"
+            android:text="@string/your_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+            android:layout_margin="@dimen/abc_dialog_list_padding_vertical_material"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom">
+
+            <TextView
+                    android:id="@+id/score"
+                    android:textColor="@color/primary"
+                    android:text="50"
+                    android:textSize="@dimen/abc_text_size_display_3_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:id="@+id/practice_layout">
+
+        <TextView
+                android:gravity="center"
+                android:text="@string/need_to_practice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:padding="@dimen/abc_dialog_list_padding_vertical_material"
+                android:textColor="@color/primary"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:id="@+id/practice_words"
+                android:text="Hello, world!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</LinearLayout>
