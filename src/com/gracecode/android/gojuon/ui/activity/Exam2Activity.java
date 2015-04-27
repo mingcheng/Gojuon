@@ -82,6 +82,12 @@ public class Exam2Activity extends SlideActivity
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        dismiss();
+    }
+
+    @Override
     protected int getContentViewId() {
         return R.layout.activity_slide;
     }
