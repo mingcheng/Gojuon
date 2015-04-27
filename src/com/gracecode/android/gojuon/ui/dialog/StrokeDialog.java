@@ -1,12 +1,14 @@
 package com.gracecode.android.gojuon.ui.dialog;
 
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersAdapter;
@@ -17,10 +19,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class StrokeDialog extends BaseDialog {
-    private final SharedPreferences mSharedPreferences;
-    private ImageView mImageCharacter;
-    private ImageView mImageStroke;
-    private StrokeView mStrokeView;
+    @InjectView(R.id.img_character)
+    ImageView mImageCharacter;
+
+    @InjectView(R.id.img_stroke)
+    ImageView mImageStroke;
+
+    @InjectView(R.id.stroke_view)
+    StrokeView mStrokeView;
+
     private String[] mCharacter;
 
     private StrokeView.OnStockListener mOnStockListener = new StrokeView.OnStockListener() {
@@ -44,7 +51,6 @@ public class StrokeDialog extends BaseDialog {
 
     public StrokeDialog() {
         super();
-        mSharedPreferences = Gojuon.getInstance().getSharedPreferences();
     }
 
     @Override
@@ -52,9 +58,7 @@ public class StrokeDialog extends BaseDialog {
         // request a window without the title
         // @see https://stackoverflow.com/questions/15277460/how-to-create-a-dialogfragment-without-title
         View view = inflater.inflate(R.layout.fragment_stroke, null);
-        mImageCharacter = (ImageView) view.findViewById(R.id.img_character);
-        mImageStroke = (ImageView) view.findViewById(R.id.img_stroke);
-        mStrokeView = (StrokeView) view.findViewById(R.id.stroke_view);
+        ButterKnife.inject(this, view);
         return view;
     }
 
@@ -136,7 +140,9 @@ public class StrokeDialog extends BaseDialog {
 
     public void setCharacterDrawable(Drawable drawable) {
         mImageCharacter.setImageDrawable(drawable);
-        mImageCharacter.setImageAlpha((int) (255 * .25));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            mImageCharacter.setImageAlpha((int) (255 * .25));
+        }
     }
 
     /**

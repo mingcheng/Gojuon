@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:custom="http://schemas.android.com/apk/res-auto"
+        >
+
+    <item
+            android:visible="false"
+            android:id="@+id/clear_record"
+            android:title="@string/clear_record"
+            custom:showAsAction="always"
+            />
+
+    <item
+            android:id="@+id/action_prefs"
+            android:title="@string/setting"
+            custom:showAsAction="never"
+            android:icon="@android:drawable/ic_menu_preferences"/>
+
+    <item
+            android:id="@+id/action_feedback"
+            android:title="@string/feedback"
+            custom:showAsAction="never"
+            android:icon="@android:drawable/ic_menu_send"
+            />
+
+    <item
+            android:id="@+id/action_about"
+            android:title="@string/about"
+            custom:showAsAction="never"
+            />
+</menu>

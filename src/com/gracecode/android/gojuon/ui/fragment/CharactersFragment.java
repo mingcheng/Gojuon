@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.adapter.CharactersAdapter;
@@ -25,34 +28,35 @@ public class CharactersFragment extends Fragment {
     private String[][] mCharacters;
     private SharedPreferences mSharedPreferences;
     private int mColumns = DEFAULT_COLUMN_NUM;
-    private GridView mGridView;
+
+    @InjectView(R.id.character_list)
+    GridView mGridView;
+
+    @InjectView(R.id.shadow)
+    TextView mShadowView;
+
     private CharactersAdapter mCharactersAdapter;
     private StrokeDialog mStrokeDialog;
 
-    /**
-     * 点击每个字符触发的操作
-     */
     AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             try {
+                String katakana = mCharactersAdapter.getItem(i)[Characters.INDEX_KATAKANA];
+
                 // Pronounce the character
-                Gojuon.pronounce(getActivity(), mCharacters[i][Characters.INDEX_ROUMAJI]);
+                Gojuon.pronounce(getActivity(), katakana);
 
                 // Mark as selected.
-                if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true)) {
+                if (mSharedPreferences.getBoolean(Gojuon.KEY_HIGHLIGHT_SELECTED, true) && !katakana.isEmpty()) {
                     view.setSelected(true);
                 }
-
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
         }
     };
 
-    /**
-     * 长按事件，弹出对话框
-     */
     AdapterView.OnItemLongClickListener mOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -98,16 +102,12 @@ public class CharactersFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_characters, null);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mGridView = (GridView) getView().findViewById(R.id.list);
+        View view = inflater.inflate(R.layout.fragment_characters, null);
+        ButterKnife.inject(this, view);
         mGridView.setNumColumns(mColumns);
         mGridView.setSoundEffectsEnabled(false);
         mGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
+        return view;
     }
 
     @Override
@@ -129,11 +129,11 @@ public class CharactersFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (mCharacters != null && mCharacters.length > 0) {
-
             mCharactersAdapter = new CharactersAdapter(getActivity(), Arrays.asList(mCharacters));
 
             // 根据配置项设置显示类型
             mCharactersAdapter.setShowType(getPreferenceShowType());
+            mCharactersAdapter.setShadowView(mShadowView);
 
             mGridView.setAdapter(mCharactersAdapter);
             mGridView.setOnItemClickListener(mOnItemClickListener);

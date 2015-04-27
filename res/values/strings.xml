@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gojūon</string>
-    <string name="email">lucky@gracecode.com</string>
+    <string name="email"
+            translatable="false">lucky@gracecode.com</string>
 
     <string name="monographs">かな</string>
     <string name="digraphs">だくかな</string>
@@ -22,9 +23,11 @@
     <string name="using_tts_summary">Pronounce syllable though system\'s TTS engine(if installed).</string>
     <string name="feedback_summary">If you have any idea or problem, please email me.</string>
     <string name="donate_summary">Thanks for giving me a cup of coffee.</string>
-    <string name="about_summary" formatted="false">Current version %s(%s).</string>
+    <string name="about_summary"
+            formatted="false">Current version %s(%s).</string>
     <string name="send_email_faild">Send email failed. may be email client not installed?</string>
-    <string name="feedback_subject" formatted="false">Feedback for %s %s</string>
+    <string name="feedback_subject"
+            formatted="false">Feedback for %s %s</string>
     <string name="highlight_selected">Highlight Selected</string>
     <string name="highlight_selected_summary">Highlight pressed character item</string>
     <string name="version">Version</string>
@@ -59,10 +62,12 @@
     <string name="auto_rexam_wrong_topic">Auto Redo The Wrong Topic</string>
     <string name="exam_start">Start Quiz</string>
     <string name="are_you_ready">Are you ready?</string>
-    <string name="exam_show_character_type_summary" formatted="false">Which character needs primary to quiz,
+    <string name="exam_show_character_type_summary"
+            formatted="false">Which character needs primary to quiz,
         Hiragana / Katagana / Random?</string>
     <string name="question_timeout">Quiz Time</string>
-    <string name="question_timeout_summary" formatted="false">Set each question\'s quiz time, if timeout this will be
+    <string name="question_timeout_summary"
+            formatted="false">Set each question\'s quiz time, if timeout this will be
         marked wrong.</string>
     <string name="fast">Fast</string>
     <string name="normal">Normal</string>
@@ -70,12 +75,25 @@
     <string name="highlight_result">Highlight Result</string>
     <string name="highlight_result_summary">Highlight the result if choose the wrong topic</string>
     <string name="auto_requiz_wrong_topic">Auto Redo The Wrong Topic</string>
-    <string name="auto_requiz_wrong_topic_summary" formatted="false">Auto redo the wrong topic,
+    <string name="auto_requiz_wrong_topic_summary"
+            formatted="false">Auto redo the wrong topic,
         don\'t show result dialog in every time
     </string>
-    <string name="auto_requiz_wrong_topic_notify" formatted="false">You have %d wrong topics, auto redo!</string>
+    <string name="auto_requiz_wrong_topic_notify"
+            formatted="false">You have %d wrong topics, auto redo!</string>
     <string name="exam_show_character_type">Character Type for Quiz</string>
     <string name="katakana_first">Katakana First</string>
     <string name="katakana_first_summary">Show Katakana first at each grid</string>
     <string name="slideshow">Slide Show</string>
+    <string name="show_shadow">Show Shadow Animator</string>
+    <string name="show_shadow_summary">Show shadow animator when character grid was pressed.</string>
+    <string name="pronounce"
+            formatted="false">%s is pronounced as %s</string>
+    <string name="no_score">N/A</string>
+    <string name="clear_record">Clear Record</string>
+    <string name="sure_to_clear_record">Are you sure to clear all exam record?</string>
+    <string name="clear_record_finished">All records was cleared.</string>
+    <string name="clear_record_summaray">Clear all exam score record. Notice! this action can not be undo.</string>
+    <string name="your_source">Your score is</string>
+    <string name="need_to_practice">You need to practice</string>
 </resources>

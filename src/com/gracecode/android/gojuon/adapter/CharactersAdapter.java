@@ -1,109 +1,57 @@
 package com.gracecode.android.gojuon.adapter;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
+import com.gracecode.android.gojuon.helper.ViewHelper;
 
 import java.util.List;
 
-public class CharactersAdapter extends BaseAdapter {
-    public static final String TYPE_SHOW_CHARACTER_RANDOM = "-1";
-    public static final String TYPE_SHOW_CHARACTER_HIRAGANA = "0";
-    public static final String TYPE_SHOW_CHARACTER_KATAGANA = "1";
+public class CharactersAdapter extends BaseCharactersAdapter<String[]> {
+    public static final int ANIMATOR_DURATION = 800;
 
-    private List<String[]> mCharacters;
-    private Context mContext;
-    private Gojuon mGojuon;
-    private SharedPreferences mSharedPreferences;
-    private String mShowType = TYPE_SHOW_CHARACTER_HIRAGANA;
-
-    public String getShowType() {
-        return mShowType;
-    }
-
-    public void setShowType(String type) {
-        this.mShowType = type;
-    }
-
-    private static final class Holder {
-        private final TextView mRoumaji;
-        private final TextView mHiragana;
-        private final TextView mKatakana;
-
-        private Holder(View view) {
-            mRoumaji = (TextView) view.findViewById(R.id.roumaji);
-            mHiragana = (TextView) view.findViewById(R.id.hiragana);
-            mKatakana = (TextView) view.findViewById(R.id.katakana);
-            view.setTag(this);
-        }
-
-        public static Holder get(View view) {
-            if (view.getTag() instanceof Holder) {
-                return (Holder) view.getTag();
-            }
-
-            return new Holder(view);
-        }
-
-        public void setHiragana(String hiragana) {
-            this.mHiragana.setText(hiragana);
-        }
-
-        public void setKatakana(String katakana) {
-            this.mKatakana.setText(katakana);
-        }
-
-        public void setRoumaji(String roumaji) {
-            this.mRoumaji.setText(roumaji);
-        }
-    }
+    private View mShadowView;
 
     public CharactersAdapter(Context context, List<String[]> characters) {
-        this.mCharacters = characters;
-        this.mContext = context;
-        this.mGojuon = Gojuon.getInstance();
-        this.mSharedPreferences = mGojuon.getSharedPreferences();
+        super(context, characters);
+    }
+
+    public void setShadowView(View view) {
+        mShadowView = view;
     }
 
     @Override
-    public int getCount() {
-        return mCharacters.size();
-    }
-
-    @Override
-    public String[] getItem(int i) {
-        return mCharacters.get(i);
-    }
-
-    @Override
-    public boolean isEnabled(int position) {
-        String roumaji = mCharacters.get(position)[Characters.INDEX_ROUMAJI];
-        return roumaji.length() > 0;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater)
                     mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             view = inflater.inflate(R.layout.item_character, null);
         }
 
         fillCharacters(Holder.get(view), i);
+        if (mShadowView != null && mSharedPreferences.getBoolean(Gojuon.KEY_SHOW_SHADOW, true)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    bindShadowAnimator(getItem(i), view);
+                    return false;
+                }
+            });
+        }
+
         return view;
+    }
+
+    public void fillCharacters(View view, int i) {
+        fillCharacters(Holder.get(view), i);
     }
 
     public void fillCharacters(Holder holder, int i) {
@@ -133,7 +81,30 @@ public class CharactersAdapter extends BaseAdapter {
     }
 
 
-    public void fillCharacters(View view, int i) {
-        fillCharacters(Holder.get(view), i);
+    protected void bindShadowAnimator(String[] character, View view) {
+        if (mShadowView instanceof TextView) {
+            switch (getShowType()) {
+                case TYPE_SHOW_CHARACTER_HIRAGANA:
+                    ((TextView) mShadowView).setText(character[Characters.INDEX_HIRAGANA]);
+                    break;
+                case TYPE_SHOW_CHARACTER_KATAGANA:
+                    ((TextView) mShadowView).setText(character[Characters.INDEX_KATAKANA]);
+                    break;
+            }
+        }
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(
+                getScaleAnimator(view),
+                ViewHelper.getFadeOutAnimator(mShadowView, (int) (ANIMATOR_DURATION * .8))
+        );
+        animatorSet.start();
+    }
+
+    private Animator getScaleAnimator(View view) {
+        Animator animator = ViewHelper.getScaleAnimator(mShadowView, 0f, 10f, ANIMATOR_DURATION);
+        mShadowView.setX(view.getX() + view.getWidth() / 2 - mShadowView.getWidth() / 2);
+        mShadowView.setY(view.getY() + view.getHeight() / 2 - mShadowView.getHeight() / 2);
+        return animator;
     }
 }

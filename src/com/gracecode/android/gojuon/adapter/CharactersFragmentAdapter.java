@@ -9,11 +9,10 @@ import com.gracecode.android.gojuon.Characters;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.ui.fragment.CharactersFragment;
-import com.viewpagerindicator.IconPagerAdapter;
 
 import java.util.HashMap;
 
-public class CharactersFragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
+public class CharactersFragmentAdapter extends FragmentPagerAdapter  {
     protected static final int[] TITLES = new int[]{
             R.string.monographs,
             R.string.monographs_with_diacritics,
@@ -72,11 +71,6 @@ public class CharactersFragmentAdapter extends FragmentPagerAdapter implements I
     @Override
     public CharSequence getPageTitle(int position) {
         return mContext.getString(TITLES[position]);
-    }
-
-    @Override
-    public int getIconResId(int index) {
-        return android.R.color.transparent;
     }
 
     public CharactersFragment getFragmentByTitle(int monographs) {

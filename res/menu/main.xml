@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:custom="http://schemas.android.com/apk/res-auto"
+        >
 
     <item
             android:id="@+id/action_exam"
             android:title="@string/exam"
-            android:showAsAction="always"
-            android:icon="@android:drawable/ic_menu_slideshow"/>
+            custom:showAsAction="always"
+            android:enabled="true"
+            />
 
     <item
             android:id="@+id/action_prefs"
             android:title="@string/setting"
-            android:showAsAction="never"
+            custom:showAsAction="never"
             android:icon="@android:drawable/ic_menu_preferences"/>
 
     <item
             android:id="@+id/action_feedback"
             android:title="@string/feedback"
-            android:showAsAction="never"
+            custom:showAsAction="never"
             android:icon="@android:drawable/ic_menu_send"
             />
 
     <item
             android:id="@+id/action_about"
             android:title="@string/about"
-            android:showAsAction="never"
+            custom:showAsAction="never"
             />
 </menu>

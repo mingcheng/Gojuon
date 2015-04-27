@@ -1,10 +1,11 @@
-# Holo Gojuon（五十音圖）
+# Material Gojuon（五十音圖）
 
 
-![](http://files.gracecode.com/2014_03_26/1395822850@320.png)
+![](http://pic.yupoo.com/feelinglucky/EBOwUi7S/pcCt7.png)
 
+Material Gojuon（五十音圖）是一款 Material 风格的日语五十音助记软件。
 
-Holo Gojuon（五十音圖）是一款 Holo 风格的日语五十音助记软件。其实市面上已经有很多的五十音图应用了，但是它们的设计以及界面等都感觉不是很理想，所以我考虑自己也写了一个类似这样的应用。
+其实市面上已经有很多的五十音图应用了，但是它们的设计以及界面等都感觉不是很理想，所以我考虑自己也写了一个类似这样的应用。
 
 最后，恭祝学习日语进步 :^)
 
@@ -12,10 +13,22 @@ Holo Gojuon（五十音圖）是一款 Holo 风格的日语五十音助记软件
 ## 下载
 
 
-* [Google Play](https://play.google.com/store/apps/details?id=com.gracecode.android.gojuon)
+[![Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.gracecode.android.gojuon)
 
 
 ## 更新历史
+
+#### 2015年4月27日
+
++ 全新设计的测验答题功能，44 个关卡等您挑战
+* 修复各种问题，提高稳定性
+* 更新了新的启动图标
+
+#### 2015年4月14日
+
+* 全新的 Material 风格的设计
+* 增加点击动画效果，强化记忆
+- 测验功能需要重构，因此这个版本先不提供了。
 
 #### 2014年12月24日
 

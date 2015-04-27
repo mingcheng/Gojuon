@@ -14,7 +14,9 @@
         <item>@string/language_chinese</item>
     </string-array>
 
-    <string-array name="resume_list_value">
+    <string-array
+            name="resume_list_value"
+            translatable="false">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
@@ -22,7 +24,8 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="language_list_value">
+    <string-array name="language_list_value"
+                  translatable="false">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
@@ -33,7 +36,8 @@
         <item>@string/katagana</item>
     </string-array>
 
-    <string-array name="character_type_list_value">
+    <string-array name="character_type_list_value"
+                  translatable="false">
         <item>0</item>
         <item>1</item>
     </string-array>
@@ -44,7 +48,8 @@
         <item>@string/katagana</item>
     </string-array>
 
-    <string-array name="exam_character_type_list_value">
+    <string-array name="exam_character_type_list_value"
+                  translatable="false">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
@@ -57,7 +62,8 @@
     </string-array>
 
 
-    <string-array name="question_timeout_value">
+    <string-array name="question_timeout_value"
+                  translatable="false">
         <item>2000</item>
         <item>3000</item>
         <item>5000</item>

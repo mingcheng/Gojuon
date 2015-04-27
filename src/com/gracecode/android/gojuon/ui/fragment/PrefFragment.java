@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import com.gracecode.android.common.helper.UIHelper;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 
@@ -50,7 +51,7 @@ public class PrefFragment extends PreferenceFragment {
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, final Preference preference) {
 
         try {
             switch (preference.getKey()) {
@@ -62,7 +63,16 @@ public class PrefFragment extends PreferenceFragment {
                     break;
 
                 case Gojuon.KEY_DONATE:
+                    break;
 
+                case Gojuon.KEY_CLEAR_RECORD:
+                    mGojuon.getStageHelper().confirmToClearAllRecord(getActivity(), new Runnable() {
+                        @Override
+                        public void run() {
+                            UIHelper.showShortToast(getActivity(), getString(R.string.clear_record_finished));
+                            preference.setEnabled(false);
+                        }
+                    });
                     break;
             }
         } catch (NullPointerException e) {
