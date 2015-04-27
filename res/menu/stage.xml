@@ -17,4 +17,16 @@
             custom:showAsAction="never"
             android:icon="@android:drawable/ic_menu_preferences"/>
 
+    <item
+            android:id="@+id/action_feedback"
+            android:title="@string/feedback"
+            custom:showAsAction="never"
+            android:icon="@android:drawable/ic_menu_send"
+            />
+
+    <item
+            android:id="@+id/action_about"
+            android:title="@string/about"
+            custom:showAsAction="never"
+            />
 </menu>
