@@ -5,7 +5,7 @@
         >
 
     <item
-            android:visible="true"
+            android:visible="false"
             android:id="@+id/clear_record"
             android:title="@string/clear_record"
             custom:showAsAction="always"

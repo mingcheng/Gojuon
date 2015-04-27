@@ -75,7 +75,7 @@ public class ResultDialogHelper {
             }
 
             mScoreView.setText(String.valueOf(score));
-            mPracticeLayoutView.setVisibility(View.VISIBLE);
+            mPracticeLayoutView.setVisibility((score != Stage.FULL_SCORE) ? View.VISIBLE : View.GONE);
         }
     }
 

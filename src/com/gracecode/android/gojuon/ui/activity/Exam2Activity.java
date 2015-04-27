@@ -52,7 +52,14 @@ public class Exam2Activity extends SlideActivity
         mStages = mStageHelper.getAllStages();
         mStageFragment.setStages(mStages);
 
-        mResultDialogHelper = new ResultDialogHelper(this, null);
+        mResultDialogHelper = new ResultDialogHelper(this, new Runnable() {
+            @Override
+            public void run() {
+                mStageFragment.notifyDataSetChanged();
+                dismiss();
+            }
+        });
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, mStageFragment)
