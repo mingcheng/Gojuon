@@ -5,13 +5,14 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import com.gracecode.android.gojuon.R;
 import com.gracecode.android.gojuon.common.Gojuon;
 
-abstract class BaseActivity extends ActionBarActivity {
+abstract class BaseActivity extends AppCompatActivity {
     public Gojuon mGojunon;
     protected Intent mServiceIntent;
     protected SharedPreferences mSharedPreferences;
@@ -45,7 +46,7 @@ abstract class BaseActivity extends ActionBarActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(getResources().getColor(R.color.color_primary_deep));
+            window.setStatusBarColor(getResources().getColor(R.color.primary_deep));
         }
     }
 
@@ -55,6 +56,37 @@ abstract class BaseActivity extends ActionBarActivity {
         setRequestedOrientation(mSharedPreferences.getBoolean(Gojuon.KEY_AUTO_ROTATE, false) ?
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR :
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.action_prefs:
+                startActivity(new Intent(this, PrefActivity.class));
+                break;
+            case R.id.action_about:
+                mGojunon.showAboutDialog(this, mGojunon.getPackageInfo());
+                break;
+            case R.id.action_feedback:
+                mGojunon.sendEmail(this, mGojunon.getFeedbackSubject(getString(R.string.app_name)));
+                break;
+            case R.id.action_exam:
+                startActivity(new Intent(this, Exam2Activity.class));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+        super.setTitle(title);
     }
 
     protected int getScreenHeight() {

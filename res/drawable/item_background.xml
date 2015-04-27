@@ -7,5 +7,5 @@
           android:state_pressed="true"/>
     <item android:drawable="@drawable/radius"
           android:state_checked="true"/>
-    <item android:drawable="@color/color_accent"/>
+    <item android:drawable="@color/accent"/>
 </selector>

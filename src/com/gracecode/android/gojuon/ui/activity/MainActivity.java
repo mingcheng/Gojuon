@@ -1,11 +1,9 @@
 package com.gracecode.android.gojuon.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import butterknife.ButterKnife;
@@ -90,25 +88,5 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_prefs:
-                startActivity(new Intent(this, PrefActivity.class));
-                break;
-            case R.id.action_about:
-                mGojunon.showAboutDialog(this, mGojunon.getPackageInfo());
-                break;
-            case R.id.action_feedback:
-                mGojunon.sendEmail(MainActivity.this, mGojunon.getFeedbackSubject(getString(R.string.app_name)));
-                break;
-            case R.id.action_exam:
-                startActivity(new Intent(this, ExamActivity.class));
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

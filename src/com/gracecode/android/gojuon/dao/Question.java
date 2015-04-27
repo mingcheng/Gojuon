@@ -40,7 +40,6 @@ public class Question implements Parcelable {
         return mLastUserAnswered == mAnswer;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -50,4 +49,6 @@ public class Question implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
 
     }
+
+
 }

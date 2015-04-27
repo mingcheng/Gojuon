@@ -5,10 +5,10 @@
         >
 
     <item
-            android:id="@+id/action_exam"
-            android:title="@string/exam"
+            android:visible="false"
+            android:id="@+id/clear_record"
+            android:title="@string/clear_record"
             custom:showAsAction="always"
-            android:enabled="true"
             />
 
     <item

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import com.gracecode.android.common.CustomApplication;
+import com.gracecode.android.gojuon.helper.StageHelper;
 import com.gracecode.android.gojuon.service.PronounceService;
 
 import java.util.Locale;
@@ -19,6 +20,7 @@ public class Gojuon extends CustomApplication {
     public static final String KEY_AUTO_ROTATE = "key_auto_rotate";
     public static final String KEY_LANGUAGE = "key_language";
     public static final String KEY_SHOW_SHADOW = "key_show_shadow";
+    public static final String KEY_CLEAR_RECORD = "key_clear_record";
 
     public static final String KEY_SHOW_CHARACTER_TYPE = "key_show_character_type";
 //    public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";
@@ -77,15 +79,19 @@ public class Gojuon extends CustomApplication {
      * 发音，方便调用使用广播的方式
      *
      * @param context
-     * @param roumaji
+     * @param charset
      */
-    public static void pronounce(Context context, String roumaji) {
+    public static void pronounce(Context context, String charset) {
         try {
             Intent intent = new Intent(PronounceService.PLAY_PRONOUNCE_NAME);
-            intent.putExtra(PronounceService.EXTRA_ROUMAJI, roumaji);
+            intent.putExtra(PronounceService.EXTRA_CHARSET, charset);
             context.sendBroadcast(intent);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+    }
+
+    public StageHelper getStageHelper() {
+        return StageHelper.getInstance(Gojuon.getInstance());
     }
 }
