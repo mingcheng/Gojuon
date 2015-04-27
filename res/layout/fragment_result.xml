@@ -55,9 +55,10 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:id="@+id/practice_words"
-                android:text="Hello, world!"
-                android:layout_width="match_parent"
+                android:maxWidth="220dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
     </LinearLayout>

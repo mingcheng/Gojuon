@@ -1,8 +1,7 @@
 # Material Gojuon（五十音圖）
 
 
-![](http://files.gracecode.com/2014_03_26/1395822850@320.png)
-
+![](http://pic.yupoo.com/feelinglucky/EBOwUi7S/pcCt7.png)
 
 Material Gojuon（五十音圖）是一款 Material 风格的日语五十音助记软件。
 
@@ -14,10 +13,16 @@ Material Gojuon（五十音圖）是一款 Material 风格的日语五十音助�
 ## 下载
 
 
-* [Google Play](https://play.google.com/store/apps/details?id=com.gracecode.android.gojuon)
+[![Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.gracecode.android.gojuon)
 
 
 ## 更新历史
+
+#### 2015年4月27日
+
++ 全新设计的测验答题功能，44 个关卡等您挑战
+* 修复各种问题，提高稳定性
+* 更新了新的启动图标
 
 #### 2015年4月14日
 
