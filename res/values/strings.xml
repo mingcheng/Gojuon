@@ -87,8 +87,6 @@
     <string name="slideshow">Slide Show</string>
     <string name="show_shadow">Show Shadow Animator</string>
     <string name="show_shadow_summary">Show shadow animator when character grid was pressed.</string>
-    <string name="pronounce"
-            formatted="false">%s is pronounced as %s</string>
     <string name="no_score">N/A</string>
     <string name="clear_record">Clear Record</string>
     <string name="sure_to_clear_record">Are you sure to clear all exam record?</string>

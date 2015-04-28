@@ -12,9 +12,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.util.LruCache;
-import com.gracecode.android.common.Logger;
 import com.gracecode.android.gojuon.Characters;
-import com.gracecode.android.gojuon.R;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -47,8 +45,6 @@ public class PronounceService extends Service {
                             }
                         });
                     }
-
-                    Logger.v(getString(R.string.pronounce, charset, getRoumajiFromCharset(charset)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
