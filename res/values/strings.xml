@@ -94,4 +94,7 @@
     <string name="clear_record_summaray">Clear all exam score record. Notice! this action can not be undo.</string>
     <string name="your_source">Your score is</string>
     <string name="need_to_practice">You need to practice</string>
+    <string name="exam_title">Level No. %d</string>
+    <string name="show_handwriting">Use Handwriting Fonts</string>
+    <string name="show_handwriting_summary">Use handwriting font instead of system fonts.</string>
 </resources>

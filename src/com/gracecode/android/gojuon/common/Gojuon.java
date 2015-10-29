@@ -3,6 +3,7 @@ package com.gracecode.android.gojuon.common;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import com.gracecode.android.common.CustomApplication;
 import com.gracecode.android.gojuon.helper.StageHelper;
 import com.gracecode.android.gojuon.service.PronounceService;
@@ -21,6 +22,7 @@ public class Gojuon extends CustomApplication {
     public static final String KEY_LANGUAGE = "key_language";
     public static final String KEY_SHOW_SHADOW = "key_show_shadow";
     public static final String KEY_CLEAR_RECORD = "key_clear_record";
+    public static final String KEY_USE_HANDWRITING_FONT = "key_use_handwriting";
 
     public static final String KEY_SHOW_CHARACTER_TYPE = "key_show_character_type";
 //    public static final String CUSTOM_FONT_NAME = "Roboto-Thin.ttf";
@@ -33,6 +35,7 @@ public class Gojuon extends CustomApplication {
 
     private static Gojuon mInstance;
     private Intent mServiceIntent;
+    private static Typeface mCustomTypeface;
 
     public static Gojuon getInstance() {
         return mInstance;
@@ -93,5 +96,23 @@ public class Gojuon extends CustomApplication {
 
     public StageHelper getStageHelper() {
         return StageHelper.getInstance(Gojuon.getInstance());
+    }
+
+    /**
+     * 判断是否需要使用手写字体
+     *
+     * @return
+     */
+    public static boolean useHandwritingFonts() {
+        return getInstance().getSharedPreferences()
+                .getBoolean(Gojuon.KEY_USE_HANDWRITING_FONT, true);
+    }
+
+    public Typeface getCustomTypeface() {
+        if (mCustomTypeface == null) {
+            mCustomTypeface = Typeface.createFromAsset(getAssets(), "ant-kaku.ttf");
+        }
+
+        return mCustomTypeface;
     }
 }

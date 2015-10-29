@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.android.gojuon"
-          android:versionName="2.1.1"
+          android:versionName="2.2.0"
         >
 
     <supports-screens
@@ -33,8 +33,7 @@
 
         <activity
                 android:name=".ui.activity.PrefActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
