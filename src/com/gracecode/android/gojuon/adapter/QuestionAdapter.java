@@ -8,6 +8,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.gracecode.android.gojuon.R;
+import com.gracecode.android.gojuon.common.Gojuon;
 
 import java.util.List;
 
@@ -43,6 +44,10 @@ public class QuestionAdapter extends BaseCharactersAdapter<String> {
         private Holder(View view) {
             ButterKnife.inject(this, view);
             view.setTag(this);
+
+            if (Gojuon.useHandwritingFonts()) {
+                mCharacter.setTypeface(Gojuon.getInstance().getCustomTypeface());
+            }
         }
 
         public static Holder get(View view) {

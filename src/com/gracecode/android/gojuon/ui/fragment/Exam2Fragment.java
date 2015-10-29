@@ -368,7 +368,7 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
 
                 @Override
                 public void onCountdownEnd() {
-                    if (!isAnswerFinished() && !mStoppedByUser) {
+                    if (!detectAnswerFinished() && !mStoppedByUser) {
                         fillNextQuestion();
                     }
                 }
@@ -379,17 +379,15 @@ public class Exam2Fragment extends Fragment implements AdapterView.OnItemClickLi
                 }
             });
         } else {
-            if (!isAnswerFinished() && !mStoppedByUser) {
+            if (!detectAnswerFinished() && !mStoppedByUser) {
                 fillNextQuestion();
             }
         }
     }
 
-    private boolean isAnswerFinished() {
+    private boolean detectAnswerFinished() {
         if (mAnswered.size() >= mAnswers.size() || mStoppedByUser) {
             stopRemainViewAnimator();
-            mQuestionsGridView.setEnabled(false);
-
             if (mListener != null) {
                 mListener.onExamFinished(getScore(), mAnswers, mAnswered);
             }

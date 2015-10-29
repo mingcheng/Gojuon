@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import com.gracecode.android.gojuon.common.Gojuon;
 import com.gracecode.android.gojuon.helper.ViewHelper;
 
 /**
@@ -32,6 +33,10 @@ public class CountdownTextView extends TextView implements Animator.AnimatorList
 
         if (mListener != null) {
             mListener.onRepeat(mCountdownNumber);
+        }
+
+        if (Gojuon.useHandwritingFonts()) {
+            setTypeface(Gojuon.getInstance().getCustomTypeface());
         }
     }
 
