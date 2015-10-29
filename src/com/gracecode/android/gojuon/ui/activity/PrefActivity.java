@@ -13,9 +13,11 @@ public class PrefActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
+
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
-//        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
+
         setSupportActionBar(mToolbarView);
         getFragmentManager()
                 .beginTransaction()
