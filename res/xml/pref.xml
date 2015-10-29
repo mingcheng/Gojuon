@@ -38,6 +38,13 @@
                 android:defaultValue="-1"
                 />
 
+        <CheckBoxPreference
+                android:key="key_use_handwriting"
+                android:title="@string/show_handwriting"
+                android:summary="@string/show_handwriting_summary"
+                android:defaultValue="true"
+                />
+
         <ListPreference
                 android:key="key_show_character_type"
                 android:title="@string/show_character_type"

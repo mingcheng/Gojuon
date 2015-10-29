@@ -91,6 +91,10 @@ public class CharactersAdapter extends BaseCharactersAdapter<String[]> {
                     ((TextView) mShadowView).setText(character[Characters.INDEX_KATAKANA]);
                     break;
             }
+
+            if (Gojuon.useHandwritingFonts()) {
+                ((TextView) mShadowView).setTypeface(mGojuon.getCustomTypeface());
+            }
         }
 
         AnimatorSet animatorSet = new AnimatorSet();

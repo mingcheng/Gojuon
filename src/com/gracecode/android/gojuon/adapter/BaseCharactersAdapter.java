@@ -41,6 +41,12 @@ abstract class BaseCharactersAdapter<S> extends BaseAdapter {
 
         private Holder(View view) {
             ButterKnife.inject(this, view);
+            if (Gojuon.useHandwritingFonts()) {
+                Gojuon gojuon = Gojuon.getInstance();
+                mHiragana.setTypeface(gojuon.getCustomTypeface());
+                mKatakana.setTypeface(gojuon.getCustomTypeface());
+                mRoumaji.setTypeface(gojuon.getCustomTypeface());
+            }
             view.setTag(this);
         }
 

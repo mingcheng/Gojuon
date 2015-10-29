@@ -81,4 +81,7 @@
     <string name="clear_record_summaray">清除所有的答题记录，请注意这个操作无法撤回</string>
     <string name="your_source">您的得分</string>
     <string name="need_to_practice">您需要多加复习</string>
+    <string name="exam_title">第 %d 关</string>
+    <string name="show_handwriting">使用手写字体</string>
+    <string name="show_handwriting_summary">使用手写字体代替系统字体</string>
 </resources>
