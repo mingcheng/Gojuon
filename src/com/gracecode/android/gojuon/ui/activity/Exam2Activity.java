@@ -122,7 +122,8 @@ public class Exam2Activity extends SlideActivity
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
         mCurrentStage = mStages.get(i);
         mExam2Fragment.setSyllabus(mCurrentStage.getSyllabus());
-        setTitle(getString(R.string.exam) + " - " + mCurrentStage.getLevel());
+        mExam2Fragment.setAnswerDuration(mCurrentStage.getAnswerTimeout());
+        setTitle(getString(R.string.exam_title, mCurrentStage.getLevel()));
         open();
     }
 
