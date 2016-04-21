@@ -110,7 +110,7 @@ public class Gojuon extends CustomApplication {
 
     public Typeface getCustomTypeface() {
         if (mCustomTypeface == null) {
-            mCustomTypeface = Typeface.createFromAsset(getAssets(), "ant-kaku.ttf");
+            mCustomTypeface = Typeface.createFromAsset(getAssets(), "honoka.ttf");
         }
 
         return mCustomTypeface;
