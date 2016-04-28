@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="character_title">30sp</dimen>
+    <dimen name="character_title">35sp</dimen>
     <dimen name="question_title_text_size">40sp</dimen>
     <dimen name="item_minheight">72dp</dimen>
     <dimen name="time_remain_height">2dp</dimen>
